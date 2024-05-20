@@ -5,9 +5,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class GameCanvas extends JPanel {
-    private GameSetting _setting;
-
-    private ArrayList<GameObject> _gameObjects;
+    private GameData _data;
 
     private long _frameCount;
     private long _lastFrameTime;
@@ -19,7 +17,7 @@ public class GameCanvas extends JPanel {
         _lastFrameTime = 0;
         _avgFps = 0;
 
-        _gameObjects = new ArrayList<>();
+        _data = new GameData();
 
         this.setLayout(null);
         this.setSize(GameConstants.getWidth(), GameConstants.getHeight());
@@ -73,7 +71,7 @@ public class GameCanvas extends JPanel {
 
     public void paintComponent(Graphics g)
     {
-        if (_setting == null)
+        if (_data.getGameSetting() == null)
         {
             return;
         }
@@ -82,12 +80,16 @@ public class GameCanvas extends JPanel {
 
         this.scaleToFrame((Graphics2D)g);
 
-        if (_setting.getShowFpsCounter())
+        if (_data.getGameSetting().getShowFpsCounter())
         {
             this.showFps(g);
         }
 
-        for (GameObject r : _gameObjects)
+        _data.getGameRoom().render(g);
+
+        _data.getGameObjects().sort((o1, o2) -> o1.getIndex() - o2.getIndex());
+
+        for (GameObject r : _data.getGameObjects())
         {
             r.render(g);
         }
@@ -95,10 +97,6 @@ public class GameCanvas extends JPanel {
 
     public void update(GameData data)
     {
-        _setting = data.getGameSetting();
-
-        _gameObjects = data.getGameObjects();
-
-        _gameObjects.sort((o1, o2) -> o1.getIndex() - o2.getIndex());
+        _data = data;
     }
 }

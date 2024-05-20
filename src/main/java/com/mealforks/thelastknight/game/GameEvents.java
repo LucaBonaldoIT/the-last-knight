@@ -33,8 +33,16 @@ public class GameEvents {
 
         GameArea area = new GameArea(tiles, collisions);
 
-        d.addObjectToScene(area);
-        d.setGameArea(area);
+        GameRoom room = new GameRoom(GameRoomType.ENTRY, area);
+
+        d.setGameRoom(room);
+
+        //d.addObjectToScene(area);
         d.addObjectToScene(new GamePlayer(1 , 1));
+    }
+
+    public static void StartLevel1(GameData d)
+    {
+
     }
 }

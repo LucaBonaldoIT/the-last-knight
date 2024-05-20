@@ -6,7 +6,8 @@ public class GameData {
     private final GameSetting _setting;
     private GameState _state;
     private ArrayList<GameObject> _gameObjects;
-    private GameArea _area;
+    private GameRoom _room;
+    private GameRoom[][] _rooms;
     private GameInput _input;
 
     public GameData()
@@ -15,7 +16,7 @@ public class GameData {
         _state = GameState.READY;
         _gameObjects = new ArrayList<>();
         _input = GameInput.NONE;
-        _area = new GameArea(new GameTile[][]{}, new GameCollision[][]{});
+        _room = GameRoom.NONE;
     }
 
     public GameSetting getGameSetting()
@@ -33,14 +34,14 @@ public class GameData {
         _state = state;
     }
 
-    public GameArea getGameArea()
+    public GameRoom getGameRoom()
     {
-        return _area;
+        return _room;
     }
 
-    public void setGameArea(GameArea area)
+    public void setGameRoom(GameRoom room)
     {
-        _area = area;
+        _room = room;
     }
 
     public ArrayList<GameObject> getGameObjects()

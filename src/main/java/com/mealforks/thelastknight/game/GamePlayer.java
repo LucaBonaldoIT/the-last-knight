@@ -79,7 +79,7 @@ public class GamePlayer implements GameObject {
 
         if (x >= 0 && x < GameConstants.getWidth() / GameConstants.getTileSize() && y >= 0 && y < GameConstants.getHeight() / GameConstants.getTileSize())
         {
-            if (d.getGameArea().IsTileEmpty(x, y))
+            if (d.getGameRoom().getGameArea().IsTileEmpty(x, y))
             {
                 _y = y;
                 _x = x;
