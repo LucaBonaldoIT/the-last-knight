@@ -1,12 +1,8 @@
 package main.java.com.mealforks.thelastknight.game;
 
-public enum GameInput {
-    NONE,
-    ENTER,
-    CANCEL,
+public enum GameDirection {
     UP,
     DOWN,
-    RIGHT,
     LEFT,
-    INSPECT
+    RIGHT
 }

@@ -22,4 +22,9 @@ public class GameCharacter implements GameObject {
     public GameData update(GameData d) {
         return null;
     }
+
+    @Override
+    public boolean toDelete() {
+        return false;
+    }
 }

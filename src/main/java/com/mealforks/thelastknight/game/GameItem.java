@@ -20,6 +20,11 @@ public class GameItem implements GameObject {
 
     @Override
     public GameData update(GameData d) {
-        return null;
+        return d;
+    }
+
+    @Override
+    public boolean toDelete() {
+        return false;
     }
 }

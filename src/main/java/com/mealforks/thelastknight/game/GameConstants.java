@@ -12,6 +12,7 @@ public class GameConstants
 {
     public static Font _font;
     public static Map<GameTile, Image> _tiles;
+    public static Map<GameSprite, Image> _sprites;
 
     static
     {
@@ -28,6 +29,7 @@ public class GameConstants
         }
 
         _tiles = new HashMap<GameTile, Image>();
+        _sprites = new HashMap<GameSprite, Image>();
 
         BufferedImage tileset = null;
 
@@ -76,6 +78,10 @@ public class GameConstants
     public static Image getTile(GameTile tile)
     {
         return _tiles.get(tile);
+    }
+    public static Image getSprite(GameSprite sprite)
+    {
+        return _sprites.get(sprite);
     }
 
     public static String getTitle()

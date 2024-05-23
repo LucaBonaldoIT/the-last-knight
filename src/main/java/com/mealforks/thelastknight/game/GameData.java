@@ -9,6 +9,8 @@ public class GameData {
     private GameRoom _room;
     private GameRoom[][] _rooms;
     private GameInput _input;
+    private ArrayList<GameSound> _sounds;
+    private ArrayList<GameMusic> _musics;
 
     public GameData()
     {
@@ -27,6 +29,11 @@ public class GameData {
     public GameState getGameState()
     {
         return _state;
+    }
+
+    public void addMusicToBuffer(GameMusic music)
+    {
+        _musics.add(music);
     }
 
     public void setGameState(GameState state)

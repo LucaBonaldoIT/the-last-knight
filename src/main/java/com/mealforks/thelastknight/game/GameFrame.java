@@ -136,6 +136,8 @@ public class GameFrame extends JFrame {
             _data = obj.update(_data);
         }
 
+        _data.getGameObjects().removeIf(GameObject::toDelete);
+
         _data.setInput(GameInput.NONE);
     }
 

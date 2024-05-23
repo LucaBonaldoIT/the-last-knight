@@ -22,28 +22,13 @@ public class GameInputHandler {
     {
         System.out.println(keyEvent.getKeyCode());
 
-        switch (keyEvent.getKeyCode())
-        {
-            case 87:
-            {
-                return GameInput.UP;
-            }
-            case 83:
-            {
-                return GameInput.DOWN;
-            }
-            case 68:
-            {
-                return GameInput.RIGHT;
-            }
-            case 65:
-            {
-                return GameInput.LEFT;
-            }
-            default:
-            {
-                return GameInput.NONE;
-            }
-        }
+        return switch (keyEvent.getKeyCode()) {
+            case 87 -> GameInput.UP;
+            case 83 -> GameInput.DOWN;
+            case 68 -> GameInput.RIGHT;
+            case 65 -> GameInput.LEFT;
+            case 69 -> GameInput.INSPECT;
+            default -> GameInput.NONE;
+        };
     }
 }

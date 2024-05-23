@@ -4,5 +4,6 @@ public enum GameState {
     UNKNOWN,
     READY,
     RUNNING,
-    DIALOG
+    DIALOG,
+    BATTLE
 }

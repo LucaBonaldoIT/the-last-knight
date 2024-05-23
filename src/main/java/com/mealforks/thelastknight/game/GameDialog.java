@@ -9,6 +9,8 @@ public class GameDialog implements GameObject
     private int _index;
     private String _text;
 
+    private boolean _toDelete;
+
     private int _marginLeft;
     private int _marginTop;
     private int _height;
@@ -35,6 +37,7 @@ public class GameDialog implements GameObject
         _startLineIndex = 0;
         _totalLines = 0;
         _visibleLines = 0;
+        _toDelete = false;
     }
 
     public String getText()
@@ -50,7 +53,21 @@ public class GameDialog implements GameObject
             _lastUpdateTime = System.currentTimeMillis();
         }
 
+        if (d.getGameState().equals(GameState.DIALOG))
+        {
+            if (d.getInput().equals(GameInput.INSPECT) && _charsToShow == _text.length())
+            {
+                _toDelete = true;
+                d.setGameState(GameState.RUNNING);
+            }
+        }
+
         return d;
+    }
+
+    @Override
+    public boolean toDelete() {
+        return _toDelete;
     }
 
     @Override

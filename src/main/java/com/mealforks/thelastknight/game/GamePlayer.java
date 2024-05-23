@@ -8,12 +8,14 @@ public class GamePlayer implements GameObject {
     private int _y;
 
     private int _updateCount;
+    private GameDirection _facingDirection;
 
     public GamePlayer(int x, int y)
     {
         _x = x;
         _y = y;
         _updateCount = 0;
+        _facingDirection = GameDirection.DOWN;
     }
 
     @Override
@@ -29,7 +31,17 @@ public class GamePlayer implements GameObject {
     @Override
     public void render(Graphics g) {
         int tileSize = GameConstants.getTileSize();
-        g.drawImage(GameConstants.getTile(GameTile.FADING_BRICK), _x * tileSize, _y * tileSize, null);
+
+        GameTile playerSprite = switch (_facingDirection)
+        {
+            case UP -> GameTile.BRICK;
+            case DOWN -> GameTile.BRICK;
+            case LEFT -> GameTile.FADING_BRICK;
+            case RIGHT -> GameTile.FADING_BRICK;
+            default -> GameTile.FADING_BRICK;
+        };
+
+        g.drawImage(GameConstants.getTile(playerSprite), _x * tileSize, _y * tileSize, null);
     }
 
     @Override
@@ -47,21 +59,25 @@ public class GamePlayer implements GameObject {
                     case UP:
                     {
                         y--;
+                        _facingDirection = GameDirection.UP;
                         break;
                     }
                     case DOWN:
                     {
                         y++;
+                        _facingDirection = GameDirection.DOWN;
                         break;
                     }
                     case RIGHT:
                     {
                         x++;
+                        _facingDirection = GameDirection.RIGHT;
                         break;
                     }
                     case LEFT:
                     {
                         x--;
+                        _facingDirection = GameDirection.LEFT;
                         break;
                     }
                     default:
@@ -87,5 +103,10 @@ public class GamePlayer implements GameObject {
         }
 
         return d;
+    }
+
+    @Override
+    public boolean toDelete() {
+        return false;
     }
 }

@@ -5,5 +5,6 @@ public enum GameRoomType {
     NONE,
     ENTRY,
     EXIT,
-    DEFAULT
+    DEFAULT,
+    BOSS
 }

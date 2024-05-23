@@ -42,4 +42,9 @@ public class GameArea implements GameObject {
     public GameData update(GameData d) {
         return d;
     }
+
+    @Override
+    public boolean toDelete() {
+        return false;
+    }
 }

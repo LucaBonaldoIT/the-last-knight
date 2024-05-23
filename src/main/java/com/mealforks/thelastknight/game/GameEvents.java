@@ -4,7 +4,6 @@ public class GameEvents {
     public static void TestDialog1(GameData d)
     {
         d.clearScene();
-        //d.addObjectToScene(new GameDialog("TEST_DIALOG_1", "This is a test message. No more. No less. If you want to know more just ask the developer. If you want to know more just ask the developer. If you want to know more just ask the developer."));
         d.setGameState(GameState.RUNNING);
 
         GameTile[][] tiles = new GameTile[][] {
@@ -39,9 +38,25 @@ public class GameEvents {
 
         //d.addObjectToScene(area);
         d.addObjectToScene(new GamePlayer(1 , 1));
+
+        d.setGameState(GameState.DIALOG);
+        d.addObjectToScene(new GameDialog("TEST_DIALOG_1", "This is a test message. No more. No less. If you want to know more just ask the developer. If you want to know more just ask the developer. If you want to know more just ask the developer."));
     }
 
     public static void StartLevel1(GameData d)
+    {
+        d.clearScene();
+
+    }
+
+    public static void StartLevel2(GameData d)
+    {
+        d.clearScene();
+
+
+    }
+
+    public static void StartLevel3(GameData d)
     {
 
     }
