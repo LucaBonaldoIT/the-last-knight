@@ -93,6 +93,8 @@ public class GameCanvas extends JPanel {
         {
             r.render(g);
         }
+
+        _data.getPlayer().render(g);
     }
 
     public void update(GameData data)

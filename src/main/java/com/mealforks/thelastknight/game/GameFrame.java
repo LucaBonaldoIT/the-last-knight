@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.rmi.dgc.Lease;
 
 public class GameFrame extends JFrame {
     private static final int TARGET_FPS = 120;
@@ -40,7 +41,6 @@ public class GameFrame extends JFrame {
 
         _isRunning = false;
     }
-
 
     public static GameFrame getInstance()
     {
@@ -131,6 +131,8 @@ public class GameFrame extends JFrame {
             }
         }
 
+        _data = _data.getPlayer().update(_data);
+
         for (GameObject obj : _data.getGameObjects())
         {
             _data = obj.update(_data);
@@ -138,7 +140,11 @@ public class GameFrame extends JFrame {
 
         _data.getGameObjects().removeIf(GameObject::toDelete);
 
+        _data = _data.getGameRoom().update(_data);
+
         _data.setInput(GameInput.NONE);
+
+
     }
 
     private void _render()

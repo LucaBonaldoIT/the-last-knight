@@ -14,7 +14,12 @@ public class GameArea implements GameObject {
 
     public boolean IsTileEmpty(int x, int y)
     {
-        return _collision[y][x] == GameCollision.EMPTY;
+        return _collision[y][x] == GameCollision.EMPTY || _collision[y][x] == GameCollision.DOOR_NORTH_WALL || _collision[y][x] == GameCollision.DOOR_EAST_WALL || _collision[y][x] == GameCollision.DOOR_WEST_WALL || _collision[y][x] == GameCollision.DOOR_SOUTH_WALL ;
+    }
+
+    public GameTile getTile(int x, int y)
+    {
+        return _tiles[y][x];
     }
 
     @Override

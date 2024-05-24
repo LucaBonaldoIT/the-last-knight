@@ -60,6 +60,18 @@ public class GameConstants
                         _tiles.put(GameTile.FADING_BRICK, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
                         break;
                     }
+                    case 61: {
+                        _tiles.put(GameTile.DOOR_NORTH_WALL, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
+                    case 62: {
+                        _tiles.put(GameTile.DOOR_WEST_WALL, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
+                    case 80: {
+                        _tiles.put(GameTile.DOOR_SOUTH_WALL, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
+                    case 81: {
+                        _tiles.put(GameTile.DOOR_EAST_WALL, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
                     default:
                     {
                         break;
@@ -68,6 +80,44 @@ public class GameConstants
             }
         }
 
+        BufferedImage spritesheet = null;
+
+        try {
+            spritesheet = ImageIO.read(new File("src\\main\\resources\\images\\character.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        rows = spritesheet.getHeight() / tileSize;
+        cols = spritesheet.getWidth() / tileSize;
+
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                int tileIndex = y * cols + x;
+                switch(tileIndex)
+                {
+                    case 0: {
+                        _sprites.put(GameSprite.PLAYER_FACING_DOWN, spritesheet.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 1: {
+                        _sprites.put(GameSprite.PLAYER_FACING_LEFT, spritesheet.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 2: {
+                        _sprites.put(GameSprite.PLAYER_FACING_RIGHT, spritesheet.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 3: {
+                        _sprites.put(GameSprite.PLAYER_FACING_UP, spritesheet.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     public static Font getDialogFont()

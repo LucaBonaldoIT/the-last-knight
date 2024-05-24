@@ -18,6 +18,24 @@ public class GamePlayer implements GameObject {
         _facingDirection = GameDirection.DOWN;
     }
 
+    public GamePlayer(int x, int y, GameDirection facingDirection)
+    {
+        _x = x;
+        _y = y;
+        _facingDirection = facingDirection;
+        _updateCount = 0;
+    }
+
+    public int getX()
+    {
+        return _x;
+    }
+
+    public int getY()
+    {
+        return  _y;
+    }
+
     @Override
     public String getId() {
         return "PLAYER";
@@ -32,16 +50,16 @@ public class GamePlayer implements GameObject {
     public void render(Graphics g) {
         int tileSize = GameConstants.getTileSize();
 
-        GameTile playerSprite = switch (_facingDirection)
+        GameSprite playerSprite = switch (_facingDirection)
         {
-            case UP -> GameTile.BRICK;
-            case DOWN -> GameTile.BRICK;
-            case LEFT -> GameTile.FADING_BRICK;
-            case RIGHT -> GameTile.FADING_BRICK;
-            default -> GameTile.FADING_BRICK;
+            case UP -> GameSprite.PLAYER_FACING_UP;
+            case DOWN -> GameSprite.PLAYER_FACING_DOWN;
+            case LEFT -> GameSprite.PLAYER_FACING_LEFT;
+            case RIGHT -> GameSprite.PLAYER_FACING_RIGHT;
+            default -> GameSprite.PLAYER_FACING_DOWN;
         };
 
-        g.drawImage(GameConstants.getTile(playerSprite), _x * tileSize, _y * tileSize, null);
+        g.drawImage(GameConstants.getSprite(playerSprite), _x * tileSize, _y * tileSize, null);
     }
 
     @Override
@@ -93,7 +111,7 @@ public class GamePlayer implements GameObject {
             }
         }
 
-        if (x >= 0 && x < GameConstants.getWidth() / GameConstants.getTileSize() && y >= 0 && y < GameConstants.getHeight() / GameConstants.getTileSize())
+        if (x >= 0 && x < GameConstants.getWidth() / GameConstants.getTileSize() && y >= 0 && y <= GameConstants.getHeight() / GameConstants.getTileSize())
         {
             if (d.getGameRoom().getGameArea().IsTileEmpty(x, y))
             {
