@@ -53,3 +53,4 @@ public class GameArea implements GameObject {
         return false;
     }
 }
+
