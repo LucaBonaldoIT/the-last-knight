@@ -55,7 +55,7 @@ public class GameDialog implements GameObject
 
         if (d.getGameState().equals(GameState.DIALOG))
         {
-            if (d.getInput().equals(GameInput.INSPECT) && _charsToShow == _text.length())
+            if (d.getInput().equals(GameInput.ENTER) && _charsToShow == _text.length())
             {
                 _toDelete = true;
                 d.setGameState(GameState.RUNNING);

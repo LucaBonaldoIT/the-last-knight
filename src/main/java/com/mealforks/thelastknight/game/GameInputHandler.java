@@ -27,7 +27,8 @@ public class GameInputHandler {
             case 83 -> GameInput.DOWN;
             case 68 -> GameInput.RIGHT;
             case 65 -> GameInput.LEFT;
-            case 69 -> GameInput.INSPECT;
+            case 69 -> GameInput.ENTER;
+            case 81 -> GameInput.INSPECT;
             default -> GameInput.NONE;
         };
     }

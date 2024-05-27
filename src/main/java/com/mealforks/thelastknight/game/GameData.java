@@ -12,6 +12,7 @@ public class GameData {
     private ArrayList<GameSound> _sounds;
     private ArrayList<GameMusic> _musics;
     private GameLevel _level;
+    private GamePlayerData _playerData;
 
     public GameLevel getCurrentLevel()
     {
@@ -26,6 +27,17 @@ public class GameData {
         _input = GameInput.NONE;
         _room = GameRoom.NONE;
         _level = new GameLevel();
+        _playerData = new GamePlayerData();
+    }
+
+    public GamePlayerData getPlayerData()
+    {
+        return _playerData;
+    }
+
+    public void setPlayerData(GamePlayerData data)
+    {
+        _playerData = data;
     }
 
     public GameSetting getGameSetting()

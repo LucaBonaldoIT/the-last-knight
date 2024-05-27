@@ -70,6 +70,8 @@ public class GameEvents {
         rooms.put("FIRST", room);
         rooms.put("SECOND", roomOther);
 
+        roomOther.addItem(new GameRoomItem(GameItemType.DOOR_KEY, 1, 1));
+
         GameLevel level = new GameLevel("FIRST", rooms);
 
         d.loadLevel(level);

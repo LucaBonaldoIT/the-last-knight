@@ -1,30 +1,29 @@
 package main.java.com.mealforks.thelastknight.game;
 
-import java.awt.*;
+public class GameItem {
+    private GameItemType _type;
+    private int _weight;
+    private int _value;
 
-public class GameItem implements GameObject {
-    @Override
-    public String getId() {
-        return "";
+    public GameItem()
+    {
+        _type = GameItemType.NONE;
+        _weight = 0;
+        _value = 0;
     }
 
-    @Override
-    public int getIndex() {
-        return 0;
+    public GameItemType getItemType()
+    {
+        return _type;
     }
 
-    @Override
-    public void render(Graphics g) {
-
+    public int getWeight()
+    {
+        return _weight;
     }
 
-    @Override
-    public GameData update(GameData d) {
-        return d;
-    }
-
-    @Override
-    public boolean toDelete() {
-        return false;
+    public int getValue()
+    {
+        return _value;
     }
 }

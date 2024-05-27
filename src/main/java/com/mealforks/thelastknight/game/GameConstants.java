@@ -120,6 +120,28 @@ public class GameConstants
         }
     }
 
+    public static GameItem getItem(GameItemType type)
+    {
+        // Todo: add items
+
+        return new GameItem();
+    }
+
+    public static Image getItemSprite(GameItemType type)
+    {
+        switch (type)
+        {
+            case DOOR_KEY:
+            {
+                return _tiles.get(GameTile.FADING_BRICK);
+            }
+            default:
+            {
+                return _tiles.get(GameTile.FADING_BRICK);
+            }
+        }
+    }
+
     public static Font getDialogFont()
     {
         return _font.deriveFont(8f);

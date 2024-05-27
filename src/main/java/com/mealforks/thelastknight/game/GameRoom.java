@@ -13,7 +13,7 @@ public class GameRoom implements GameObject {
     private GameArea _area;
     private GameRoomType _type;
     private ArrayList<GameCharacter> _characters;
-    private ArrayList<GameItem> _items;
+    private ArrayList<GameRoomItem> _items;
     private HashMap<GamePoint, GameTile> _doors;
 
     private GamePoint _defaultStartPoint;
@@ -76,6 +76,11 @@ public class GameRoom implements GameObject {
         _type = GameRoomType.NONE;
     }
 
+    public void addItem(GameRoomItem roomItem)
+    {
+        _items.add(roomItem);
+    }
+
     public GamePoint getStartPoint(GameTile comingDoor)
     {
         return _startPointByComingDoor.get(comingDoor);
@@ -120,7 +125,7 @@ public class GameRoom implements GameObject {
             character.render(g);
         }
 
-        for (GameItem item : _items)
+        for (GameRoomItem item : _items)
         {
             item.render(g);
         }
@@ -161,6 +166,13 @@ public class GameRoom implements GameObject {
                     break;
             }
         }
+
+        for (GameRoomItem item : _items)
+        {
+            item.update(d);
+        }
+
+        _items.removeIf(GameObject::toDelete);
 
         return d;
     }

@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 
 public class GameLevelLoader {
-    // Da JSON carica il level e lo setta
-
     public GameLevelLoader()
     {
     }
@@ -23,8 +21,6 @@ public class GameLevelLoader {
             jsonString  = new String(Files.readAllBytes(Paths.get(filename)));
         } catch (IOException e) {
             e.printStackTrace();
-             // Esci dal metodo se c'è un'eccezione nella lettura del file
-
         }
 
         JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
@@ -103,7 +99,7 @@ public class GameLevelLoader {
                 }
             }
         }
-        return area;
+        return new GameArea(null, null);
     }
 
     public GameTile getTile(String tile)
