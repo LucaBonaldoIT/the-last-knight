@@ -1,6 +1,7 @@
 package main.java.com.mealforks.thelastknight.game;
 
 public enum GameCollision {
+    NONE,
     EMPTY,
     BLOCK,
     DOOR_NORTH_WALL,

@@ -1,6 +1,7 @@
 package main.java.com.mealforks.thelastknight.game;
 
 public enum GameTile {
+    NONE,
     EMPTY,
     BRICK,
     FADING_BRICK,

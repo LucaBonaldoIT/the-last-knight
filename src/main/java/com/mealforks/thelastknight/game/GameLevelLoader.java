@@ -11,14 +11,13 @@ import java.util.Scanner;
 
 
 public class GameLevelLoader {
-    public GameLevelLoader()
-    {
+    public GameLevelLoader() {
     }
 
     public GameLevel loadLevel(String filename) {
-        String jsonString  = "";
+        String jsonString = "";
         try {
-            jsonString  = new String(Files.readAllBytes(Paths.get(filename)));
+            jsonString = new String(Files.readAllBytes(Paths.get(filename)));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,8 +33,7 @@ public class GameLevelLoader {
 
         System.out.println(numberOfRooms);
 
-        for(int i = 0; i < numberOfRooms; i++)
-        {
+        for (int i = 0; i < numberOfRooms; i++) {
             JsonObject room = jsonObject.getJsonObject("Room1");
             String id = room.getString("id");
             String type = room.getString("type");
@@ -55,10 +53,8 @@ public class GameLevelLoader {
         return game;
     }
 
-    public GameRoomType roomsType(String type)
-    {
-        switch (type)
-        {
+    public GameRoomType roomsType(String type) {
+        switch (type) {
             case "unknown":
                 return GameRoomType.UNKNOWN;
 
@@ -79,47 +75,64 @@ public class GameLevelLoader {
         }
     }
 
-    public GameArea gameArea(String tiles, String collisions)
-    {
+    public GameArea gameArea(String tiles, String collisions) {
         GameTile[][] gameTiles = new GameTile[15][8];
         GameCollision[][] gameCollision = new GameCollision[15][8];
 
         Scanner scanTiles = new Scanner(tiles);
         Scanner scanCollision = new Scanner(collisions);
 
+        for (int j = 0; j < 8; j++) {
+            for (int k = 0; k < 15; k++) {
+                GameTile t = GameTile.EMPTY;
+                GameCollision c = GameCollision.EMPTY;
 
+                if (scanTiles.hasNext()) {
+                    String s = scanTiles.next();
 
-        for (int j = 0; j < 8; j++)
-        {
-            for (int k = 0; k < 15; k++)
-            {
-                if (scanTiles.hasNext())
-                {
-
+                    switch (s) {
+                        case "0":
+                            t = GameTile.EMPTY;
+                        case "1":
+                            t = GameTile.BRICK;
+                        case "2":
+                            t = GameTile.FADING_BRICK;
+                        case "3":
+                            t = GameTile.DOOR_NORTH_WALL;
+                        case "4":
+                            t = GameTile.DOOR_SOUTH_WALL;
+                        case "5":
+                            t = GameTile.DOOR_EAST_WALL;
+                        case "6":
+                            t = GameTile.DOOR_WEST_WALL;
+                            defualt:
+                            t = GameTile.NONE;
+                    }
                 }
+                if (scanCollision.hasNext()) {
+                    String s = scanCollision.next();
+
+                    switch (s) {
+                        case "0":
+                            c = GameCollision.EMPTY;
+                        case "1":
+                            c = GameCollision.BLOCK;
+                        case "2":
+                            c = GameCollision.DOOR_NORTH_WALL;
+                        case "3":
+                            c = GameCollision.DOOR_SOUTH_WALL;
+                        case "4":
+                            c = GameCollision.DOOR_EAST_WALL;
+                        case "5":
+                            c = GameCollision.DOOR_WEST_WALL;
+                            defualt:
+                            c = GameCollision.NONE;
+                    }
+                }
+                gameTiles[j][k] = t;
             }
+            return new GameArea(null, null);
         }
-        return new GameArea(null, null);
+        return null;
     }
-
-    public GameTile getTile(String tile)
-    {
-        switch (tile)
-        {
-            case "0":
-                return GameTile.EMPTY;
-
-            case "1":
-                return GameTile.BRICK;
-
-            case "2":
-                return GameTile.FADING_BRICK;
-
-            default:
-                return GameTile.EMPTY;
-        }
-
-    }
-
 }
-
