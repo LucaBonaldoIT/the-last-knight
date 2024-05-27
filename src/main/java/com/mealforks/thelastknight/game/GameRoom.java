@@ -14,6 +14,7 @@ public class GameRoom implements GameObject {
     private GameRoomType _type;
     private ArrayList<GameCharacter> _characters;
     private ArrayList<GameRoomItem> _items;
+    private ArrayList<GameObject> _objectsToLoad;
     private HashMap<GamePoint, GameTile> _doors;
 
     private GamePoint _defaultStartPoint;
@@ -38,6 +39,7 @@ public class GameRoom implements GameObject {
         _southRoomId = null;
         _westRoomId = null;
         _eastRoomId = null;
+        _objectsToLoad = new ArrayList<>();
     }
 
     public GameRoom(GameRoomType type, GameArea area)
@@ -47,6 +49,7 @@ public class GameRoom implements GameObject {
         _characters = new ArrayList<>();
         _items = new ArrayList<>();
         _doors = new HashMap<>();
+        _objectsToLoad = new ArrayList<>();
     }
 
     public GameRoom(String id, GameRoomType type, GameArea area, String[] rooms, HashMap<GamePoint, GameTile> doors, GamePoint defaultStartPoint, HashMap<GameTile, GamePoint> startPointByComingDoor)
@@ -56,6 +59,7 @@ public class GameRoom implements GameObject {
         _area = area;
         _characters = new ArrayList<>();
         _items = new ArrayList<>();
+        _objectsToLoad = new ArrayList<>();
 
         _northRoomId = rooms[0];
         _eastRoomId = rooms[1];
@@ -74,11 +78,21 @@ public class GameRoom implements GameObject {
         _characters = new ArrayList<>();
         _items = new ArrayList<>();
         _type = GameRoomType.NONE;
+        _objectsToLoad = new ArrayList<>();
     }
 
     public void addItem(GameRoomItem roomItem)
     {
         _items.add(roomItem);
+    }
+    public void addObjectToLoad(GameObject object)
+    {
+        _objectsToLoad.add(object);
+    }
+
+    public ArrayList<GameObject> getObjectsToLoad()
+    {
+        return _objectsToLoad;
     }
 
     public GamePoint getStartPoint(GameTile comingDoor)

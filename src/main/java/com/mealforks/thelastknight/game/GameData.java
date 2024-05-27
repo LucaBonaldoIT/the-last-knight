@@ -28,6 +28,7 @@ public class GameData {
         _room = GameRoom.NONE;
         _level = new GameLevel();
         _playerData = new GamePlayerData();
+        _player = new GamePlayer(0, 0);
     }
 
     public GamePlayerData getPlayerData()
@@ -120,6 +121,11 @@ public class GameData {
 
         GameRoom room = _level.getRoom(roomId);
 
+        for (GameObject obj : room.getObjectsToLoad())
+        {
+            this.addObjectToScene(obj);
+        }
+
         this.setGameRoom(room);
         this.setPlayer(new GamePlayer(room.getDefaultStartPoint().x, room.getDefaultStartPoint().y));
     }
@@ -130,6 +136,11 @@ public class GameData {
         this.setGameState(GameState.RUNNING);
 
         GameRoom room = _level.getRoom(roomId);
+
+        for (GameObject obj : room.getObjectsToLoad())
+        {
+            this.addObjectToScene(obj);
+        }
 
         this.setGameRoom(room);
 

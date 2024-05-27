@@ -133,9 +133,9 @@ public class GameFrame extends JFrame {
 
         _data = _data.getPlayer().update(_data);
 
-        for (GameObject obj : _data.getGameObjects())
+        for (Object obj : _data.getGameObjects().toArray())
         {
-            _data = obj.update(_data);
+            _data = ((GameObject)obj).update(_data);
         }
 
         _data.getGameObjects().removeIf(GameObject::toDelete);

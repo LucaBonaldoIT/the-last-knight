@@ -1,6 +1,9 @@
 package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GamePlayer implements GameObject {
 
@@ -113,6 +116,15 @@ public class GamePlayer implements GameObject {
 
         if (x >= 0 && x < GameConstants.getWidth() / GameConstants.getTileSize() && y >= 0 && y <= GameConstants.getHeight() / GameConstants.getTileSize())
         {
+            List<GameObject> doors = d.getGameObjects().stream().filter(p -> p instanceof GameDoor).collect(Collectors.toList());
+
+            if (Arrays.stream(doors.toArray()).anyMatch(p -> ((GameDoor)p).getCoordinates().equals(new GamePoint(_x, _y))))
+            {
+                d.addObjectToScene(new GameDialog("DOOR_LOCKED", "The door you are facing is locked."));
+                d.setGameState(GameState.DIALOG);
+                return d;
+            }
+
             if (d.getGameRoom().getGameArea().IsTileEmpty(x, y))
             {
                 _y = y;

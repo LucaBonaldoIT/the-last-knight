@@ -9,6 +9,8 @@ public class GameDialog implements GameObject
     private int _index;
     private String _text;
 
+    private boolean _firstUpdate;
+
     private boolean _toDelete;
 
     private int _marginLeft;
@@ -38,6 +40,7 @@ public class GameDialog implements GameObject
         _totalLines = 0;
         _visibleLines = 0;
         _toDelete = false;
+        _firstUpdate = true;
     }
 
     public String getText()
@@ -48,6 +51,11 @@ public class GameDialog implements GameObject
     @Override
     public GameData update(GameData d)
     {
+        if (_firstUpdate)
+        {
+            d.setGameState(GameState.DIALOG);
+        }
+
         if (System.currentTimeMillis() - _lastUpdateTime > DELAY) {
             _charsToShow = Math.min(_charsToShow + 1, _text.length());
             _lastUpdateTime = System.currentTimeMillis();

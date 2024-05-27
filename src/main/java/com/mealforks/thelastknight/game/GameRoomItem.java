@@ -36,6 +36,14 @@ public class GameRoomItem implements GameObject {
     @Override
     public GameData update(GameData d) {
 
+        int x = d.getPlayer().getX();
+        int y = d.getPlayer().getY();
+
+        if (Math.abs(x - _x) + Math.abs(y - _y) > 1)
+        {
+            return d;
+        }
+
         if (d.getInput().equals(GameInput.INSPECT))
         {
             GameItem item = GameConstants.getItem(_type);

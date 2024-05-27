@@ -72,6 +72,9 @@ public class GameEvents {
 
         roomOther.addItem(new GameRoomItem(GameItemType.DOOR_KEY, 1, 1));
 
+        //roomOther.addObjectToLoad(new GameDialog("DOOR_CLOSE_BEHIND", "The door behind you is now locked."));
+        roomOther.addObjectToLoad(new GameDoor(new GamePoint(5, 8)));
+
         GameLevel level = new GameLevel("FIRST", rooms);
 
         d.loadLevel(level);
