@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -34,6 +36,7 @@ public class GameLevelLoader {
         System.out.println(numberOfRooms);
 
         for (int i = 0; i < numberOfRooms; i++) {
+
             JsonObject room = jsonObject.getJsonObject("Room" + i);
             String id = room.getString("id");
             String type = room.getString("type");
@@ -45,12 +48,64 @@ public class GameLevelLoader {
 
             GameArea area = getGameArea(tiles, collisions);
 
+            String northRoomId = room.getString("northRoomId");
+            String southRoomId = room.getString("southRoomId");
+            String eastRoomId = room.getString("eastRoomId");
+            String westRoomId = room.getString("westRoomId");
 
+            ArrayList<GameRoomItem> items = new ArrayList<>();
+            JsonObject jsonItems = room.getJsonObject("items");
+
+            for (Map.Entry<String, JsonValue> entry : jsonItems.entrySet()) {
+                String key = entry.getKey();
+                JsonValue value = entry.getValue();
+                String coordinates = ((JsonString) value).getString();
+
+                String[] coordinatesArray = coordinates.split(" ");
+                int x = Integer.parseInt(coordinatesArray[0]);
+                int y = Integer.parseInt(coordinatesArray[1]);
+                GameItemType itemType = getItemType(key);
+                GameRoomItem item = new GameRoomItem(itemType, x, y);
+                items.add(item);
+            }
         }
+
 
         GameLevel game = new GameLevel();
 
         return game;
+    }
+
+
+    public GameItemType getItemType(String type) {
+        switch (type) {
+            case "key":
+                return GameItemType.DOOR_KEY;
+            case "health_potion":
+                return GameItemType.HEALTH_POTION;
+            case "luck_amulet":
+                return GameItemType.LUCK_AMULET;
+            case "strength_amulet":
+                return GameItemType.STRENGTH_AMULET;
+            case "wooden_sword":
+                return GameItemType.WOODEN_SWORD;
+            case "iron_sword":
+                return GameItemType.IRON_SWORD;
+            case "infernal_sword":
+                return GameItemType.INFERNAL_SWORD;
+            case "wooden_wand":
+                return GameItemType.WOODEN_WAND;
+            case "crystal_wand":
+                return GameItemType.CRYSTAL_WAND;
+            case "celestial_wand":
+                return GameItemType.CELESTIAL_WAND;
+            case "leather_armor":
+                return GameItemType.LEATHER_ARMOR;
+            case "iron_armor":
+                return GameItemType.IRON_ARMOR;
+            default:
+                return GameItemType.NONE;
+        }
     }
 
     public GameRoomType getRoomType(String type) {

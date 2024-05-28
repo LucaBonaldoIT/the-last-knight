@@ -1,6 +1,6 @@
 {
   "roomNumber" : 1,
-  "Room1" : {
+  "Room0" : {
     "id" : "0",
     "type" : "entry",
     "tiles" : "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
@@ -8,16 +8,20 @@
     "characters" : {
       "magician" : "5 5"
     },
+    "items": {
+      "key": "5 6",
+      "health_potion": "2 2"
+    },
     "northRoomId" : "1",
     "eastRoomId" : "-1",
     "southRoomId" : "-1",
     "westRoomId" : "-1",
-    "doors" : {
-      "north" : "7 0",
-      "east" : "14 3",
-      "south" : "7 7",
-      "west" : "0 3"
-    },
+    "doors" : [
+        {"north" : "7 0"},
+        {"east" : "14 3"},
+        {"south" : "7 7"},
+        {"west" : "0 3"}
+    ],
     "gamePointDefault" : "1 1"
   }
 }
