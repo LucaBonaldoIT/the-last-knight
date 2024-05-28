@@ -34,16 +34,16 @@ public class GameLevelLoader {
         System.out.println(numberOfRooms);
 
         for (int i = 0; i < numberOfRooms; i++) {
-            JsonObject room = jsonObject.getJsonObject("Room1");
+            JsonObject room = jsonObject.getJsonObject("Room" + i);
             String id = room.getString("id");
             String type = room.getString("type");
 
-            GameRoomType roomType = roomsType(type);
+            GameRoomType roomType = getRoomType(type);
 
             String tiles = room.getString("tiles");
             String collisions = room.getString("collisions");
 
-            GameArea area = gameArea(tiles, collisions);
+            GameArea area = getGameArea(tiles, collisions);
 
 
         }
@@ -53,7 +53,7 @@ public class GameLevelLoader {
         return game;
     }
 
-    public GameRoomType roomsType(String type) {
+    public GameRoomType getRoomType(String type) {
         switch (type) {
             case "unknown":
                 return GameRoomType.UNKNOWN;
@@ -75,7 +75,7 @@ public class GameLevelLoader {
         }
     }
 
-    public GameArea gameArea(String tiles, String collisions) {
+    public GameArea getGameArea(String tiles, String collisions) {
         GameTile[][] gameTiles = new GameTile[15][8];
         GameCollision[][] gameCollision = new GameCollision[15][8];
 
@@ -125,14 +125,13 @@ public class GameLevelLoader {
                             c = GameCollision.DOOR_EAST_WALL;
                         case "5":
                             c = GameCollision.DOOR_WEST_WALL;
-                            defualt:
+                        default:
                             c = GameCollision.NONE;
                     }
                 }
                 gameTiles[j][k] = t;
             }
-            return new GameArea(null, null);
         }
-        return null;
+        return new GameArea(gameTiles, gameCollision);
     }
 }

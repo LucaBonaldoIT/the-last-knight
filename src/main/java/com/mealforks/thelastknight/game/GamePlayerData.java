@@ -38,6 +38,7 @@ public class GamePlayerData {
         return _inventory;
     }
 
+
     public void addItem(GameItemType type)
     {
         GameItem item = GameConstants.getItem(type);
@@ -93,6 +94,86 @@ public class GamePlayerData {
 
             this.onNewLevel();
         }
+    }
+
+    public int getXp() {
+        return _xp;
+    }
+
+    public void setXp(int xp) {
+        this._xp = xp;
+    }
+
+    public int getLevel() {
+        return _level;
+    }
+
+    public void setLevel(int level) {
+        this._level = level;
+    }
+
+    public void setInventory(HashMap<GameItemType, Integer> inventory) {
+        this._inventory = inventory;
+    }
+
+    public GamePlayerAttributes getAttributes() {
+        return _attributes;
+    }
+
+    public void setAttributes(GamePlayerAttributes attributes) {
+        this._attributes = attributes;
+    }
+
+    public int getHealth() {
+        return _health;
+    }
+
+    public void setHealth(int health) {
+        this._health = health;
+    }
+
+    public int getStamina() {
+        return _stamina;
+    }
+
+    public void setStamina(int stamina) {
+        this._stamina = stamina;
+    }
+
+    public int getMana() {
+        return _mana;
+    }
+
+    public void setMana(int mana) {
+        this._mana = mana;
+    }
+
+    public GamePlayerClass getPlayerClass() {
+        return _class;
+    }
+
+    public void setPlayerClass(GamePlayerClass playerClass) {
+        this._class = playerClass;
+    }
+
+    public void setMaxWeight(int maxWeight) {
+        this._maxWeight = maxWeight;
+    }
+
+    public int getInventoryWeight() {
+        return _inventoryWeight;
+    }
+
+    public void setInventoryWeight(int inventoryWeight) {
+        this._inventoryWeight = inventoryWeight;
+    }
+
+    public int getCoins() {
+        return _coins;
+    }
+
+    public void setCoins(int coins) {
+        this._coins = coins;
     }
 
     private void onNewLevel()

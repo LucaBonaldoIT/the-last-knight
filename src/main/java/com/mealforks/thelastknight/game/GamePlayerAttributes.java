@@ -16,7 +16,26 @@ public class GamePlayerAttributes {
         _agility = 0;
     }
 
-    // Todo: COMPLETE METHODS
+    public void set_endurance(int endurance)
+    {
+        _endurance = endurance;
+    }
+    public void set_strength(int strength)
+    {
+        _strength = strength;
+    }
+    public void set_luck(int luck)
+    {
+        _luck = luck;
+    }
+    public void set_intelligence(int intelligence)
+    {
+        _intelligence = intelligence;
+    }
+    public void set_agility(int agility)
+    {
+        _agility = agility;
+    }
 
     public int getEndurance()
     {

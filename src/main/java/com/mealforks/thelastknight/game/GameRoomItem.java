@@ -61,7 +61,7 @@ public class GameRoomItem implements GameObject {
             }
             else
             {
-                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You cannot carry this item because it weights too much."));
+                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You cannot carry this item, you have reached the weight limit."));
                 d.setGameState(GameState.DIALOG);
             }
         }
