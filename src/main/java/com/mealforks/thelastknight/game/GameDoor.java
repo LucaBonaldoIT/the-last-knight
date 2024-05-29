@@ -17,6 +17,7 @@ public class GameDoor implements GameObject {
         _coordinates = new GamePoint(0, 0);
     }
 
+    @Override
     public GamePoint getCoordinates()
     {
         return _coordinates;
@@ -53,7 +54,7 @@ public class GameDoor implements GameObject {
         int x = d.getPlayer().getX();
         int y = d.getPlayer().getY();
 
-        if (Math.abs(x - _coordinates.x) + Math.abs(y - _coordinates.y) > 1)
+        if (!d.isPlayerLookingAt(this))
         {
             return d;
         }

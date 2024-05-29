@@ -17,11 +17,6 @@ public class GameLevel {
         return _rooms.get(roomId);
     }
 
-    public GameRoom[] getRooms()
-    {
-        return (GameRoom[])_rooms.values().toArray();
-    }
-
     public GameLevel()
     {
         _startRoomId = null;

@@ -20,8 +20,6 @@ public class GameInputHandler {
 
     public GameInput getGameInput(KeyEvent keyEvent)
     {
-        System.out.println(keyEvent.getKeyCode());
-
         return switch (keyEvent.getKeyCode()) {
             case 87 -> GameInput.UP;
             case 83 -> GameInput.DOWN;

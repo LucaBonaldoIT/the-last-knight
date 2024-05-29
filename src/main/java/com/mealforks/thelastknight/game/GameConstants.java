@@ -122,9 +122,31 @@ public class GameConstants
 
     public static GameItem getItem(GameItemType type)
     {
-        // Todo: add items
+        return switch (type) {
+            case DOOR_KEY -> new GameItem(type, 0, 0);
+            default -> new GameItem();
+        };
+    }
 
-        return new GameItem();
+    public static GameObject getGameObject(String objectId, GamePoint coordinates)
+    {
+        switch (objectId)
+        {
+            case "key_01":
+            {
+                return new GameRoomItem(GameItemType.DOOR_KEY, coordinates.x, coordinates.y);
+            }
+            case "magician_01":
+            {
+                return new GameCharacter();
+            }
+            case "potion_01":
+            {
+                return new GameRoomItem(GameItemType.HEALTH_POTION, coordinates.x, coordinates.y);
+            }
+        }
+
+        return null;
     }
 
     public static Image getItemSprite(GameItemType type)

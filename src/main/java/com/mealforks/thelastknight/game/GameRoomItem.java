@@ -23,6 +23,11 @@ public class GameRoomItem implements GameObject {
     }
 
     @Override
+    public GamePoint getCoordinates() {
+        return new GamePoint(_x, _y);
+    }
+
+    @Override
     public int getIndex() {
         return 0;
     }
@@ -39,7 +44,7 @@ public class GameRoomItem implements GameObject {
         int x = d.getPlayer().getX();
         int y = d.getPlayer().getY();
 
-        if (Math.abs(x - _x) + Math.abs(y - _y) > 1)
+        if (!d.isPlayerLookingAt(this))
         {
             return d;
         }
@@ -54,7 +59,7 @@ public class GameRoomItem implements GameObject {
                 playerData.addItem(_type);
 
                 // Todo: add better text
-                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You have collected a item."));
+                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You have collected an item."));
                 d.setGameState(GameState.DIALOG);
 
                 _toDelete = true;

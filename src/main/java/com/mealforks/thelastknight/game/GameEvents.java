@@ -70,10 +70,12 @@ public class GameEvents {
         rooms.put("FIRST", room);
         rooms.put("SECOND", roomOther);
 
-        roomOther.addItem(new GameRoomItem(GameItemType.DOOR_KEY, 1, 1));
+        roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 1, 1));
 
-        //roomOther.addObjectToLoad(new GameDialog("DOOR_CLOSE_BEHIND", "The door behind you is now locked."));
+        roomOther.addObjectToLoad(new GameDialog("DOOR_CLOSE_BEHIND", "The door behind you is now locked."));
         roomOther.addObjectToLoad(new GameDoor(new GamePoint(5, 8)));
+        roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 5, 3));
+        roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 7, 3));
 
         GameLevel level = new GameLevel("FIRST", rooms);
 

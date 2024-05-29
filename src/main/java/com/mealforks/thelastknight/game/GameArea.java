@@ -28,6 +28,11 @@ public class GameArea implements GameObject {
     }
 
     @Override
+    public GamePoint getCoordinates() {
+        return GamePoint.NONE;
+    }
+
+    @Override
     public int getIndex() {
         return 0;
     }

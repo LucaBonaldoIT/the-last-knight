@@ -13,6 +13,11 @@ public class GamePlayer implements GameObject {
     private int _updateCount;
     private GameDirection _facingDirection;
 
+    public GameDirection getFacingDirection()
+    {
+        return _facingDirection;
+    }
+
     public GamePlayer(int x, int y)
     {
         _x = x;
@@ -42,6 +47,11 @@ public class GamePlayer implements GameObject {
     @Override
     public String getId() {
         return "PLAYER";
+    }
+
+    @Override
+    public GamePoint getCoordinates() {
+        return new GamePoint(_x, _y); // Kept X and Y for retro-compatibility
     }
 
     @Override
@@ -116,19 +126,23 @@ public class GamePlayer implements GameObject {
 
         if (x >= 0 && x < GameConstants.getWidth() / GameConstants.getTileSize() && y >= 0 && y <= GameConstants.getHeight() / GameConstants.getTileSize())
         {
-            List<GameObject> doors = d.getGameObjects().stream().filter(p -> p instanceof GameDoor).collect(Collectors.toList());
-
-            if (Arrays.stream(doors.toArray()).anyMatch(p -> ((GameDoor)p).getCoordinates().equals(new GamePoint(_x, _y))))
+            for (GameObject obj : d.getGameObjects())
             {
-                d.addObjectToScene(new GameDialog("DOOR_LOCKED", "The door you are facing is locked."));
-                d.setGameState(GameState.DIALOG);
-                return d;
+                if (obj.getCoordinates().x == x && obj.getCoordinates().y == y)
+                {
+                    // Todo: play walk against wall sound
+                    return d;
+                }
             }
 
             if (d.getGameRoom().getGameArea().IsTileEmpty(x, y))
             {
                 _y = y;
                 _x = x;
+            }
+            else
+            {
+                // Todo: play walk against wall sound
             }
         }
 

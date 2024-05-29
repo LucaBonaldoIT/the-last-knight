@@ -76,6 +76,43 @@ public class GameData {
         return _gameObjects;
     }
 
+    public boolean isPlayerLookingAt(GameObject obj)
+    {
+        GamePlayer player = this.getPlayer();
+
+        int x = player.getX();
+        int y = player.getY();
+
+        GamePoint objCoords = obj.getCoordinates();
+
+        if (Math.abs(x - objCoords.x) + Math.abs(y - objCoords.y) >= 2)
+        {
+            return false;
+        }
+
+        if (x - objCoords.x == 1)
+        {
+            return player.getFacingDirection().equals(GameDirection.LEFT);
+        }
+
+        if (x - objCoords.x == -1)
+        {
+            return player.getFacingDirection().equals(GameDirection.RIGHT);
+        }
+
+        if (y - objCoords.y == 1)
+        {
+            return player.getFacingDirection().equals(GameDirection.UP);
+        }
+
+        if (y - objCoords.y == -1)
+        {
+            return player.getFacingDirection().equals(GameDirection.DOWN);
+        }
+
+        return false;
+    }
+
     public void clearScene()
     {
         _gameObjects = new ArrayList<>();
@@ -116,6 +153,11 @@ public class GameData {
 
     public void loadRoom(String roomId)
     {
+        if (!_room.equals(GameRoom.NONE))
+        {
+            _room.saveRoomData(this);
+        }
+
         this.clearScene();
         this.setGameState(GameState.RUNNING);
 
@@ -126,12 +168,19 @@ public class GameData {
             this.addObjectToScene(obj);
         }
 
+        room.loadRoomData(this);
+
         this.setGameRoom(room);
         this.setPlayer(new GamePlayer(room.getDefaultStartPoint().x, room.getDefaultStartPoint().y));
     }
 
     public void loadRoom(String roomId, GameTile comingFrom)
     {
+        if (!_room.equals(GameRoom.NONE))
+        {
+            _room.saveRoomData(this);
+        }
+
         this.clearScene();
         this.setGameState(GameState.RUNNING);
 
@@ -168,6 +217,8 @@ public class GameData {
                 break;
             }
         }
+
+        room.loadRoomData(this);
 
         this.setPlayer(new GamePlayer(room.getStartPoint(comingFrom).x, room.getStartPoint(comingFrom).y, facing));
     }

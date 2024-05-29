@@ -1,6 +1,9 @@
 package main.java.com.mealforks.thelastknight.game;
 
 public class GamePoint {
+
+    public static final GamePoint NONE = new GamePoint(-1, -1);
+
     public GamePoint(int x, int y)
     {
         this.x = x;

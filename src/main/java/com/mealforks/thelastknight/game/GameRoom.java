@@ -12,10 +12,9 @@ public class GameRoom implements GameObject {
     private String _id;
     private GameArea _area;
     private GameRoomType _type;
-    private ArrayList<GameCharacter> _characters;
-    private ArrayList<GameRoomItem> _items;
     private ArrayList<GameObject> _objectsToLoad;
     private HashMap<GamePoint, GameTile> _doors;
+    private boolean _firstLoad;
 
     private GamePoint _defaultStartPoint;
 
@@ -26,13 +25,13 @@ public class GameRoom implements GameObject {
     private String _eastRoomId;
     private String _westRoomId;
 
+    private GameRoomData _roomData;
+
     private GameRoom(GameRoomType type)
     {
         _id = null;
         _type = type;
-        _characters = new ArrayList<>();
-        _items = new ArrayList<>();
-
+        _firstLoad = true;
         _doors = new HashMap<>();
 
         _northRoomId = null;
@@ -40,26 +39,27 @@ public class GameRoom implements GameObject {
         _westRoomId = null;
         _eastRoomId = null;
         _objectsToLoad = new ArrayList<>();
+        _roomData = null;
     }
 
     public GameRoom(GameRoomType type, GameArea area)
     {
         _type = type;
         _area = area;
-        _characters = new ArrayList<>();
-        _items = new ArrayList<>();
         _doors = new HashMap<>();
         _objectsToLoad = new ArrayList<>();
+        _firstLoad = true;
+        _roomData = null;
     }
 
     public GameRoom(String id, GameRoomType type, GameArea area, String[] rooms, HashMap<GamePoint, GameTile> doors, GamePoint defaultStartPoint, HashMap<GameTile, GamePoint> startPointByComingDoor)
     {
+        _firstLoad = true;
         _id = id;
         _type = type;
         _area = area;
-        _characters = new ArrayList<>();
-        _items = new ArrayList<>();
         _objectsToLoad = new ArrayList<>();
+        _roomData = null;
 
         _northRoomId = rooms[0];
         _eastRoomId = rooms[1];
@@ -75,16 +75,12 @@ public class GameRoom implements GameObject {
 
     public GameRoom()
     {
-        _characters = new ArrayList<>();
-        _items = new ArrayList<>();
         _type = GameRoomType.NONE;
         _objectsToLoad = new ArrayList<>();
+        _firstLoad = true;
+        _roomData = null;
     }
 
-    public void addItem(GameRoomItem roomItem)
-    {
-        _items.add(roomItem);
-    }
     public void addObjectToLoad(GameObject object)
     {
         _objectsToLoad.add(object);
@@ -92,6 +88,13 @@ public class GameRoom implements GameObject {
 
     public ArrayList<GameObject> getObjectsToLoad()
     {
+        if (!_firstLoad)
+        {
+            return new ArrayList<>();
+        }
+
+        _firstLoad = false;
+
         return _objectsToLoad;
     }
 
@@ -109,9 +112,34 @@ public class GameRoom implements GameObject {
         return _area;
     }
 
+    public void saveRoomData(GameData data)
+    {
+        _roomData = new GameRoomData(data);
+    }
+
+    public GameData loadRoomData(GameData data)
+    {
+        if (_roomData != null)
+        {
+            data.clearScene();
+
+            for (GameObject obj : _roomData.getGameObjects())
+            {
+                data.addObjectToScene(obj);
+            }
+        }
+
+        return data;
+    }
+
     @Override
     public String getId() {
         return "";
+    }
+
+    @Override
+    public GamePoint getCoordinates() {
+        return GamePoint.NONE;
     }
 
     @Override
@@ -133,15 +161,6 @@ public class GameRoom implements GameObject {
             GamePoint point = entry.getKey();
             Image tile = GameConstants.getTile(entry.getValue());
             g.drawImage(tile, point.x * GameConstants.getTileSize(), point.y * GameConstants.getTileSize(), null);
-        }
-
-        for (GameCharacter character : _characters) {
-            character.render(g);
-        }
-
-        for (GameRoomItem item : _items)
-        {
-            item.render(g);
         }
     }
 
@@ -180,13 +199,6 @@ public class GameRoom implements GameObject {
                     break;
             }
         }
-
-        for (GameRoomItem item : _items)
-        {
-            item.update(d);
-        }
-
-        _items.removeIf(GameObject::toDelete);
 
         return d;
     }

@@ -12,6 +12,13 @@ public class GameItem {
         _value = 0;
     }
 
+    public GameItem(GameItemType type, int weight, int value)
+    {
+        _type = type;
+        _weight = weight;
+        _value = value;
+    }
+
     public GameItemType getItemType()
     {
         return _type;
