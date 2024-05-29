@@ -132,21 +132,50 @@ public class GameConstants
     {
         switch (objectId)
         {
-            case "key_01":
-            {
+            case "key":
                 return new GameRoomItem(GameItemType.DOOR_KEY, coordinates.x, coordinates.y);
-            }
-            case "magician_01":
-            {
-                return new GameCharacter();
-            }
-            case "locked_door":
-            {
+
+            case "health_potion":
+                return new GameRoomItem(GameItemType.HEALTH_POTION, coordinates.x, coordinates.y);
+
+            case "luck_amulet":
+                return new GameRoomItem(GameItemType.LUCK_AMULET, coordinates.x, coordinates.y);
+
+            case "strength_amulet":
+                return new GameRoomItem(GameItemType.STRENGTH_AMULET, coordinates.x, coordinates.y);
+
+            case "wooden_sword":
+                return new GameRoomItem(GameItemType.WOODEN_SWORD, coordinates.x, coordinates.y);
+
+            case "iron_sword":
+                return new GameRoomItem(GameItemType.IRON_SWORD, coordinates.x, coordinates.y);
+
+            case "infernal_sword":
+                return new GameRoomItem(GameItemType.INFERNAL_SWORD, coordinates.x, coordinates.y);
+
+            case "wooden_wand":
+                return new GameRoomItem(GameItemType.WOODEN_WAND, coordinates.x, coordinates.y);
+
+            case "crystal_wand":
+                return new GameRoomItem(GameItemType.CRYSTAL_WAND, coordinates.x, coordinates.y);
+
+            case "celestial_wand":
+                return new GameRoomItem(GameItemType.CELESTIAL_WAND, coordinates.x, coordinates.y);
+
+            case "leather_armor":
+                return new GameRoomItem(GameItemType.LEATHER_ARMOR, coordinates.x, coordinates.y);
+
+            case "iron_armor":
+                return new GameRoomItem(GameItemType.IRON_ARMOR, coordinates.x, coordinates.y);
+
+            case "locked_door": {
                 return new GameDoor(coordinates);
             }
+            default: {
+                return new GameRoomItem(GameItemType.NONE, -1, -1) {
+                };
+            }
         }
-
-        return null;
     }
 
     public static Image getItemSprite(GameItemType type)

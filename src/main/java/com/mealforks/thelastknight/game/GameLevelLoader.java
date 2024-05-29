@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import static main.java.com.mealforks.thelastknight.game.GameConstants.getGameObject;
+
 
 public class GameLevelLoader {
     public GameLevelLoader() {
@@ -33,18 +35,23 @@ public class GameLevelLoader {
 
         int numberOfRooms = jsonObject.getInt("roomNumber");
 
-        System.out.println(numberOfRooms);
-
         for (int i = 0; i < numberOfRooms; i++) {
 
             JsonObject room = jsonObject.getJsonObject("Room" + i);
             String id = room.getString("id");
             String type = room.getString("type");
-
             GameRoomType roomType = getRoomType(type);
 
-            String tiles = room.getString("tiles");
-            String collisions = room.getString("collisions");
+            String startPoint = room.getString("defaultStartPoint");
+            String[] startPoints = startPoint.split(" ");
+            GamePoint defaultStartPoint = new GamePoint(Integer.parseInt(startPoints[0]), Integer.parseInt(startPoints[1]));
+
+
+
+            JsonObject areaJson = room.getJsonObject("area");
+
+            String tiles = areaJson.getString("tiles");
+            String collisions = areaJson.getString("collisions");
 
             GameArea area = getGameArea(tiles, collisions);
 
@@ -52,61 +59,58 @@ public class GameLevelLoader {
             String southRoomId = room.getString("southRoomId");
             String eastRoomId = room.getString("eastRoomId");
             String westRoomId = room.getString("westRoomId");
+            String[] adjacentRooms = {northRoomId,southRoomId,eastRoomId,westRoomId};
 
-            ArrayList<GameRoomItem> items = new ArrayList<>();
-            JsonObject jsonItems = room.getJsonObject("items");
+            ArrayList<GameObject> objectsToLoad = new ArrayList<>();
+            JsonObject jsonItems = room.getJsonObject("ObjectToLoad");
 
             for (Map.Entry<String, JsonValue> entry : jsonItems.entrySet()) {
-                String key = entry.getKey();
+                String ObjectId = entry.getKey();
                 JsonValue value = entry.getValue();
                 String coordinates = ((JsonString) value).getString();
 
                 String[] coordinatesArray = coordinates.split(" ");
                 int x = Integer.parseInt(coordinatesArray[0]);
                 int y = Integer.parseInt(coordinatesArray[1]);
-                GameItemType itemType = getItemType(key);
-                GameRoomItem item = new GameRoomItem(itemType, x, y);
-                items.add(item);
+                GameObject object = getGameObject(ObjectId, new GamePoint(x,y));
+                objectsToLoad.add(object);
             }
-        }
 
+            HashMap<GamePoint, GameTile> doors = new HashMap<>();
+            JsonObject jsonDoors = room.getJsonObject("doors");
+
+            for (Map.Entry<String, JsonValue> entry : jsonDoors.entrySet()) {
+                String doorId = entry.getKey();
+                JsonValue value = entry.getValue();
+
+                String coordinates = ((JsonString) value).getString();
+                String[] coordinatesArray = coordinates.split(" ");
+                int x = Integer.parseInt(coordinatesArray[0]);
+                int y = Integer.parseInt(coordinatesArray[1]);
+                GameTile door;
+
+                switch (doorId){
+                    case "north" :
+                        door = GameTile.DOOR_NORTH_WALL;
+                    case "south" :
+                        door = GameTile.DOOR_SOUTH_WALL;
+                    case "east" :
+                        door = GameTile.DOOR_EAST_WALL;
+                    case "west" :
+                        door = GameTile.DOOR_WEST_WALL;
+                    default:
+                        door = GameTile.NONE;
+                }
+                doors.put(new GamePoint(x, y), door);
+            }
+            GameRoom currentRoom = new GameRoom(id, roomType, area, adjacentRooms, doors, defaultStartPoint, );
+        }
 
         GameLevel game = new GameLevel();
 
         return game;
     }
 
-
-    public GameItemType getItemType(String type) {
-        switch (type) {
-            case "key":
-                return GameItemType.DOOR_KEY;
-            case "health_potion":
-                return GameItemType.HEALTH_POTION;
-            case "luck_amulet":
-                return GameItemType.LUCK_AMULET;
-            case "strength_amulet":
-                return GameItemType.STRENGTH_AMULET;
-            case "wooden_sword":
-                return GameItemType.WOODEN_SWORD;
-            case "iron_sword":
-                return GameItemType.IRON_SWORD;
-            case "infernal_sword":
-                return GameItemType.INFERNAL_SWORD;
-            case "wooden_wand":
-                return GameItemType.WOODEN_WAND;
-            case "crystal_wand":
-                return GameItemType.CRYSTAL_WAND;
-            case "celestial_wand":
-                return GameItemType.CELESTIAL_WAND;
-            case "leather_armor":
-                return GameItemType.LEATHER_ARMOR;
-            case "iron_armor":
-                return GameItemType.IRON_ARMOR;
-            default:
-                return GameItemType.NONE;
-        }
-    }
 
     public GameRoomType getRoomType(String type) {
         switch (type) {
@@ -160,7 +164,7 @@ public class GameLevelLoader {
                             t = GameTile.DOOR_EAST_WALL;
                         case "6":
                             t = GameTile.DOOR_WEST_WALL;
-                            defualt:
+                        default:
                             t = GameTile.NONE;
                     }
                 }

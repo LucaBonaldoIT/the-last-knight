@@ -7,33 +7,18 @@
       "tiles" : "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1",
       "collisions" : "1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1"
     },
-    "objectsToLoad": [
+    "objectsToLoad":
       {
-        "id": "object_1",
-        "position": "2;3"
+        "key": "2 3",
+        "magician" : "3 4"
       },
-      {
-        "id": "locked_door",
-        "position": "5;3"
-      },
-      {
-        "id": "locked_door",
-        "position": "7;8"
-      }
-    ],
     "northRoomId" : "1",
-    "eastRoomId" : "-1",
-    "southRoomId" : "-1",
+    "eastRoomId" : null,
+    "southRoomId" : null,
     "westRoomId" : null,
-    "doors" : [
-      {"north" : "7 0"},
-      {"east" : "14 3"},
-      {"south" : "7 7"},
-      {"west" : "0 3"}
-    ],
-    "doors_luca": {
-      "2;3": "north",
-      "2;4": "south"
+    "doors" : {
+      "north" : "7 0",
+      "south" : "7 7"
     },
     "defaultStartPoint" : "1 1"
   }
