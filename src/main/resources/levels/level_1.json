@@ -13,8 +13,12 @@
         "position": "2;3"
       },
       {
-        "id": "object_2",
+        "id": "locked_door",
         "position": "5;3"
+      },
+      {
+        "id": "locked_door",
+        "position": "7;8"
       }
     ],
     "northRoomId" : "1",

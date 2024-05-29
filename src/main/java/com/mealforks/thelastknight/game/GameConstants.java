@@ -140,9 +140,9 @@ public class GameConstants
             {
                 return new GameCharacter();
             }
-            case "potion_01":
+            case "locked_door":
             {
-                return new GameRoomItem(GameItemType.HEALTH_POTION, coordinates.x, coordinates.y);
+                return new GameDoor(coordinates);
             }
         }
 
