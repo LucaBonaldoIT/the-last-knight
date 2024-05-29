@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class GameEvents {
     public static void TestDialog1(GameData d)
     {
+
         GameTile[][] tiles = new GameTile[][] {
             {GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK, GameTile.BRICK},
             {GameTile.BRICK, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.BRICK, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.EMPTY, GameTile.BRICK},
@@ -77,7 +78,8 @@ public class GameEvents {
         roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 5, 3));
         roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 7, 3));
 
-        GameLevel level = new GameLevel("FIRST", rooms);
+        GameLevelLoader loader = new GameLevelLoader();
+        GameLevel level = loader.loadLevel("src\\main\\resources\\levels\\level_1.json");
 
         d.loadLevel(level);
 

@@ -58,7 +58,6 @@ public class GameRoom implements GameObject {
         _id = id;
         _type = type;
         _area = area;
-        _objectsToLoad = new ArrayList<>();
         _roomData = null;
 
         _northRoomId = rooms[0];
@@ -69,7 +68,7 @@ public class GameRoom implements GameObject {
         _doors = doors;
 
         _defaultStartPoint = defaultStartPoint;
-
+        _objectsToLoad = new ArrayList<>();
         _startPointByComingDoor = startPointByComingDoor;
     }
 
