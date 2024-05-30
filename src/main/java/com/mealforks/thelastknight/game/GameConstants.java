@@ -195,7 +195,8 @@ public class GameConstants
     public static GameItem getItem(GameItemType type)
     {
         return switch (type) {
-            case DOOR_KEY -> new GameItem(type, 0, 0);
+            case DOOR_KEY -> new GameItem(type, 0, 0, "door key");
+            case IRON_SWORD -> new GameItem(type, 10, 100, "iron sword");
             default -> new GameItem();
         };
     }
@@ -310,6 +311,10 @@ public class GameConstants
     }
 
     public static Font getDialogFont()
+    {
+        return _font.deriveFont(8f);
+    }
+    public static Font getInventoryFont()
     {
         return _font.deriveFont(8f);
     }

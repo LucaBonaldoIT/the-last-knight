@@ -13,6 +13,7 @@ public class GameData {
     private ArrayList<GameMusic> _musics;
     private GameLevel _level;
     private GamePlayerData _playerData;
+    private GameInventory _inventory;
 
     public GameLevel getCurrentLevel()
     {
@@ -29,6 +30,7 @@ public class GameData {
         _level = new GameLevel();
         _playerData = new GamePlayerData();
         _player = new GamePlayer(0, 0);
+        _inventory = new GameInventory();
     }
 
     public GamePlayerData getPlayerData()
@@ -74,6 +76,11 @@ public class GameData {
     public ArrayList<GameObject> getGameObjects()
     {
         return _gameObjects;
+    }
+
+    public GameInventory getInventory()
+    {
+        return  _inventory;
     }
 
     public boolean isPlayerLookingAt(GameObject obj)

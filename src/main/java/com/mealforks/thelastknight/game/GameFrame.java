@@ -142,6 +142,8 @@ public class GameFrame extends JFrame {
 
         _data = _data.getGameRoom().update(_data);
 
+        _data = _data.getInventory().update(_data);
+
         _data.setInput(GameInput.NONE);
 
 

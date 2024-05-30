@@ -41,6 +41,11 @@ public class GameRoomItem implements GameObject {
     @Override
     public GameData update(GameData d) {
 
+        if (!d.getGameState().equals(GameState.RUNNING))
+        {
+            return  d;
+        }
+
         int x = d.getPlayer().getX();
         int y = d.getPlayer().getY();
 
@@ -54,12 +59,16 @@ public class GameRoomItem implements GameObject {
             GameItem item = GameConstants.getItem(_type);
             GamePlayerData playerData = d.getPlayerData();
 
-            if (playerData.getMaxWeight() >= playerData.getInvetoryWeight() + item.getWeight())
+            if (playerData.getInventory().entrySet().size() >= GamePlayerData.MAX_ITEMS)
+            {
+                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You cannot carry this item, you have reached the maximum number of items carried at once."));
+                d.setGameState(GameState.DIALOG);
+            }
+            else if (playerData.getMaxWeight() >= playerData.getInvetoryWeight() + item.getWeight())
             {
                 playerData.addItem(_type);
 
-                // Todo: add better text
-                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You have collected an item."));
+                d.addObjectToScene(new GameDialog("ITEM_FOUND", "You have collected a " + GameConstants.getItem(_type).getName() + "."));
                 d.setGameState(GameState.DIALOG);
 
                 _toDelete = true;

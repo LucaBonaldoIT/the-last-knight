@@ -89,12 +89,14 @@ public class GameCanvas extends JPanel {
 
         _data.getGameObjects().sort((o1, o2) -> o1.getIndex() - o2.getIndex());
 
+        _data.getPlayer().render(g);
+
         for (GameObject r : _data.getGameObjects())
         {
             r.render(g);
         }
 
-        _data.getPlayer().render(g);
+        _data.getInventory().render(g);
     }
 
     public void update(GameData data)

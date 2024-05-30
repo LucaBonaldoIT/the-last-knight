@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class GamePlayerData {
     private static final int MAX_LEVEL = 30;
     private static final int XP_PER_LEVEL = 50;
+    public static final int MAX_ITEMS = 10;
 
     private int _xp;
     private int _level;
@@ -28,7 +29,7 @@ public class GamePlayerData {
         _health = 0;
         _stamina = 0;
         _mana = 0;
-        _maxWeight = 0;
+        _maxWeight = 100;
         _coins = 0;
         _inventoryWeight = 0;
     }
@@ -38,6 +39,17 @@ public class GamePlayerData {
         return _inventory;
     }
 
+    public void useItem(GameItemType type, GameData data)
+    {
+        switch (type)
+        {
+            default:
+            {
+                data.addObjectToScene(new GameDialog("KING_WORDS", "The king's words echoed... \"There's a time and place for everything but not now!\""));
+                break;
+            }
+        }
+    }
 
     public void addItem(GameItemType type)
     {
