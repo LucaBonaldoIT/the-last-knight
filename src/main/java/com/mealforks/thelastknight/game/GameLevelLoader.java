@@ -61,13 +61,58 @@ public class GameLevelLoader {
             String southRoomId = room.getString("southRoomId");
             String eastRoomId = room.getString("eastRoomId");
             String westRoomId = room.getString("westRoomId");
-            String[] adjacentRooms = {northRoomId,southRoomId,eastRoomId,westRoomId};
+            String[] adjacentRooms = {northRoomId,eastRoomId,southRoomId,westRoomId};
 
             //doors location and the respective spawn point
             HashMap<GamePoint, GameTile> doors = new HashMap<>();
             JsonObject jsonDoors = room.getJsonObject("doors");
-
+            JsonObject startPointDoorsJson = room.getJsonObject("startPointByComingDoor");
             HashMap<GameTile, GamePoint> startPointByComingDoor = new HashMap<>();
+
+            for (Map.Entry<String, JsonValue> entry : startPointDoorsJson.entrySet())
+            {
+                String doorId = entry.getKey();
+                JsonValue value = entry.getValue();
+                String coordinates = ((JsonString) value).getString();
+                String[] coordinatesArray = coordinates.split(" ");
+                int x = Integer.parseInt(coordinatesArray[0]);
+                int y = Integer.parseInt(coordinatesArray[1]);
+                GameTile door;
+                int newX = 0;
+                int newY = 0;
+
+                switch (doorId) {
+                    case "north":
+                        door = GameTile.DOOR_NORTH_WALL;
+                        newX = x;
+                        newY = y;
+                        break;
+
+                    case "south":
+                        door = GameTile.DOOR_SOUTH_WALL;
+                        newX = x;
+                        newY = y;
+                        break;
+
+                    case "east":
+                        door = GameTile.DOOR_EAST_WALL;
+                        newX = x;
+                        newY = y;
+                        break;
+
+                    case "west":
+                        door = GameTile.DOOR_WEST_WALL;
+                        newX = x;
+                        newY = y;
+                        break;
+                    default:
+                        door = GameTile.NONE;
+                        newX = x;
+                        newY = y;
+                        break;
+                }
+                startPointByComingDoor.put(door, new GamePoint(x, y));
+            }
 
             for (Map.Entry<String, JsonValue> entry : jsonDoors.entrySet()) {
                 String doorId = entry.getKey();
@@ -78,39 +123,28 @@ public class GameLevelLoader {
                 int x = Integer.parseInt(coordinatesArray[0]);
                 int y = Integer.parseInt(coordinatesArray[1]);
                 GameTile door;
-                int newX = 0;
-                int newY = 0;
 
                 switch (doorId){
                     case "north" :
                         door = GameTile.DOOR_NORTH_WALL;
-                        newX = x;
-                        newY = y + 7;
                         break;
 
                     case "south" :
                         door = GameTile.DOOR_SOUTH_WALL;
-                        newX = x;
-                        newY = y - 7;
                         break;
 
                     case "east" :
                         door = GameTile.DOOR_EAST_WALL;
-                        newX = x - 12;
-                        newY = y;
                         break;
 
                     case "west" :
                         door = GameTile.DOOR_WEST_WALL;
-                        newX = x + 12;
-                        newY = y;
                         break;
                     default:
                         door = GameTile.NONE;
                         break;
                 }
                 GameTile tileDoor = door;
-                startPointByComingDoor.put(tileDoor, new GamePoint(newX, newY));
                 doors.put(new GamePoint(x, y), door);
             }
 
@@ -212,16 +246,16 @@ public class GameLevelLoader {
                         case "1":
                             c = GameCollision.BLOCK;
                             break;
-                        case "2":
+                        case "3":
                             c = GameCollision.DOOR_NORTH_WALL;
                             break;
-                        case "3":
+                        case "4":
                             c = GameCollision.DOOR_SOUTH_WALL;
                             break;
-                        case "4":
+                        case "5":
                             c = GameCollision.DOOR_EAST_WALL;
                             break;
-                        case "5":
+                        case "6":
                             c = GameCollision.DOOR_WEST_WALL;
                             break;
                         default:

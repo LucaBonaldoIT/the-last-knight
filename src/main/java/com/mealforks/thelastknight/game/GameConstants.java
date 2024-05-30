@@ -22,7 +22,7 @@ public class GameConstants
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
             ge.registerFont(_font);
-        } catch (IOException e) {
+} catch (IOException e) {
             e.printStackTrace();
         } catch(FontFormatException e) {
             e.printStackTrace();
@@ -71,6 +71,78 @@ public class GameConstants
                     }
                     case 81: {
                         _tiles.put(GameTile.DOOR_EAST_WALL, tileset.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    }
+                    default:
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        BufferedImage itemsSprite = null;
+
+        try {
+            itemsSprite = ImageIO.read(new File("src\\main\\resources\\images\\ItemSprites.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        int rowsItems = itemsSprite.getHeight() / tileSize;
+        int colsItems = itemsSprite.getWidth() / tileSize;
+
+        for (int y = 0; y < rowsItems; y++) {
+            for (int x = 0; x < colsItems; x++) {
+                int tileIndex = y * colsItems + x;
+                switch(tileIndex)
+                {
+                    case 0: {
+                        _sprites.put(GameSprite.DOOR_KEY, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 1: {
+                        _sprites.put(GameSprite.HEALTH_POTION, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 2: {
+                        _sprites.put(GameSprite.LUCK_AMULET, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 3: {
+                        _sprites.put(GameSprite.STRENGTH_AMULET, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 4: {
+                        _sprites.put(GameSprite.WOODEN_SWORD, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 5: {
+                        _sprites.put(GameSprite.IRON_SWORD, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 6: {
+                        _sprites.put(GameSprite.INFERNAL_SWORD, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 7: {
+                        _sprites.put(GameSprite.WOODEN_WAND, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 8: {
+                        _sprites.put(GameSprite.CRYSTAL_WAND, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 9: {
+                        _sprites.put(GameSprite.CELESTIAL_WAND, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 10: {
+                        _sprites.put(GameSprite.LEATHER_ARMOR, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    }
+                    case 11: {
+                        _sprites.put(GameSprite.IRON_ARMOR, itemsSprite.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
                     }
                     default:
                     {
@@ -184,7 +256,51 @@ public class GameConstants
         {
             case DOOR_KEY:
             {
-                return _tiles.get(GameTile.FADING_BRICK);
+                return _sprites.get(GameSprite.DOOR_KEY);
+            }
+            case HEALTH_POTION:
+            {
+                return _sprites.get(GameSprite.HEALTH_POTION);
+            }
+            case LUCK_AMULET:
+            {
+                return _sprites.get(GameSprite.LUCK_AMULET);
+            }
+            case STRENGTH_AMULET:
+            {
+                return _sprites.get(GameSprite.STRENGTH_AMULET);
+            }
+            case WOODEN_SWORD:
+            {
+                return _sprites.get(GameSprite.WOODEN_SWORD);
+            }
+            case IRON_SWORD:
+            {
+                return _sprites.get(GameSprite.IRON_SWORD);
+            }
+            case INFERNAL_SWORD:
+            {
+                return _sprites.get(GameSprite.INFERNAL_SWORD);
+            }
+            case WOODEN_WAND:
+            {
+                return _sprites.get(GameSprite.WOODEN_WAND);
+            }
+            case CRYSTAL_WAND:
+            {
+                return _sprites.get(GameSprite.CRYSTAL_WAND);
+            }
+            case CELESTIAL_WAND:
+            {
+                return _sprites.get(GameSprite.CELESTIAL_WAND);
+            }
+            case LEATHER_ARMOR:
+            {
+                return _sprites.get(GameSprite.LEATHER_ARMOR);
+            }
+            case IRON_ARMOR:
+            {
+                return _sprites.get(GameSprite.IRON_ARMOR);
             }
             default:
             {
