@@ -79,7 +79,7 @@ public class GameEvents {
         roomOther.addObjectToLoad(new GameRoomItem(GameItemType.DOOR_KEY, 7, 3));
 
         GameLevelLoader loader = new GameLevelLoader();
-        GameLevel level = loader.loadLevel("src\\main\\resources\\levels\\level_1.json");
+        GameLevel level = loader.loadLevel("src\\main\\resources\\levels\\level1.json");
 
         d.loadLevel(level);
 
