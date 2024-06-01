@@ -80,6 +80,7 @@ public class GameInventory implements GameObject {
                     g.drawString("Quantity", _marginLeft + _width / 2 + 10, startY);
 
                     g.drawString("Weight: " + Integer.toString(weight) + "/" + Integer.toString(maxWeight), startX - 13, _marginTop + _height - 10);
+                    g.drawString("Coins: " + Integer.toString(playerData.getCoins()), startX + 100, _marginTop + _height - 10);
 
                     // Start drawing the inventory items
                     int currentY = startY + lineHeight;
@@ -127,6 +128,11 @@ public class GameInventory implements GameObject {
             // Handle item selection
             HashMap<GameItemType, Integer> inventory = _data.getPlayerData().getInventory();
             int inventorySize = inventory != null ? inventory.size() : 0;
+
+            if (inventorySize == 0)
+            {
+                return d;
+            }
 
             if (d.getInput().equals(GameInput.UP)) {
                 _selectedIndex = (_selectedIndex - 1 + inventorySize) % inventorySize;

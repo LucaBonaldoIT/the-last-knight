@@ -51,6 +51,26 @@ public class GamePlayerData {
         }
     }
 
+    public void addCoins(int coinsToAdd)
+    {
+        if (coinsToAdd < 0)
+        {
+            return;
+        }
+
+        _coins += coinsToAdd;
+    }
+
+    public void removeCoins(int coinsToRemove)
+    {
+        if (coinsToRemove < 0)
+        {
+            return;
+        }
+
+        _coins += coinsToRemove;
+    }
+
     public void addItem(GameItemType type)
     {
         GameItem item = GameConstants.getItem(type);

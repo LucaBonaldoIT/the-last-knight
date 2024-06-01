@@ -144,6 +144,8 @@ public class GameFrame extends JFrame {
 
         _data = _data.getInventory().update(_data);
 
+        _data = _data.getPauseMenu().update(_data);
+
         GameAudioHandler.getInstance().process(_data);
 
         _data.setInput(GameInput.NONE);

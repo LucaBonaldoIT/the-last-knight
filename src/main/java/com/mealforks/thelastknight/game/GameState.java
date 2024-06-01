@@ -6,5 +6,7 @@ public enum GameState {
     RUNNING,
     DIALOG,
     INVENTORY,
+    TRADE,
+    PAUSE_MENU,
     BATTLE
 }

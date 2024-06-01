@@ -97,6 +97,7 @@ public class GameCanvas extends JPanel {
         }
 
         _data.getInventory().render(g);
+        _data.getPauseMenu().render(g);
     }
 
     public void update(GameData data)

@@ -29,6 +29,9 @@ public class GameInputHandler {
             case 81 -> GameInput.INSPECT;
             case 73 -> GameInput.INVENTORY;
             case 84 -> GameInput.TOSS;
+            case 89 -> GameInput.YES;
+            case 78 -> GameInput.NO;
+            case 27 -> GameInput.ESC;
             default -> GameInput.NONE;
         };
     }

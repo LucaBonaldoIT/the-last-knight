@@ -208,6 +208,7 @@ public class GameConstants
         return switch (type) {
             case DOOR_KEY -> new GameItem(type, 0, 0, "door key");
             case IRON_SWORD -> new GameItem(type, 10, 100, "iron sword");
+            case HEALTH_POTION -> new GameItem(type, 1, 50, "health potion");
             default -> new GameItem();
         };
     }
@@ -254,6 +255,14 @@ public class GameConstants
 
             case "locked_door": {
                 return new GameDoor(coordinates);
+            }
+            case "dialog_maze":
+            {
+                return new GameDialog("MAZE_ENTERED", "OMG I DON'T SEE A FUCK!");
+            }
+            case "pedophile_pedo":
+            {
+                return GameCharacter.getTextCharacter("I like children", GameSprite.PLAYER_FACING_UP, coordinates);
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
@@ -325,6 +334,10 @@ public class GameConstants
     {
         return _font.deriveFont(8f);
     }
+    public static Font getNarratorDialogFont()
+    {
+        return _font.deriveFont(10f);
+    }
     public static Font getInventoryFont()
     {
         return _font.deriveFont(8f);
@@ -372,5 +385,9 @@ public class GameConstants
     public static float getAspectRatio()
     {
         return GameConstants.getWidth() / (float)GameConstants.getHeight();
+    }
+
+    public static Font getPauseMenuFont() {
+        return _font.deriveFont(11f);
     }
 }

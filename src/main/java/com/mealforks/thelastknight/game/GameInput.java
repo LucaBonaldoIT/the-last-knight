@@ -10,5 +10,8 @@ public enum GameInput {
     LEFT,
     INSPECT,
     INVENTORY,
+    YES,
+    NO,
+    ESC,
     TOSS
 }

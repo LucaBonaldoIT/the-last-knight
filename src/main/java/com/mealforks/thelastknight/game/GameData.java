@@ -15,6 +15,7 @@ public class GameData {
     private GameLevel _level;
     private GamePlayerData _playerData;
     private GameInventory _inventory;
+    private GamePauseMenu _pauseMenu;
 
     public GameLevel getCurrentLevel()
     {
@@ -32,6 +33,7 @@ public class GameData {
         _playerData = new GamePlayerData();
         _player = new GamePlayer(0, 0);
         _inventory = new GameInventory();
+        _pauseMenu = new GamePauseMenu();
         _sounds = new ArrayList<>();
         _musics = new ArrayList<>();
     }
@@ -39,6 +41,11 @@ public class GameData {
     public GamePlayerData getPlayerData()
     {
         return _playerData;
+    }
+
+    public GamePauseMenu getPauseMenu()
+    {
+        return _pauseMenu;
     }
 
     public void setPlayerData(GamePlayerData data)
