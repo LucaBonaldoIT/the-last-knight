@@ -1,5 +1,6 @@
 package main.java.com.mealforks.thelastknight.game;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class GameData {
@@ -31,6 +32,8 @@ public class GameData {
         _playerData = new GamePlayerData();
         _player = new GamePlayer(0, 0);
         _inventory = new GameInventory();
+        _sounds = new ArrayList<>();
+        _musics = new ArrayList<>();
     }
 
     public GamePlayerData getPlayerData()
@@ -56,6 +59,23 @@ public class GameData {
     public void addMusicToBuffer(GameMusic music)
     {
         _musics.add(music);
+    }
+
+    public void addSoundToBuffer(GameSound sound)
+    {
+        _sounds.add(sound);
+    }
+
+    public GameSound dequeueSound()
+    {
+        if (_sounds.isEmpty())
+        {
+            return GameSound.NONE;
+        }
+
+        GameSound sound = _sounds.get(0);
+        _sounds.remove(0);
+        return sound;
     }
 
     public void setGameState(GameState state)

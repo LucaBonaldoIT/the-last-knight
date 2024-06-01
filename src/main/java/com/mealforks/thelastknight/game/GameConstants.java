@@ -13,6 +13,7 @@ public class GameConstants
     public static Font _font;
     public static Map<GameTile, Image> _tiles;
     public static Map<GameSprite, Image> _sprites;
+    public static Map<GameSound, File> _sounds;
 
     static
     {
@@ -190,7 +191,17 @@ public class GameConstants
                 }
             }
         }
+
+        _sounds = new HashMap<>();
+
+        _sounds.put(GameSound.STEP_BUMP, new File("src\\main\\resources\\sound\\step_bump.wav"));
     }
+
+    public static File getSound(GameSound sound)
+    {
+        return _sounds.getOrDefault(sound, null);
+    }
+
 
     public static GameItem getItem(GameItemType type)
     {

@@ -130,7 +130,7 @@ public class GamePlayer implements GameObject {
             {
                 if (obj.getCoordinates().x == x && obj.getCoordinates().y == y)
                 {
-                    // Todo: play walk against wall sound
+                    d.addSoundToBuffer(GameSound.STEP_BUMP);
                     return d;
                 }
             }
@@ -142,7 +142,7 @@ public class GamePlayer implements GameObject {
             }
             else
             {
-                // Todo: play walk against wall sound
+                d.addSoundToBuffer(GameSound.STEP_BUMP);
             }
         }
 
