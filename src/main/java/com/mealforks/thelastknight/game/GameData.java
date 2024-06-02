@@ -48,6 +48,16 @@ public class GameData {
         return _pauseMenu;
     }
 
+    public GameDataSave getSave()
+    {
+        return new GameDataSave();
+    }
+
+    public void loadFromSave(GameDataSave save)
+    {
+        return;
+    }
+
     public void setPlayerData(GamePlayerData data)
     {
         _playerData = data;

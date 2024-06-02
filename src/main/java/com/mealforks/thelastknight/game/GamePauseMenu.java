@@ -12,7 +12,7 @@ public class GamePauseMenu implements GameObject {
     public GamePauseMenu() {
         _active = false;
         _selectedIndex = 0;
-        _menuOptions = new String[]{"Resume Game", "Load Game from Cloud", "Display Controls", "Close Game"};
+        _menuOptions = new String[]{"Resume Game", "Save game", "Load Game from Cloud", "Display Controls", "Close Game"};
         _displayControls = false;
     }
 
@@ -67,7 +67,7 @@ public class GamePauseMenu implements GameObject {
 
         for (int i = 0; i < _menuOptions.length; i++) {
             if (i == _selectedIndex) {
-                g.drawString(">", startX - 20, startY + (i * lineHeight));
+                g.drawString(">", startX - 13, startY + (i * lineHeight));
             }
             g.drawString(_menuOptions[i], startX, startY + (i * lineHeight));
         }
@@ -92,8 +92,6 @@ public class GamePauseMenu implements GameObject {
         if (_displayControls) {
             if (d.getInput().equals(GameInput.ENTER)) {
                 _displayControls = false;
-                _active = false;
-                d.setGameState(GameState.RUNNING);
             }
             return d;
         }
@@ -126,15 +124,21 @@ public class GamePauseMenu implements GameObject {
                 resumeGame(d);
                 break;
             case 1:
+                saveGame(d);
+                break;
+            case 2:
                 loadGameFromCloud(d);
                 break;
             case 3:
-                closeGame(d);
-                break;
-            case 2:
                 displayControls(d);
                 break;
+            case 4:
+                closeGame(d);
+                break;
         }
+    }
+
+    private void saveGame(GameData d) {
     }
 
     private void resumeGame(GameData d) {
@@ -149,7 +153,7 @@ public class GamePauseMenu implements GameObject {
 
     private void closeGame(GameData d) {
         _active = false;
-        // Implement your logic here
+        System.exit(0);
     }
 
     private void displayControls(GameData d) {
@@ -183,20 +187,20 @@ public class GamePauseMenu implements GameObject {
                 "Move Left:  A",
                 "Move Right: D",
                 "Inspect:    Q",
+                "Enter:      E",
                 "Inventory:  I",
+                "Toss Item:  T",
                 "Yes:        Y",
                 "No:         N",
                 "Pause:    ESC",
-                "Enter:      E",
-                "Toss Item:  T",
                 "",
-                "ENTER to close the menu"
+                "Press 'ENTER' to return to the menu"
         };
 
         for (int i = 0; i < controls.length - 1; i++) {
             g.drawString(controls[i], startX + 120, startY + (i * lineHeight) + 20);
         }
 
-        g.drawString(controls[controls.length - 1], startX + 80, startY + (13 * lineHeight) + 20);
+        g.drawString(controls[controls.length - 1], startX + 40, startY + (13 * lineHeight) + 20);
     }
 }

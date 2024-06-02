@@ -148,6 +148,11 @@ public class GameFrame extends JFrame {
 
         GameAudioHandler.getInstance().process(_data);
 
+        if (_data.getInput().equals(GameInput.INSPECT) && _data.getGameObjects().stream().noneMatch(x -> _data.isPlayerLookingAt(x)) && _data.getGameState().equals(GameState.RUNNING))
+        {
+            _data.addObjectToScene(new GameDialog("NOTHING_TO_LOOK_AT", "There is nothing to look at..."));
+        }
+
         _data.setInput(GameInput.NONE);
     }
 
