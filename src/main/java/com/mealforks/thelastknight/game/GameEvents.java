@@ -111,20 +111,49 @@ public class GameEvents {
         d.startLevel();
     }
 
-    public static void StartLevel1(GameData d)
+    public static void LoadLevel1(GameData d)
     {
-        d.clearScene();
+        LoadLevel1(d, null);
+    }
+
+    public static void LoadLevel1(GameData d, GameDataSave save)
+    {
+        GameLevel level = GameLevelLoader.getInstance().loadLevel("src\\main\\resources\\levels\\level1.json");
+
+
+        if (save != null)
+        {
+
+        }
+
 
     }
 
-    public static void StartLevel2(GameData d)
+    public static void LoadLevel2(GameData d)
     {
-        d.clearScene();
+        LoadLevel2(d, null);
+    }
 
+    public static void LoadLevel2(GameData d, GameDataSave save)
+    {
+    }
+
+    public static void LoadLevel3(GameData d)
+    {
+        LoadLevel3(d, null);
+    }
+
+    public static void LoadLevel3(GameData d, GameDataSave save)
+    {
 
     }
 
-    public static void StartLevel3(GameData d)
+    public static void LoadLevelBoss(GameData d)
+    {
+        LoadLevelBoss(d, null);
+    }
+
+    public static void LoadLevelBoss(GameData d, GameDataSave save)
     {
 
     }

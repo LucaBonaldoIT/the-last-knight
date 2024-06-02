@@ -15,7 +15,19 @@ import static main.java.com.mealforks.thelastknight.game.GameConstants.getGameOb
 
 
 public class GameLevelLoader {
-    public GameLevelLoader() {
+    private static GameLevelLoader _instance;
+
+    private GameLevelLoader() {
+    }
+
+    public static GameLevelLoader getInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new GameLevelLoader();
+        }
+
+        return _instance;
     }
 
     public GameLevel loadLevel(String filename) {

@@ -1,12 +1,17 @@
 package main.java.com.mealforks.thelastknight.game;
 
 public class GameDataSaver {
-    private GameDataSaver _instance;
+    private static GameDataSaver _instance;
 
     private  GameDataSaver()
     {}
 
-    public GameDataSaver getInstance() {
+    public static GameDataSaver getInstance() {
+        if (_instance == null)
+        {
+            _instance = new GameDataSaver();
+        }
+
         return _instance;
     }
 

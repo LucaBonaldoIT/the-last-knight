@@ -1,18 +1,25 @@
 package main.java.com.mealforks.thelastknight.game;
 
 public class GameDataLoader {
-    private GameDataLoader _instance;
+    private static GameDataLoader _instance;
 
     private GameDataLoader()
     {}
 
-    public GameDataLoader getInstance() {
+    public static GameDataLoader getInstance() {
+        if (_instance == null)
+        {
+            _instance = new GameDataLoader();
+        }
+
         return _instance;
     }
 
-    public GameData loadFromJson(String fileName)
+    public GameDataSave loadFromJson(String fileName)
     {
         // Qui dovete solo leggere il contenuto del save file e passare il contenuto come string a loadfrom string
+
+        String jsonString = new String();
 
         return this.loadFromString(jsonString);
     }
@@ -30,7 +37,7 @@ public class GameDataLoader {
         return new GameDataSave();
     }
 
-    public GameData loadFromCloud(string urlString)
+    public GameDataSave loadFromCloud(String urlString)
     {
         // Questo lo faro io una volta che sara pronto il resto
 
