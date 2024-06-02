@@ -24,6 +24,29 @@ public class GameNarratorDialog implements GameObject {
     private int _charsToShow;
     private long _lastUpdateTime;
 
+    private boolean _isGameOverDialog;
+    private boolean _isGameEndDialog;
+
+    public void setGameOverDialog(boolean gameOver)
+    {
+        _isGameOverDialog = gameOver;
+    }
+
+    public void setGameEndDialog(boolean gameEnd)
+    {
+        _isGameEndDialog = gameEnd;
+    }
+
+    public boolean isGameOverDialog()
+    {
+        return _isGameOverDialog;
+    }
+
+    public boolean isGameEndDialog()
+    {
+        return _isGameEndDialog;
+    }
+
     public GameNarratorDialog(String text)
     {
         _text = text;
@@ -41,6 +64,20 @@ public class GameNarratorDialog implements GameObject {
         _firstUpdate = true;
     }
 
+    public static GameNarratorDialog getGameEndDialog()
+    {
+        GameNarratorDialog d = new GameNarratorDialog("You won. The end.");
+        d.setGameEndDialog(true);
+        return d;
+    }
+
+    public static GameNarratorDialog getGameOverDialog()
+    {
+        GameNarratorDialog d = new GameNarratorDialog("You lose. Try again.");
+        d.setGameOverDialog(true);
+        return d;
+    }
+
     @Override
     public String getId() {
         return "NARRATOR_DIALOG";
@@ -54,7 +91,7 @@ public class GameNarratorDialog implements GameObject {
     @Override
     public GameData update(GameData d)
     {
-        if (_firstUpdate)
+        if (_firstUpdate && !_isGameEndDialog && _isGameOverDialog)
         {
             d.setGameState(GameState.DIALOG);
         }
@@ -64,8 +101,13 @@ public class GameNarratorDialog implements GameObject {
             _lastUpdateTime = System.currentTimeMillis();
         }
 
-        if (d.getGameState().equals(GameState.DIALOG))
+        if (d.getGameState().equals(GameState.DIALOG) || _isGameEndDialog || _isGameOverDialog)
         {
+            if (_isGameEndDialog || _isGameOverDialog)
+            {
+                System.exit(0);
+            }
+
             if (d.getInput().equals(GameInput.ENTER) && _charsToShow == _text.length())
             {
                 _toDelete = true;

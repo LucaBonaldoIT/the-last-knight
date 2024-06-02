@@ -85,6 +85,16 @@ public class GameCanvas extends JPanel {
             this.showFps(g);
         }
 
+        if (_data.getGameState().equals(GameState.GAME_OVER) || _data.getGameState().equals(GameState.GAME_END))
+        {
+            for (GameObject r : _data.getGameObjects())
+            {
+                r.render(g);
+            }
+
+            return;
+        }
+
         _data.getGameRoom().render(g);
 
         _data.getGameObjects().sort((o1, o2) -> o1.getIndex() - o2.getIndex());

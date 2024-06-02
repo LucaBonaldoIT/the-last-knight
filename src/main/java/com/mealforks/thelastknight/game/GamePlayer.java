@@ -135,7 +135,7 @@ public class GamePlayer implements GameObject {
                 }
             }
 
-            if (d.getGameRoom().getGameArea().IsTileEmpty(x, y))
+            if (d.getGameRoom() != null && d.getGameRoom().getGameArea() != null && d.getGameRoom().getGameArea().IsTileEmpty(x, y))
             {
                 _y = y;
                 _x = x;

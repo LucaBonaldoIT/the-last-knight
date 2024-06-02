@@ -116,18 +116,88 @@ public class GameFrame extends JFrame {
             }
             case READY:
             {
-                // Example of use case, should be more complex
-                GameEvents.TestDialog1(_data);
-            }
-            case RUNNING:
-            {
-                // For the moment nothing
+                //Todo: Look for save file
+
+                GameDataSave save = null;// GameDataLoader.getInstance().loadFromJson(GameConstants.getSaveFileName());
+
+                if (save == null)
+                {
+                    GameEvents.LoadLevel1(_data);
+                }
+                else
+                {
+                    switch (save.getCurrentLevel())
+                    {
+                        case 1:
+                        {
+                            GameEvents.LoadLevel2(_data, save);
+                            break;
+                        }
+                        case 2:
+                        {
+                            GameEvents.LoadLevel3(_data, save);
+                            break;
+                        }
+                        case 3:
+                        {
+                            GameEvents.LoadLevelBoss(_data, save);
+                            break;
+                        }
+                    }
+                }
                 break;
             }
-            case DIALOG:
+            case LOAD_NEXT_LEVEL:
             {
-                // Process dialog-state
+                switch (_data.getCurrentLevel().getLevelIndex())
+                {
+                    case 1:
+                    {
+                        GameEvents.LoadLevel2(_data);
+                        break;
+                    }
+                    case 2:
+                    {
+                        GameEvents.LoadLevel3(_data);
+                        break;
+                    }
+                    case 3:
+                    {
+                        GameEvents.LoadLevelBoss(_data);
+                        break;
+                    }
+                }
                 break;
+            }
+            case GAME_END:
+            {
+                if (_data.getGameObjects().stream().noneMatch(x -> x instanceof GameNarratorDialog))
+                {
+                    _data.clearScene();
+                    _data.addObjectToScene(GameNarratorDialog.getGameEndDialog());
+                }
+
+                for (Object obj : _data.getGameObjects().toArray())
+                {
+                    _data = ((GameObject)obj).update(_data);
+                }
+
+                return;
+            }
+            case GAME_OVER:
+            {
+                if (_data.getGameObjects().stream().noneMatch(x -> x instanceof GameNarratorDialog))
+                {
+                    _data.clearScene();
+                    _data.addObjectToScene(GameNarratorDialog.getGameOverDialog());
+                }
+
+                for (Object obj : _data.getGameObjects().toArray())
+                {
+                    _data = ((GameObject)obj).update(_data);
+                }
+
+                return;
             }
         }
 

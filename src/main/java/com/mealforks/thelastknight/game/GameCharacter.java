@@ -24,6 +24,11 @@ public class GameCharacter implements GameObject {
     private boolean _hasFought;
     private boolean _hasTraded;
 
+    private int _health;
+    private int _attackPower;
+    private int _defense;
+    private boolean _isInCombat;
+
     @Override
     public String getId() {
         return _id;
@@ -44,9 +49,26 @@ public class GameCharacter implements GameObject {
         return new GameCharacter("TRADE_CHARACTER", GameCharacterType.TRADE, coordinates, sprite);
     }
 
-    public static GameCharacter getCombatCharacter(GameSprite sprite, GamePoint coordinates)
+    public static GameCharacter getCombatCharacter(GameSprite sprite, GamePoint coordinates, GameCombatType type)
     {
         return new GameCharacter("COMBAT_CHARACTER", GameCharacterType.COMBAT, coordinates, sprite);
+    }
+
+    public GameCharacter(String id, GameCharacterType type, GamePoint coordinates, GameSprite sprite, int health, int attackPower, int defense) {
+        _id = id;
+        _coordinates = coordinates;
+        _sprite = sprite;
+        _type = type;
+
+        _health = health;
+        _attackPower = attackPower;
+        _defense = defense;
+        _isInCombat = false;
+
+        _hasFought = false;
+        _hasGifted = false;
+        _hasTraded = false;
+        _toDelete = false;
     }
 
     private GameCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
@@ -102,6 +124,23 @@ public class GameCharacter implements GameObject {
         _hasTraded = false;
         _toDelete = false;
     }
+
+    // Combat methods
+    public void attack(GamePlayerData player, GameData d) {
+        player.takeDamage((int)(_attackPower * ((new Random()).nextDouble() + 1)), d);
+    }
+
+    public void takeDamage(int damage, GameData d) {
+        _health -= damage;
+        if (_health <= 0) {
+            _toDelete = true;
+            _isInCombat = false;
+
+            d.addObjectToScene(new GameDialog("COMBAT_SUCCESS", "You defeated me! Arghhh...!"));
+            _hasFought = true;
+        }
+    }
+
 
     @Override
     public GamePoint getCoordinates() {

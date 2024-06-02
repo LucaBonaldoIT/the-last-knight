@@ -390,4 +390,9 @@ public class GameConstants
     public static Font getPauseMenuFont() {
         return _font.deriveFont(11f);
     }
+
+    public static String getSaveFileName()
+    {
+        return "save_file.json";
+    }
 }

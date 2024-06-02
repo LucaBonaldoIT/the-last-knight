@@ -47,6 +47,7 @@ public class GameLevelLoader {
         HashMap<String, GameRoom> rooms = new HashMap<>();
 
         int numberOfRooms = jsonObject.getInt("roomNumber");
+        int levelIndex = jsonObject.getInt("levelIndex");
 
         //parse each room
         for (int i = 0; i < numberOfRooms; i++) {
@@ -179,7 +180,7 @@ public class GameLevelLoader {
             rooms.put(id, currentRoom);
         }
 
-        GameLevel game = new GameLevel(startRoomId, rooms);
+        GameLevel game = new GameLevel(startRoomId, rooms, levelIndex);
         return game;
     }
 

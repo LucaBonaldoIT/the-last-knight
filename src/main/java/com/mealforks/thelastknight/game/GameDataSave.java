@@ -4,19 +4,19 @@ public class GameDataSave {
     private int _currentLevel;
     private GamePlayerData _playerData;
 
-    public int get_currentLevel() {
+    public int getCurrentLevel() {
         return _currentLevel;
     }
 
-    public GamePlayerData get_playerData() {
+    public GamePlayerData getPlayerData() {
         return _playerData;
     }
 
-    public void set_playerData(GamePlayerData _playerData) {
+    public void setPlayerData(GamePlayerData _playerData) {
         this._playerData = _playerData;
     }
 
-    public void set_currentLevel(int _currentLevel) {
+    public void setCurrentLevel(int _currentLevel) {
         this._currentLevel = _currentLevel;
     }
 }

@@ -71,6 +71,30 @@ public class GamePlayerData {
         _coins += coinsToRemove;
     }
 
+    public void takeDamage(int damage, GameData d) {
+        int physicalDefense = _attributes.getEndurance() + _attributes.getStrength(); // Physical defense based on Endurance and Strength
+        int magicalDefense = _attributes.getIntelligence() + _attributes.getLuck(); // Magical defense based on Intelligence and Luck
+
+        int totalDefense = physicalDefense + magicalDefense;
+
+        int modifiedDamage = Math.max(damage - totalDefense, 0); // Ensures damage is not negative
+
+        _health -= modifiedDamage;
+
+        if (_health < 0)
+        {
+            d.setGameState(GameState.GAME_OVER);
+        }
+    }
+
+    public int getDefense() {
+        int physicalDefense = _attributes.getEndurance() + _attributes.getStrength();
+        int magicalDefense = _attributes.getIntelligence() + _attributes.getLuck();
+
+        return physicalDefense + magicalDefense;
+    }
+
+
     public void addItem(GameItemType type)
     {
         GameItem item = GameConstants.getItem(type);
@@ -103,7 +127,6 @@ public class GamePlayerData {
             }
         }
     }
-
 
     public int getMaxWeight()
     {

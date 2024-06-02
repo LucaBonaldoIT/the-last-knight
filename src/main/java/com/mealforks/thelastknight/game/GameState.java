@@ -8,5 +8,8 @@ public enum GameState {
     INVENTORY,
     TRADE,
     PAUSE_MENU,
-    BATTLE
+    BATTLE,
+    LOAD_NEXT_LEVEL,
+    GAME_OVER,
+    GAME_END
 }

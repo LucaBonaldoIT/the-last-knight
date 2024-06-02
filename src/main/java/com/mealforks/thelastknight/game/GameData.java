@@ -2,6 +2,7 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameData {
     private final GameSetting _setting;
@@ -192,6 +193,58 @@ public class GameData {
 
     public void startLevel()
     {
+        if (_level.getLevelIndex() == 1)
+        {
+            Random rng = new Random();
+
+            GamePlayerClass playerClass = switch (rng.nextInt(3))
+            {
+                case 0 -> GamePlayerClass.KNIGHT;
+                case 1 -> GamePlayerClass.MAGE;
+                case 2 -> GamePlayerClass.THIEF;
+                default -> GamePlayerClass.KNIGHT;
+            };
+
+            _playerData.setPlayerClass(playerClass);
+            GamePlayerAttributes attributes = new GamePlayerAttributes();
+
+            switch (playerClass) {
+                case KNIGHT -> {
+                    _playerData.setHealth(100 + rng.nextInt(5) * 10);
+                    _playerData.setStamina(80 + rng.nextInt(5) * 10);
+                    _playerData.setMana(10 + rng.nextInt(5) * 10);
+                    attributes.setStrength(10 + rng.nextInt(5));
+                    attributes.setEndurance(8 + rng.nextInt(5));
+                    attributes.setLuck(3 + rng.nextInt(5));
+                    attributes.setIntelligence(2 + rng.nextInt(5));
+                    attributes.setAgility(4 + rng.nextInt(5));
+                }
+                case MAGE -> {
+                    _playerData.setMana(100 + rng.nextInt(5) * 10);
+                    _playerData.setStamina(60 + rng.nextInt(5) * 10);
+                    _playerData.setHealth(30 + rng.nextInt(5) * 10);
+                    attributes.setIntelligence(10 + rng.nextInt(5));
+                    attributes.setLuck(7 + rng.nextInt(5));
+                    attributes.setEndurance(5 + rng.nextInt(5));
+                    attributes.setStrength(2 + rng.nextInt(5));
+                    attributes.setAgility(4 + rng.nextInt(5));
+                }
+                case THIEF -> {
+                    _playerData.setStamina(100 + rng.nextInt(5) * 10);
+                    _playerData.setHealth(80 + rng.nextInt(5) * 10);
+                    _playerData.setMana(10 + rng.nextInt(5) * 10);
+                    attributes.setAgility(10 + rng.nextInt(5));
+                    attributes.setEndurance(7 + rng.nextInt(5));
+                    attributes.setLuck(6 + rng.nextInt(5));
+                    attributes.setStrength(3 + rng.nextInt(5));
+                    attributes.setIntelligence(2 + rng.nextInt(5));
+                }
+            }
+
+            _playerData.setAttributes(attributes);
+
+        }
+
         this.loadRoom(_level.getStartRoomId());
     }
 

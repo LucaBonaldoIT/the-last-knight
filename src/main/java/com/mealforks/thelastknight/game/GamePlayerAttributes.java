@@ -16,27 +16,6 @@ public class GamePlayerAttributes {
         _agility = 0;
     }
 
-    public void set_endurance(int endurance)
-    {
-        _endurance = endurance;
-    }
-    public void set_strength(int strength)
-    {
-        _strength = strength;
-    }
-    public void set_luck(int luck)
-    {
-        _luck = luck;
-    }
-    public void set_intelligence(int intelligence)
-    {
-        _intelligence = intelligence;
-    }
-    public void set_agility(int agility)
-    {
-        _agility = agility;
-    }
-
     public int getEndurance()
     {
         return _endurance;
@@ -47,18 +26,44 @@ public class GamePlayerAttributes {
         return _agility;
     }
 
+    public int getStrength()
+    {
+        return _strength;
+    }
+
+    public int getIntelligence()
+    {
+        return  _intelligence;
+    }
+
+    public int getLuck()
+    {
+        return _luck;
+    }
+
     public void setAgility(int agility)
     {
         _agility = agility;
     }
 
-    public int getStrength() {
-        return _strength;
+    public void setLuck(int luck)
+    {
+        _luck = luck;
     }
 
     public void setStrength(int strength)
     {
         _strength = strength;
+    }
+
+    public void setEndurance(int endurance)
+    {
+        _endurance = endurance;
+    }
+
+    public void setIntelligence(int intelligence)
+    {
+        _intelligence = intelligence;
     }
 
     public void onNewLevel(GamePlayerClass playerClass)
