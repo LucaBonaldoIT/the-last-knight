@@ -81,6 +81,32 @@ public class GameConstants
             }
         }
 
+        BufferedImage npcImage = null;
+        try {
+            npcImage = ImageIO.read(new File("src\\main\\resources\\images\\NPCS.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int row = tileset.getHeight() / tileSize;
+        int col = tileset.getWidth() / tileSize;
+
+        for (int y = 0; y < row; y++) {
+            for (int x = 0; x < col; x++) {
+                int tileIndex = y * col + x;
+                switch (tileIndex) {
+                    case 40:
+                        _sprites.put(GameSprite.TRADER, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    case 37:
+                        _sprites.put(GameSprite.GIFT_CHARACTER, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                    case 36:
+                        _sprites.put(GameSprite.TEXT_ONLY, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
+                }
+            }
+        }
 
         BufferedImage itemsSprite = null;
 
@@ -207,8 +233,17 @@ public class GameConstants
     {
         return switch (type) {
             case DOOR_KEY -> new GameItem(type, 0, 0, "door key");
-            case IRON_SWORD -> new GameItem(type, 10, 100, "iron sword");
+            case IRON_SWORD -> new GameItem(type, 15, 100, "iron sword");
             case HEALTH_POTION -> new GameItem(type, 1, 50, "health potion");
+            case LUCK_AMULET -> new GameItem(type, 2, 100, "luck amulet");
+            case STRENGTH_AMULET -> new GameItem(type, 2, 100, "strength amulet");
+            case WOODEN_SWORD -> new GameItem(type, 10, 100, "wood sword");
+            case INFERNAL_SWORD -> new GameItem(type, 20, 100, "infernal sword");
+            case WOODEN_WAND -> new GameItem(type, 10, 100, "wooden wand");
+            case CRYSTAL_WAND -> new GameItem(type, 10, 100, "crystal wand");
+            case CELESTIAL_WAND -> new GameItem(type, 10, 100, "celestial wand");
+            case LEATHER_ARMOR -> new GameItem(type, 10, 100, "leather armor");
+            case IRON_ARMOR -> new GameItem(type, 20, 100, "iron armor");
             default -> new GameItem();
         };
     }
@@ -258,11 +293,31 @@ public class GameConstants
             }
             case "dialog_maze":
             {
-                return new GameDialog("MAZE_ENTERED", "OMG I DON'T SEE A FUCK!");
+                return new GameDialog("MAZE_ENTERED", "I can't see anything, Better hurry!");
             }
-            case "pedophile_pedo":
+            case "dialog_enter" :
             {
-                return GameCharacter.getTextCharacter("I like children", GameSprite.PLAYER_FACING_UP, coordinates);
+                return new GameDialog("Room entered", "The king is located on the north... I need to find a way...");
+            }
+            case "dialog_enter2" :
+            {
+                return new GameDialog("Room entered 2", "A civilian! maybe he will give me something useful.");
+            }
+            case "dialog_enter3" :
+            {
+                return new GameDialog("Room entered 2", "Finally! now I need to beat this guy");
+            }
+            case "trader":
+            {
+                return GameCharacter.getTradeCharacter(GameSprite.TRADER, coordinates);
+            }
+            case "gift_key":
+            {
+                return GameCharacter.getGiftCharacter(new GameItem(GameItemType.DOOR_KEY,0, 0, "door key"), GameSprite.GIFT_CHARACTER, coordinates);
+            }
+            case "save_us":
+            {
+                return  GameCharacter.getTextCharacter("I have been waiting for you... I will tell you some tricks, maybe you will stay alive. Press \"I\" to open the inventory and \"T\" to toss an item. You can also use \"Q\" to inspect and \"E\" to interact with objects ", GameSprite.TEXT_ONLY, coordinates);
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
