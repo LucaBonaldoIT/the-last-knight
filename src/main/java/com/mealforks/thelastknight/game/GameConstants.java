@@ -291,6 +291,46 @@ public class GameConstants
             case "locked_door": {
                 return new GameDoor(coordinates);
             }
+            case "dialog_room0":
+            {
+                return new GameDialog("Room 0 entered", "The king is located on the north... Pick the sword to help yourself.");
+            }
+            case "dialog_room1":
+            {
+                return new GameDialog("Room 1 entered", "It looks like the doors disappear... I can't go back.");
+            }
+            case "dialog_room2":
+            {
+                return new GameDialog("Room 2 entered", "It looks like the doors disappear... I can't go back.");
+            }
+            case "dialog_room3":
+            {
+                return new GameDialog("Room 3 entered", "There are multiple paths but only one will get me closer to the king.");
+            }
+            case "dialog_room4":
+            {
+                return new GameDialog("Room 4 entered", "There are multiple paths but only one will get me closer to the king.");
+            }
+            case "dialog_room5":
+            {
+                return new GameDialog("Room 5 entered", "I need to clear my way to go to the next room.");
+            }
+            case "dialog_room6":
+            {
+                return new GameDialog("Room 6 entered", "I need to clear my way to go to the next room.");
+            }
+            case "dialog_room7":
+            {
+                return new GameDialog("Room 7 entered", "Looks like this is the last room before the boss. I need to get ready.");
+            }
+
+
+
+
+            case "gift_character":
+            {
+                return GameCharacter.getGiftCharacter(new GameItem(GameItemType.HEALTH_POTION,1, 50, "health potion"), GameSprite.GIFT_CHARACTER, coordinates);
+            }
             case "dialog_maze":
             {
                 return new GameDialog("MAZE_ENTERED", "I can't see anything, Better hurry!");
