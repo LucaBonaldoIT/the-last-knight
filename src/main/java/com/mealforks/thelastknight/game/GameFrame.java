@@ -129,6 +129,11 @@ public class GameFrame extends JFrame {
 
                 if (save == null)
                 {
+                    save = GameDataLoader.getInstance().loadFromCloud(GameConstants.getSaveFileUrl() + "/get-save-file");
+                }
+
+                if (save == null)
+                {
                     GameEvents.LoadLevel1(_data);
                 }
                 else

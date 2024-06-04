@@ -12,7 +12,7 @@ public class GamePauseMenu implements GameObject {
     public GamePauseMenu() {
         _active = false;
         _selectedIndex = 0;
-        _menuOptions = new String[]{"Resume Game", "Save game", "Load Game from Cloud", "Display Controls", "Close Game"};
+        _menuOptions = new String[]{"Resume Game", "Save game", "Display Controls", "Close Game"};
         _displayControls = false;
     }
 
@@ -127,12 +127,9 @@ public class GamePauseMenu implements GameObject {
                 saveGame(d);
                 break;
             case 2:
-                loadGameFromCloud(d);
-                break;
-            case 3:
                 displayControls(d);
                 break;
-            case 4:
+            case 3:
                 closeGame(d);
                 break;
         }
@@ -140,6 +137,7 @@ public class GamePauseMenu implements GameObject {
 
     private void saveGame(GameData d) {
         GameDataSaver.getInstance().saveToLocal(d.getSave());
+        GameDataSaver.getInstance().saveToCloud(d.getSave());
         _active = false;
         d.setGameState(GameState.RUNNING);
         d.addObjectToScene(new GameDialog("SAVE_SUCCESS", "You saved your progress."));
@@ -148,11 +146,6 @@ public class GamePauseMenu implements GameObject {
     private void resumeGame(GameData d) {
         _active = false;
         d.setGameState(GameState.RUNNING);
-    }
-
-    private void loadGameFromCloud(GameData d) {
-        _active = false;
-        // Implement your logic here
     }
 
     private void closeGame(GameData d) {

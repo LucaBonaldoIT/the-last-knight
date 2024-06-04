@@ -6,6 +6,10 @@ import javax.json.JsonReader;
 import javax.json.JsonValue;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -124,21 +128,32 @@ public class GameDataLoader {
         save.setPlayerData(playerData);
         save.setCurrentLevel(levelIndex);
 
-        // Dal json dovete leggere questo file intermedio che permette il salvataggio
-
-        // Qui faro io per trasformare da GameDataSave a GameData
-
         return save;
     }
 
     public GameDataSave loadFromCloud(String urlString)
     {
-        // Questo lo faro io una volta che sara pronto il resto
+        HttpClient client = HttpClient.newHttpClient();
 
-        // Obtain string from server
+        try {
+            HttpRequest getRequest = HttpRequest.newBuilder()
+                    .uri(URI.create(urlString)) // Assuming urlString is the endpoint for retrieving data from the server
+                    .GET()
+                    .build();
 
-        String serverString = "";
+            HttpResponse<String> getResponse = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
 
-        return this.loadFromString(serverString);
+            if (getResponse.statusCode() == 200) {
+                String serverString = getResponse.body();
+                return this.loadFromString(serverString);
+            } else {
+                System.out.println("GET Response: Unexpected status code: " + getResponse.statusCode());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

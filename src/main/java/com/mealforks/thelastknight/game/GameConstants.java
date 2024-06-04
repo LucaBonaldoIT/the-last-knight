@@ -490,6 +490,11 @@ public class GameConstants
         return _font.deriveFont(11f);
     }
 
+    public static String getSaveFileUrl()
+    {
+        return "http://127.0.0.1:8000";
+    }
+
     public static String getSaveFileName()
     {
         return "src\\main\\resources\\save\\save_file.json";

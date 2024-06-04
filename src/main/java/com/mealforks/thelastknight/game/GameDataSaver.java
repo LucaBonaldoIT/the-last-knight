@@ -3,6 +3,14 @@ package main.java.com.mealforks.thelastknight.game;
 import javax.json.Json;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class GameDataSaver {
@@ -83,10 +91,38 @@ public class GameDataSaver {
 
     public void saveToCloud(GameDataSave save)
     {
-        // Questo lo faro io una volta che sara pronto il resto
-
         String saveString = this.getSaveString(save);
+        saveString = saveString.replaceAll("\\s+", "");
 
-        // Scrivi a server la stringa di save
+        HttpClient client = HttpClient.newHttpClient();
+
+        try {
+            URL url = new URL(GameConstants.getSaveFileUrl()+"/set-save-file");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set the request method to POST
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; utf-8");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+
+            // Create the JSON data string
+            String jsonData = "{\"data\": \""+ saveString + "\"}"; // Replace with actual data
+
+            // Write the JSON data to the output stream
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = jsonData.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+
+            // Get the response code to verify the request was successful
+            int responseCode = connection.getResponseCode();
+
+            // Close the connection
+            connection.disconnect();
+
+        } catch (Exception e) {
+
+        }
     }
 }
