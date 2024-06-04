@@ -78,6 +78,12 @@ public class GamePlayer implements GameObject {
     @Override
     public GameData update(GameData d) {
 
+        if (d.getPlayerData().getHealth() <= 0)
+        {
+            d.setGameState(GameState.GAME_OVER);
+            return d;
+        }
+
         int x = _x;
         int y = _y;
 

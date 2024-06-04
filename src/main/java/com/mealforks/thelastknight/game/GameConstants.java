@@ -359,6 +359,10 @@ public class GameConstants
             {
                 return  GameCharacter.getTextCharacter("I have been waiting for you... I will tell you some tricks, maybe you will stay alive. Press \"I\" to open the inventory and \"T\" to toss an item. You can also use \"Q\" to inspect and \"E\" to interact with objects ", GameSprite.TEXT_ONLY, coordinates);
             }
+            case "combat_test":
+            {
+                return GameCharacter.getCombatCharacter(GameSprite.TRADER, new GamePoint(6, 3), GameCombatType.NORMAL, 10, 1, 1);
+            }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
                 };

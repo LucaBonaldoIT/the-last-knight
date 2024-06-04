@@ -35,7 +35,9 @@
     },
     "objectsToLoad": {
     "locked_door" : "7 0",
-    "dialog_enter" : "0 0"
+    "dialog_enter" : "0 0",
+      "combat_test": "6 3"
+
     },
     "northRoomId": "6",
     "eastRoomId": "4",

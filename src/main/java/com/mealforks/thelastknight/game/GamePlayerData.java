@@ -43,6 +43,19 @@ public class GamePlayerData {
     {
         switch (type)
         {
+            case HEALTH_POTION:
+            {
+                _health += 10;
+                data.addObjectToScene(new GameDialog("HEALTH_POTION_USED", "You drank the potion and felt relieved! (+10 HP)"));
+                this.removeItem(type);
+                break;
+            }
+            case STRENGTH_AMULET:
+            {
+                _attributes.setStrength(_attributes.getStrength() + 1);
+                data.addObjectToScene(new GameDialog("STRENGTH_AMULET_USED", "You equipped the amulet and now you are feeling stronger! (+1 strength)"));
+                this.removeItem(type);
+            }
             default:
             {
                 data.addObjectToScene(new GameDialog("KING_WORDS", "The king's words echoed... \"There's a time and place for everything but not now!\""));
@@ -142,9 +155,9 @@ public class GamePlayerData {
     {
         _xp += xp;
 
-        if (_xp > XP_PER_LEVEL * (_level + 1))
+        while (_xp > XP_PER_LEVEL * (_level + 1))
         {
-            _xp %= XP_PER_LEVEL * (_level + 1);
+            _xp = _xp - XP_PER_LEVEL * (_level + 1);
             _level++;
 
             this.onNewLevel();
