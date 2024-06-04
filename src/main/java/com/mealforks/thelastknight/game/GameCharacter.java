@@ -230,6 +230,7 @@ public class GameCharacter implements GameObject {
             if (_hasFought)
             {
 
+                // Todo: set a sane amount
                 d.getPlayerData().addXp(10000);
 
                 switch (_combatType)

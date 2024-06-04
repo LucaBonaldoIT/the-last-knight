@@ -139,6 +139,10 @@ public class GamePauseMenu implements GameObject {
     }
 
     private void saveGame(GameData d) {
+        GameDataSaver.getInstance().saveToLocal(d.getSave());
+        _active = false;
+        d.setGameState(GameState.RUNNING);
+        d.addObjectToScene(new GameDialog("SAVE_SUCCESS", "You saved your progress."));
     }
 
     private void resumeGame(GameData d) {

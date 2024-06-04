@@ -18,7 +18,7 @@ public class GameEvents {
         }
 
         d.loadLevel(level);
-        d.startLevel();
+        d.startLevel(save != null);
     }
 
     public static void LoadLevel2(GameData d)
@@ -36,7 +36,7 @@ public class GameEvents {
         }
 
         d.loadLevel(level);
-        d.startLevel();
+        d.startLevel(save != null);
     }
 
     public static void LoadLevel3(GameData d)
@@ -54,7 +54,7 @@ public class GameEvents {
         }
 
         d.loadLevel(level);
-        d.startLevel();
+        d.startLevel(save != null);
     }
 
     public static void LoadLevelBoss(GameData d)
@@ -72,6 +72,6 @@ public class GameEvents {
         }
 
         d.loadLevel(level);
-        d.startLevel();
+        d.startLevel(save != null);
     }
 }

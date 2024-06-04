@@ -51,12 +51,17 @@ public class GameData {
 
     public GameDataSave getSave()
     {
-        return new GameDataSave();
+        GameDataSave save = new GameDataSave();
+
+        save.setCurrentLevel(_level.getLevelIndex());
+        save.setPlayerData(_playerData);
+
+        return save;
     }
 
     public void loadFromSave(GameDataSave save)
     {
-        return;
+        _playerData = save.getPlayerData();
     }
 
     public void setPlayerData(GamePlayerData data)
@@ -191,9 +196,9 @@ public class GameData {
         _level = level;
     }
 
-    public void startLevel()
+    public void startLevel(boolean skipCharacterCreation)
     {
-        if (_level.getLevelIndex() == 1)
+        if (_level.getLevelIndex() == 0 && !skipCharacterCreation)
         {
             Random rng = new Random();
 
@@ -246,6 +251,11 @@ public class GameData {
         }
 
         this.loadRoom(_level.getStartRoomId());
+    }
+
+    public void startLevel()
+    {
+        startLevel(false);
     }
 
     public void loadRoom(String roomId)

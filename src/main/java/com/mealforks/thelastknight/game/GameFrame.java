@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.dgc.Lease;
 
 public class GameFrame extends JFrame {
@@ -116,9 +119,13 @@ public class GameFrame extends JFrame {
             }
             case READY:
             {
-                //Todo: Look for save file
 
-                GameDataSave save = null;// GameDataLoader.getInstance().loadFromJson(GameConstants.getSaveFileName());
+                GameDataSave save = null;
+
+                if (Files.exists(Paths.get(GameConstants.getSaveFileName())))
+                {
+                    save = GameDataLoader.getInstance().loadFromJson(GameConstants.getSaveFileName());
+                }
 
                 if (save == null)
                 {
@@ -128,6 +135,11 @@ public class GameFrame extends JFrame {
                 {
                     switch (save.getCurrentLevel())
                     {
+                        case 0:
+                        {
+                            GameEvents.LoadLevel1(_data, save);
+                            break;
+                        }
                         case 1:
                         {
                             GameEvents.LoadLevel2(_data, save);

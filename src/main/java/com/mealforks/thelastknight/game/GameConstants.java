@@ -361,7 +361,7 @@ public class GameConstants
             }
             case "combat_test":
             {
-                return GameCharacter.getCombatCharacter(GameSprite.TRADER, new GamePoint(6, 3), GameCombatType.NORMAL, 10, 1, 1);
+                return GameCharacter.getCombatCharacter(GameSprite.TRADER, new GamePoint(6, 3), GameCombatType.BOSS, 10, 1, 1);
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
@@ -492,6 +492,6 @@ public class GameConstants
 
     public static String getSaveFileName()
     {
-        return "save_file.json";
+        return "src\\main\\resources\\save\\save_file.json";
     }
 }
