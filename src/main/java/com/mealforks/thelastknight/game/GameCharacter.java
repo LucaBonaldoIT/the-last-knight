@@ -54,6 +54,30 @@ public class GameCharacter implements GameObject {
         return new GameCharacter(sprite, coordinates, GameCharacterType.COMBAT, type, health, attackPower, defense);
     }
 
+    public  GameCharacterType get_type()
+    {
+        return _type;
+    }
+    public int getHealth() {
+        return _health;
+    }
+
+    public int getAttackPower() {
+        return _attackPower;
+    }
+
+    public int getDefense() {
+        return _defense;
+    }
+
+    public String getText() {
+        return _text;
+    }
+
+    public GameItem getItemToGift() {
+        return _itemToGift;
+    }
+
     public GameCharacter(GameSprite sprite, GamePoint coordinates, GameCharacterType type, GameCombatType combatType, int health, int attackPower, int defense) {
         _id = "COMBAT_CHARACTER";
         _coordinates = coordinates;

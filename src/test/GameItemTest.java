@@ -1,11 +1,11 @@
-package test;
+package Test;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import main.java.com.mealforks.thelastknight.game.GameItem;
 import main.java.com.mealforks.thelastknight.game.GameItemType;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class GameItemTest {
 

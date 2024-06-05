@@ -123,6 +123,10 @@ public class GameFrame extends JFrame {
         new Timer(DELAY, loop).start();
     }
 
+    public boolean is_Running(){
+        return _isRunning;
+    }
+
     /**
      * checks if there is a save file and loads the correct level
      */
