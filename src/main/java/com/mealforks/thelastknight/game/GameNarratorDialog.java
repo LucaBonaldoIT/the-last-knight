@@ -2,6 +2,10 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
 
+/**
+ * Represents a dialog box for narrating game events in The Last Knight game.
+ * Implements the GameObject interface.
+ */
 public class GameNarratorDialog implements GameObject {
     private static final long DELAY = 25;
     private String _id;
@@ -27,26 +31,51 @@ public class GameNarratorDialog implements GameObject {
     private boolean _isGameOverDialog;
     private boolean _isGameEndDialog;
 
+    /**
+     * Sets whether this dialog is a game over dialog.
+     *
+     * @param gameOver true if this is a game over dialog, false otherwise.
+     */
     public void setGameOverDialog(boolean gameOver)
     {
         _isGameOverDialog = gameOver;
     }
 
+    /**
+     * Sets whether this dialog is a game end dialog.
+     *
+     * @param gameEnd true if this is a game end dialog, false otherwise.
+     */
     public void setGameEndDialog(boolean gameEnd)
     {
         _isGameEndDialog = gameEnd;
     }
 
+    /**
+     * Checks if this is a game over dialog.
+     *
+     * @return true if this is a game over dialog, false otherwise.
+     */
     public boolean isGameOverDialog()
     {
         return _isGameOverDialog;
     }
 
+    /**
+     * Checks if this is a game end dialog.
+     *
+     * @return true if this is a game end dialog, false otherwise.
+     */
     public boolean isGameEndDialog()
     {
         return _isGameEndDialog;
     }
 
+    /**
+     * Constructs a new GameNarratorDialog with the specified text.
+     *
+     * @param text the text to display in the dialog.
+     */
     public GameNarratorDialog(String text)
     {
         _text = text;
@@ -64,6 +93,11 @@ public class GameNarratorDialog implements GameObject {
         _firstUpdate = true;
     }
 
+    /**
+     * Creates a GameNarratorDialog for the end of the game.
+     *
+     * @return a GameNarratorDialog instance with the end game text.
+     */
     public static GameNarratorDialog getGameEndDialog()
     {
         GameNarratorDialog d = new GameNarratorDialog("You won. The end.");
@@ -71,6 +105,11 @@ public class GameNarratorDialog implements GameObject {
         return d;
     }
 
+    /**
+     * Creates a GameNarratorDialog for the game over scenario.
+     *
+     * @return a GameNarratorDialog instance with the game over text.
+     */
     public static GameNarratorDialog getGameOverDialog()
     {
         GameNarratorDialog d = new GameNarratorDialog("You lose. Try again.");
@@ -78,16 +117,32 @@ public class GameNarratorDialog implements GameObject {
         return d;
     }
 
+    /**
+     * Returns the ID of the game object.
+     *
+     * @return the ID of the game object.
+     */
     @Override
     public String getId() {
         return "NARRATOR_DIALOG";
     }
 
+    /**
+     * Returns the coordinates of the game object.
+     *
+     * @return the coordinates of the game object.
+     */
     @Override
     public GamePoint getCoordinates() {
         return GamePoint.NONE;
     }
 
+    /**
+     * Updates the game data based on the state of the dialog.
+     *
+     * @param d the current game data.
+     * @return the updated game data.
+     */
     @Override
     public GameData update(GameData d)
     {
@@ -118,17 +173,32 @@ public class GameNarratorDialog implements GameObject {
         return d;
     }
 
+    /**
+     * Checks if this game object should be deleted.
+     *
+     * @return true if the object should be deleted, false otherwise.
+     */
     @Override
     public boolean toDelete() {
         return _toDelete;
     }
 
+    /**
+     * Returns the index of the game object.
+     *
+     * @return the index of the game object.
+     */
     @Override
     public int getIndex()
     {
         return 999;
     }
 
+    /**
+     * Renders the dialog on the screen.
+     *
+     * @param g the Graphics object used for drawing.
+     */
     @Override
     public void render(Graphics g) {
         g.setColor(Color.BLACK);
@@ -192,6 +262,12 @@ public class GameNarratorDialog implements GameObject {
         }
     }
 
+    /**
+     * Calculates the total number of lines required to display the text.
+     *
+     * @param fm the FontMetrics object used for measuring text dimensions.
+     * @return the total number of lines required to display the text.
+     */
     private int calculateTotalLines(FontMetrics fm) {
         int lineHeight = fm.getHeight();
         int padding = 5; // Padding between text and dialog box borders

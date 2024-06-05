@@ -5,8 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents a room in the game world.
+ */
 public class GameRoom implements GameObject {
 
+    /** Represents a null room. */
     public final static GameRoom NONE = new GameRoom(GameRoomType.NONE);
 
     private String _id;
@@ -27,6 +31,11 @@ public class GameRoom implements GameObject {
 
     private GameRoomData _roomData;
 
+    /**
+     * Constructs a new GameRoom with the specified type.
+     *
+     * @param type The type of the room.
+     */
     private GameRoom(GameRoomType type)
     {
         _id = null;
@@ -42,6 +51,12 @@ public class GameRoom implements GameObject {
         _roomData = null;
     }
 
+    /**
+     * Constructs a new GameRoom with the specified type and area.
+     *
+     * @param type The type of the room.
+     * @param area The area of the room.
+     */
     public GameRoom(GameRoomType type, GameArea area)
     {
         _type = type;
@@ -52,6 +67,17 @@ public class GameRoom implements GameObject {
         _roomData = null;
     }
 
+    /**
+     * Constructs a new GameRoom with the specified parameters.
+     *
+     * @param id                   The ID of the room.
+     * @param type                 The type of the room.
+     * @param area                 The area of the room.
+     * @param rooms                The IDs of adjacent rooms.
+     * @param doors                The doors in the room.
+     * @param defaultStartPoint    The default start point of the room.
+     * @param startPointByComingDoor The start point by coming door.
+     */
     public GameRoom(String id, GameRoomType type, GameArea area, String[] rooms, HashMap<GamePoint, GameTile> doors, GamePoint defaultStartPoint, HashMap<GameTile, GamePoint> startPointByComingDoor)
     {
         _firstLoad = true;
@@ -72,6 +98,9 @@ public class GameRoom implements GameObject {
         _startPointByComingDoor = startPointByComingDoor;
     }
 
+    /**
+     * Constructs a new GameRoom.
+     */
     public GameRoom()
     {
         _type = GameRoomType.NONE;
@@ -80,11 +109,21 @@ public class GameRoom implements GameObject {
         _roomData = null;
     }
 
+    /**
+     * Adds an object to load in the room.
+     *
+     * @param object The object to load.
+     */
     public void addObjectToLoad(GameObject object)
     {
         _objectsToLoad.add(object);
     }
 
+    /**
+     * Gets the objects to load in the room.
+     *
+     * @return The objects to load.
+     */
     public ArrayList<GameObject> getObjectsToLoad()
     {
         if (!_firstLoad)
@@ -97,25 +136,53 @@ public class GameRoom implements GameObject {
         return _objectsToLoad;
     }
 
+    /**
+     * Gets the start point for the given coming door.
+     *
+     * @param comingDoor The coming door.
+     * @return The start point.
+     */
     public GamePoint getStartPoint(GameTile comingDoor)
     {
         return _startPointByComingDoor.get(comingDoor);
     }
 
+    /**
+     * Gets the default start point of the room.
+     *
+     * @return The default start point.
+     */
     public GamePoint getDefaultStartPoint()
     {
         return _defaultStartPoint;
     }
 
-    public GameArea getGameArea() {
+    /**
+     * Gets the game area of the room.
+     *
+     * @return The game area.
+     */
+    public GameArea getGameArea()
+    {
         return _area;
     }
 
+    /**
+     * Saves room data to the given game data.
+     *
+     * @param data The game data to save to.
+     */
     public void saveRoomData(GameData data)
     {
         _roomData = new GameRoomData(data);
     }
 
+    /**
+     * Loads room data from the given game data.
+     *
+     * @param data The game data to load from.
+     * @return The modified game data.
+     */
     public GameData loadRoomData(GameData data)
     {
         if (_roomData != null)
@@ -131,23 +198,45 @@ public class GameRoom implements GameObject {
         return data;
     }
 
+    /**
+     * Retrieves the ID of the object.
+     *
+     * @return The ID of the object.
+     */
     @Override
     public String getId() {
         return "";
     }
 
+    /**
+     * Retrieves the coordinates of the object.
+     *
+     * @return The coordinates of the object.
+     */
     @Override
     public GamePoint getCoordinates() {
         return GamePoint.NONE;
     }
 
+    /**
+     * Retrieves the index of the object.
+     *
+     * @return The index of the object.
+     */
     @Override
     public int getIndex() {
         return 0;
     }
 
+
+    /**
+     * Renders the room on the graphics context.
+     *
+     * @param g The graphics context.
+     */
     @Override
-    public void render(Graphics g) {
+    public void render(Graphics g)
+    {
         if (_area == null)
         {
             return;
@@ -163,9 +252,15 @@ public class GameRoom implements GameObject {
         }
     }
 
+    /**
+     * Updates the room's state.
+     *
+     * @param d The game data.
+     * @return The updated game data.
+     */
     @Override
-    public GameData update(GameData d) {
-
+    public GameData update(GameData d)
+    {
         GamePlayer player = d.getPlayer();
 
         GameTile standingDoor = _doors.getOrDefault(new GamePoint(player.getX(), player.getY()), null);
@@ -201,6 +296,12 @@ public class GameRoom implements GameObject {
 
         return d;
     }
+
+    /**
+     * Indicates whether the room should be deleted.
+     *
+     * @return True if the room should be deleted, false otherwise.
+     */
 
     @Override
     public boolean toDelete() {

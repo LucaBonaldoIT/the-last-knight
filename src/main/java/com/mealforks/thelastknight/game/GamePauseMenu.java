@@ -1,14 +1,23 @@
+/**
+ * The GamePauseMenu class represents the pause menu in the game.
+ * It allows the player to interact with various options such as resuming the game, saving progress,
+ * displaying controls, and closing the game.
+ */
 package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
 
 public class GamePauseMenu implements GameObject {
 
-    private boolean _active;
-    private int _selectedIndex;
-    private String[] _menuOptions;
-    private boolean _displayControls;
+    private boolean _active; // Indicates if the pause menu is active
+    private int _selectedIndex; // Index of the currently selected menu option
+    private String[] _menuOptions; // Array containing menu options
+    private boolean _displayControls; // Indicates if controls should be displayed
 
+    /**
+     * Constructor for the GamePauseMenu class.
+     * Initializes menu options and sets initial state variables.
+     */
     public GamePauseMenu() {
         _active = false;
         _selectedIndex = 0;
@@ -118,6 +127,12 @@ public class GamePauseMenu implements GameObject {
         return false;
     }
 
+    /**
+     * Handles the selection made in the pause menu.
+     * Executes the appropriate action based on the selected menu option.
+     *
+     * @param d The current game data.
+     */
     private void handleMenuSelection(GameData d) {
         switch (_selectedIndex) {
             case 0:
@@ -135,6 +150,12 @@ public class GamePauseMenu implements GameObject {
         }
     }
 
+    /**
+     * Saves the game progress.
+     * Updates the game state and displays a success message.
+     *
+     * @param d The current game data.
+     */
     private void saveGame(GameData d) {
         GameDataSaver.getInstance().saveToLocal(d.getSave());
         GameDataSaver.getInstance().saveToCloud(d.getSave());
@@ -143,21 +164,45 @@ public class GamePauseMenu implements GameObject {
         d.addObjectToScene(new GameDialog("SAVE_SUCCESS", "You saved your progress."));
     }
 
+    /**
+     * Resumes the game.
+     * Updates the game state.
+     *
+     * @param d The current game data.
+     */
     private void resumeGame(GameData d) {
         _active = false;
         d.setGameState(GameState.RUNNING);
     }
 
+    /**
+     * Closes the game.
+     * Exits the application.
+     *
+     * @param d The current game data.
+     */
     private void closeGame(GameData d) {
         _active = false;
         System.exit(0);
     }
 
+    /**
+     * Displays the controls on the screen.
+     * Sets the flag to indicate that controls are being displayed.
+     *
+     * @param d The current game data.
+     */
     private void displayControls(GameData d) {
         _displayControls = true;
         // You can add additional logic here if needed
     }
 
+    /**
+     * Displays the controls on the screen.
+     * Renders the controls graphics.
+     *
+     * @param g The graphics context.
+     */
     private void displayControls(Graphics g) {
         // Display the controls on the screen
         int controlsWidth = 400;
@@ -191,7 +236,8 @@ public class GamePauseMenu implements GameObject {
                 "No:         N",
                 "Pause:    ESC",
                 "",
-                "Press 'ENTER' to return to the menu"
+                "Press 'ENTER' to return"
+
         };
 
         for (int i = 0; i < controls.length - 1; i++) {

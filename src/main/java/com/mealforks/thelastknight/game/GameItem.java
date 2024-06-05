@@ -1,45 +1,72 @@
 package main.java.com.mealforks.thelastknight.game;
 
+/**
+ * Represents an item in the game with a type, weight, value, and name.
+ */
 public class GameItem {
     private GameItemType _type;
     private int _weight;
     private int _value;
-
     private String _name;
 
-    public GameItem()
-    {
+    /**
+     * Constructs a default GameItem object with no type, zero weight, zero value, and a default name.
+     */
+    public GameItem() {
         _type = GameItemType.NONE;
         _weight = 0;
         _value = 0;
         _name = "item_name";
     }
 
-    public GameItem(GameItemType type, int weight, int value, String name)
-    {
+    /**
+     * Constructs a GameItem object with specified type, weight, value, and name.
+     *
+     * @param type the type of the game item.
+     * @param weight the weight of the game item.
+     * @param value the value of the game item.
+     * @param name the name of the game item.
+     */
+    public GameItem(GameItemType type, int weight, int value, String name) {
         _type = type;
         _weight = weight;
         _value = value;
         _name = name;
     }
 
-    public GameItemType getItemType()
-    {
+    /**
+     * Returns the type of the game item.
+     *
+     * @return the type of the game item.
+     */
+    public GameItemType getItemType() {
         return _type;
     }
 
-    public String getName()
-    {
+    /**
+     * Returns the name of the game item.
+     *
+     * @return the name of the game item.
+     */
+    public String getName() {
         return _name;
     }
 
-    public int getWeight()
-    {
+    /**
+     * Returns the weight of the game item.
+     *
+     * @return the weight of the game item.
+     */
+    public int getWeight() {
         return _weight;
     }
 
-    public int getValue()
-    {
+    /**
+     * Returns the value of the game item.
+     *
+     * @return the value of the game item.
+     */
+    public int getValue() {
         return _value;
     }
 }

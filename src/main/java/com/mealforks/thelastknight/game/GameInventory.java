@@ -4,6 +4,10 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the game inventory and handles its rendering and updating.
+ * This class implements the {@link GameObject} interface.
+ */
 public class GameInventory implements GameObject {
     private boolean _active;
     private GameData _data;
@@ -17,34 +21,59 @@ public class GameInventory implements GameObject {
 
     private GameItemType _selectedItem;
 
+    /**
+     * Constructs a GameInventory object and initializes its properties.
+     */
     public GameInventory() {
         _active = false;
         _data = null;
 
         _selectedIndex = 0;
         _selectedItem = GameItemType.NONE;
-        _inspecting = false; // Inizialmente non stiamo ispezionando
+        _inspecting = false; // Initially not inspecting
         _marginLeft = GameConstants.getWidth() / 4;
         _width = GameConstants.getWidth() - _marginLeft * 2;
         _height = GameConstants.getHeight() * 3 / 5;
         _marginTop = GameConstants.getWidth() / 8;
     }
 
+    /**
+     * Returns the unique identifier of this game object.
+     *
+     * @return an empty string as the identifier.
+     */
     @Override
     public String getId() {
         return "";
     }
 
+    /**
+     * Returns the coordinates of this game object.
+     *
+     * @return null as the coordinates.
+     */
     @Override
     public GamePoint getCoordinates() {
         return null;
     }
 
+    /**
+     * Returns the index of this game object.
+     *
+     * @return 9999 as the index.
+     */
     @Override
     public int getIndex() {
         return 9999;
     }
 
+    /**
+     * Renders the inventory on the screen.
+     * If the game state is not INVENTORY or the data is null, the inventory is set to inactive.
+     * Otherwise, it renders either the inventory list or the inspection view based on the current state.
+     *
+     * @param g the graphics context to draw on.
+     */
     @Override
     public void render(Graphics g) {
         if (_data == null || !_data.getGameState().equals(GameState.INVENTORY)) {
@@ -69,6 +98,14 @@ public class GameInventory implements GameObject {
         }
     }
 
+    /**
+     * Renders the inventory list.
+     * Displays items, quantities, weight, and coins.
+     * Highlights the selected item.
+     *
+     * @param g the graphics context to draw on.
+     * @param lineHeight the height of a line of text.
+     */
     private void renderInventory(Graphics g, int lineHeight) {
         GamePlayerData playerData = _data.getPlayerData();
         if (playerData != null) {
@@ -108,6 +145,13 @@ public class GameInventory implements GameObject {
         }
     }
 
+    /**
+     * Renders the inspection view of the inventory.
+     * Displays player attributes such as class, strength, level, endurance, XP, luck, intelligence, agility, health, stamina, and mana.
+     *
+     * @param g the graphics context to draw on.
+     * @param lineHeight the height of a line of text.
+     */
     private void renderInspection(Graphics g, int lineHeight) {
         GamePlayerData playerData = _data.getPlayerData();
         if (playerData != null) {
@@ -140,6 +184,13 @@ public class GameInventory implements GameObject {
         }
     }
 
+    /**
+     * Updates the inventory based on the current game data.
+     * Handles the transition between inventory and running states, and manages input for inventory and inspection views.
+     *
+     * @param d the game data containing the current state and input.
+     * @return the updated game data.
+     */
     @Override
     public GameData update(GameData d) {
         _data = d;
@@ -151,16 +202,16 @@ public class GameInventory implements GameObject {
             } else if (d.getGameState().equals(GameState.INVENTORY)) {
                 d.setGameState(GameState.RUNNING);
                 _active = false;
-                _inspecting = false; // Chiudi il menu di ispezione quando si chiude l'inventario
+                _inspecting = false; // Close the inspection menu when the inventory is closed
             }
         } else if (d.getGameState().equals(GameState.INVENTORY)) {
             if (_inspecting) {
                 if (d.getInput().equals(GameInput.INVENTORY)) {
-                    _inspecting = false; // Chiudi il menu di ispezione e torna all'inventario
+                    _inspecting = false; // Close the inspection menu and return to inventory
                 }
             } else {
                 if (d.getInput().equals(GameInput.INSPECT)) {
-                    _inspecting = true; // Apri il menu di ispezione
+                    _inspecting = true; // Open the inspection menu
                 }
 
                 handleInventoryInput(d);
@@ -170,6 +221,12 @@ public class GameInventory implements GameObject {
         return d;
     }
 
+    /**
+     * Handles the input related to the inventory.
+     * Manages navigation through the inventory and actions such as using or tossing items.
+     *
+     * @param d the game data containing the input.
+     */
     private void handleInventoryInput(GameData d) {
         HashMap<GameItemType, Integer> inventory = _data.getPlayerData().getInventory();
         int inventorySize = inventory != null ? inventory.size() : 0;
@@ -192,6 +249,11 @@ public class GameInventory implements GameObject {
         }
     }
 
+    /**
+     * Indicates whether this game object should be deleted.
+     *
+     * @return false, as the inventory should not be deleted.
+     */
     @Override
     public boolean toDelete() {
         return false;

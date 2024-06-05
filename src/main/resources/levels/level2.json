@@ -10,8 +10,7 @@
     },
     "objectsToLoad": {
       "infernal_sword": "7 5",
-      "dialog_room0":"0 0",
-      "enemy" : "7 6"
+      "dialog_room0":"0 0"
     },
     "northRoomId": "-1",
     "eastRoomId": "2",
@@ -41,7 +40,9 @@
       "key": "1 1",
       "locked_door": "7 0",
       "wooden_sword": "1 7",
-      "dialog_room1":"0 0"
+      "dialog_room1":"0 0",
+      "enemy" : "4 4",
+      "enemy" : "10 4"
     },
     "northRoomId": "3",
     "eastRoomId": "0",
@@ -70,7 +71,9 @@
       "key": "12 1",
       "locked_door": "7 0",
       "luck_amulet": "12 7",
-      "dialog_room2":"0 0"
+      "dialog_room2":"0 0",
+      "enemy" : "4 4",
+      "enemy" : "10 4"
     },
     "northRoomId": "4",
     "eastRoomId": "-1",
@@ -98,7 +101,8 @@
       "key": "1 1",
       "crystal_wand": "13 3",
       "locked_door": "7 0",
-      "dialog_room3":"0 0"
+      "dialog_room3":"0 0",
+      "enemy" : "1 2"
     },
     "northRoomId": "5",
     "eastRoomId": "-1",
@@ -127,7 +131,8 @@
       "key": "12 7",
       "iron_sword": "3 5",
       "locked_door": "7 0",
-      "dialog_room4":"0 0"
+      "dialog_room4":"0 0",
+      "enemy" : "13 7"
     },
     "northRoomId": "6",
     "eastRoomId": "-1",
@@ -157,7 +162,9 @@
       "strength_amulet": "7 3",
       "locked_door": "14 4",
       "dialog_room5":"0 0",
-      "gift_character": "3 1"
+      "gift_character": "3 1",
+      "enemy" : "7 2",
+      "enemy" : "7 6"
     },
     "northRoomId": "-1",
     "eastRoomId": "7",
@@ -187,7 +194,9 @@
       "crystal_wand": "7 3",
       "locked_door": "0 4",
       "dialog_room6":"0 0",
-      "gift_character": "12 1"
+      "gift_character": "12 1",
+      "enemy" : "7 2",
+      "enemy" : "7 6"
     },
     "northRoomId": "-1",
     "eastRoomId": "-1",
