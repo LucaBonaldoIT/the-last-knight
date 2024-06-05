@@ -14,12 +14,21 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
+/**
+ * This class is responsible for loading game data from different sources such as local files or cloud storage.
+ */
+
 public class GameDataLoader {
     private static GameDataLoader _instance;
 
     private GameDataLoader()
     {}
 
+    /**
+     * Get the singleton instance of GameDataLoader.
+     *
+     * @return The singleton instance of GameDataLoader.
+     */
     public static GameDataLoader getInstance() {
         if (_instance == null)
         {
@@ -29,6 +38,11 @@ public class GameDataLoader {
         return _instance;
     }
 
+    /**
+     * Get the singleton instance of GameDataLoader.
+     *
+     * @return The singleton instance of GameDataLoader.
+     */
     public GameDataSave loadFromJson(String fileName)
     {
         // Qui dovete solo leggere il contenuto del save file e passare il contenuto come string a loadfrom string
@@ -47,6 +61,12 @@ public class GameDataLoader {
         return this.loadFromString(jsonString);
     }
 
+    /**
+     * Load game data from a JSON string.
+     *
+     * @param jsonString The JSON string containing the game data.
+     * @return The loaded game data.
+     */
     public GameDataSave loadFromString(String jsonString)
     {
 
@@ -131,6 +151,12 @@ public class GameDataLoader {
         return save;
     }
 
+    /**
+     * Load game data from a cloud service.
+     *
+     * @param urlString The URL of the cloud service endpoint.
+     * @return The loaded game data if successful, null otherwise.
+     */
     public GameDataSave loadFromCloud(String urlString)
     {
         HttpClient client = HttpClient.newHttpClient();

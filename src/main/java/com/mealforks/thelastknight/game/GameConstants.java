@@ -11,14 +11,14 @@ import java.awt.image.BufferedImage;
 public class GameConstants
 {
     public static Font _font;
-    public static Map<GameTile, Image> _tiles;
-    public static Map<GameSprite, Image> _sprites;
+    public static Map<GameTile, Image> _tiles; //tiles for gameElements
+    public static Map<GameSprite, Image> _sprites; //game Sprites
     public static Map<GameSound, File> _sounds;
 
     static
     {
         try {
-            //create the font to use. Specify the size!
+            //create the font to use.
             _font = Font.createFont(Font.TRUETYPE_FONT, new File("src\\main\\resources\\fonts\\font.ttf")).deriveFont(12f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
@@ -34,6 +34,7 @@ public class GameConstants
 
         BufferedImage tileset = null;
 
+        //tileset to use for game tiles
         try {
             tileset = ImageIO.read(new File("src\\main\\resources\\images\\tileset.png"));
         } catch (IOException e) {
@@ -81,6 +82,8 @@ public class GameConstants
             }
         }
 
+
+        //tileset for NPCS
         BufferedImage npcImage = null;
         try {
             npcImage = ImageIO.read(new File("src\\main\\resources\\images\\NPCS.png"));
@@ -104,10 +107,15 @@ public class GameConstants
                     case 36:
                         _sprites.put(GameSprite.TEXT_ONLY, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
                         break;
+                    case 24:
+                        _sprites.put(GameSprite.ENEMY, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                        break;
                 }
             }
         }
 
+
+        //Item Sprites
         BufferedImage itemsSprite = null;
 
         try {
@@ -179,6 +187,7 @@ public class GameConstants
             }
         }
 
+        //Player sprites
         BufferedImage spritesheet = null;
 
         try {
@@ -228,7 +237,7 @@ public class GameConstants
         return _sounds.getOrDefault(sound, null);
     }
 
-
+    //return the name of the item given his enum value
     public static GameItem getItem(GameItemType type)
     {
         return switch (type) {
@@ -247,7 +256,7 @@ public class GameConstants
             default -> new GameItem();
         };
     }
-
+    //gives the type of the item from the name and handles characters and game dialogues
     public static GameObject getGameObject(String objectId, GamePoint coordinates)
     {
         switch (objectId)
@@ -291,6 +300,10 @@ public class GameConstants
             case "locked_door": {
                 return new GameDoor(coordinates);
             }
+            case "initial_narrator":
+            {
+                return new GameNarratorDialog("Once, Castle Serenity stood as a bastion of peace in Aldoria. But when the malevolent sorcerer Malphas seized control, darkness blanketed the land. Now, a lone warrior named Alistair rises, vowing to free the castle and restore the kingdom's rightful ruler. Armed with courage and determination, he faces the sorcerer's dark forces, ready to reclaim Serenity and bring light back to Aldoria.");
+            }
             case "dialog_room0":
             {
                 return new GameDialog("Room 0 entered", "The king is located on the north... Pick the sword to help yourself.");
@@ -324,9 +337,6 @@ public class GameConstants
                 return new GameDialog("Room 7 entered", "Looks like this is the last room before the boss. I need to get ready.");
             }
 
-
-
-
             case "gift_character":
             {
                 return GameCharacter.getGiftCharacter(new GameItem(GameItemType.HEALTH_POTION,1, 50, "health potion"), GameSprite.GIFT_CHARACTER, coordinates);
@@ -359,9 +369,13 @@ public class GameConstants
             {
                 return  GameCharacter.getTextCharacter("I have been waiting for you... I will tell you some tricks, maybe you will stay alive. Press \"I\" to open the inventory and \"T\" to toss an item. You can also use \"Q\" to inspect and \"E\" to interact with objects ", GameSprite.TEXT_ONLY, coordinates);
             }
-            case "combat_test":
+            case "enemy":
             {
-                return GameCharacter.getCombatCharacter(GameSprite.TRADER, new GamePoint(6, 3), GameCombatType.BOSS, 10, 1, 1);
+                return GameCharacter.getCombatCharacter(GameSprite.ENEMY, coordinates, GameCombatType.NORMAL, 50, 10, 20);
+            }
+            case "mini_boss":
+            {
+                return new GameDialog("Mini Boss entered", "This guy looks tuff! I need to get ready.");
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
@@ -490,11 +504,13 @@ public class GameConstants
         return _font.deriveFont(11f);
     }
 
+    //save file online url
     public static String getSaveFileUrl()
     {
         return "http://127.0.0.1:8000";
     }
 
+    //local save file
     public static String getSaveFileName()
     {
         return "src\\main\\resources\\save\\save_file.json";

@@ -13,12 +13,20 @@ import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+/**
+ * This class handles saving game data to local storage or cloud service.
+ */
 public class GameDataSaver {
     private static GameDataSaver _instance;
 
     private  GameDataSaver()
     {}
 
+    /**
+     * Get the singleton instance of GameDataSaver.
+     *
+     * @return The singleton instance of GameDataSaver.
+     */
     public static GameDataSaver getInstance() {
         if (_instance == null)
         {
@@ -28,13 +36,16 @@ public class GameDataSaver {
         return _instance;
     }
 
+    /**
+     * Save game data to local storage.
+     *
+     * @param save The game data to save.
+     */
     public void saveToLocal(GameDataSave save)
     {
-        // Questo lo faro io una volta che sara pronto il resto
 
         String saveString = this.getSaveString(save);
 
-        // Scrivi in locale il json contente il save
         try (FileWriter fileWriter = new FileWriter(GameConstants.getSaveFileName())) {
             fileWriter.write(saveString);
         } catch (IOException e) {
@@ -45,8 +56,7 @@ public class GameDataSaver {
 
     private String getSaveString(GameDataSave save)
     {
-        // Questo dovete farlo voi
-        // Da gamedatasave dovete ottenere un json
+        // Convert GameDataSave to JSON string
         StringBuilder json = new StringBuilder();
         json.append("{\n");
         json.append("\"currentLevel\":").append(save.getCurrentLevel()).append(", \n");
@@ -89,6 +99,11 @@ public class GameDataSaver {
         return json.toString();
     }
 
+    /**
+     * Save game data to a cloud service.
+     *
+     * @param save The game data to save.
+     */
     public void saveToCloud(GameDataSave save)
     {
         String saveString = this.getSaveString(save);

@@ -23,6 +23,9 @@ public class GameData {
         return _level;
     }
 
+    /**
+     * Constructs a new GameData instance with default settings.
+     */
     public GameData()
     {
         _setting = GameSetting.getDefault();
@@ -39,16 +42,29 @@ public class GameData {
         _musics = new ArrayList<>();
     }
 
+    /**
+     * Returns the player data.
+     *
+     * @return The player data.
+     */
     public GamePlayerData getPlayerData()
     {
         return _playerData;
     }
 
+    /**
+     * Returns the pause menu.
+     *
+     * @return The pause menu.
+     */
     public GamePauseMenu getPauseMenu()
     {
         return _pauseMenu;
     }
 
+    /**
+     * @return the save file.
+     */
     public GameDataSave getSave()
     {
         GameDataSave save = new GameDataSave();
@@ -58,37 +74,64 @@ public class GameData {
 
         return save;
     }
-
+    /**
+     * load save data
+     *
+     */
     public void loadFromSave(GameDataSave save)
     {
         _playerData = save.getPlayerData();
     }
-
+    /**
+     * Set player data.
+     *
+     */
     public void setPlayerData(GamePlayerData data)
     {
         _playerData = data;
     }
 
+    /**
+     * Gets the game setting.
+     *
+     * @return The game setting.
+     */
     public GameSetting getGameSetting()
     {
         return _setting;
     }
 
+    /**
+     * @return The game state.
+     */
     public GameState getGameState()
     {
         return _state;
     }
 
+    /**
+     * add music to buffer
+     *
+     * @param music the music to add
+     */
     public void addMusicToBuffer(GameMusic music)
     {
         _musics.add(music);
     }
 
+    /**
+     * add sound to buffer
+     *
+     */
     public void addSoundToBuffer(GameSound sound)
     {
         _sounds.add(sound);
     }
 
+    /**
+     * dequeue sound
+     *
+     */
     public GameSound dequeueSound()
     {
         if (_sounds.isEmpty())
@@ -101,31 +144,52 @@ public class GameData {
         return sound;
     }
 
+    /**
+     * Sets the game state.
+     *
+     */
     public void setGameState(GameState state)
     {
         _state = state;
     }
 
+    /**
+     *
+     * @return The game room.
+     */
     public GameRoom getGameRoom()
     {
         return _room;
     }
 
+    /**
+     * Sets the game room.
+     *
+     */
     public void setGameRoom(GameRoom room)
     {
         _room = room;
     }
 
+    /**
+     * @return gameObjects.
+     */
     public ArrayList<GameObject> getGameObjects()
     {
         return _gameObjects;
     }
 
+    /**
+     * @return inventory.
+     */
     public GameInventory getInventory()
     {
         return  _inventory;
     }
 
+    /**
+     * @return the direction the player is looking.
+     */
     public boolean isPlayerLookingAt(GameObject obj)
     {
         GamePlayer player = this.getPlayer();
@@ -196,6 +260,10 @@ public class GameData {
         _level = level;
     }
 
+    /**
+     * starts level 1 and initialize the character
+     * @param skipCharacterCreation says if the character has to be created
+     */
     public void startLevel(boolean skipCharacterCreation)
     {
         if (_level.getLevelIndex() == 0 && !skipCharacterCreation)
@@ -258,6 +326,10 @@ public class GameData {
         startLevel(false);
     }
 
+    /**
+     * loads the room
+     * @param roomId id of the room.
+     */
     public void loadRoom(String roomId)
     {
         if (!_room.equals(GameRoom.NONE))
@@ -281,6 +353,11 @@ public class GameData {
         this.setPlayer(new GamePlayer(room.getDefaultStartPoint().x, room.getDefaultStartPoint().y));
     }
 
+    /**
+     * load the room
+     * @param roomId room id
+     * @param comingFrom tile where the player is coming
+     */
     public void loadRoom(String roomId, GameTile comingFrom)
     {
         if (!_room.equals(GameRoom.NONE))

@@ -2,6 +2,9 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.event.KeyEvent;
 
+/**
+ * This class handles the mapping of keyboard inputs to game actions.
+ */
 public class GameInputHandler {
     private static GameInputHandler _intance;
 
@@ -9,6 +12,11 @@ public class GameInputHandler {
     {
     }
 
+    /**
+     * Get the instance of GameInputHandler.
+     *
+     * @return The instance of GameInputHandler.
+     */
     public static GameInputHandler getInstance()
     {
         if (_intance == null)
@@ -18,6 +26,12 @@ public class GameInputHandler {
         return _intance;
     }
 
+    /**
+     * Get the corresponding game input for a given key event.
+     *
+     * @param keyEvent The key event.
+     * @return The corresponding game input.
+     */
     public GameInput getGameInput(KeyEvent keyEvent)
     {
         return switch (keyEvent.getKeyCode()) {

@@ -2,23 +2,49 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
 
+/**
+ * The GameArea class represents the game area where the game takes place.
+ * It contains information about the tiles and collisions present in the game area.
+ */
 public class GameArea implements GameObject {
+
     private final GameTile[][] _tiles;
     private final GameCollision[][] _collision;
 
-    public GameArea(GameTile[][] tiles, GameCollision[][] collision)
-    {
+    /**
+     * Constructor for the GameArea class.
+     *
+     * @param tiles     Matrix of GameTile representing the tiles present in the game area.
+     * @param collision Matrix of GameCollision representing the collisions present in the game area.
+     */
+    public GameArea(GameTile[][] tiles, GameCollision[][] collision) {
         _tiles = tiles;
         _collision = collision;
     }
 
-    public boolean IsTileEmpty(int x, int y)
-    {
-        return _collision[y][x] == GameCollision.EMPTY || _collision[y][x] == GameCollision.DOOR_NORTH_WALL || _collision[y][x] == GameCollision.DOOR_EAST_WALL || _collision[y][x] == GameCollision.DOOR_WEST_WALL || _collision[y][x] == GameCollision.DOOR_SOUTH_WALL ;
+    /**
+     * Checks if the tile at the specified coordinates is empty.
+     *
+     * @param x The x-coordinate of the tile.
+     * @param y The y-coordinate of the tile.
+     * @return true if the tile is empty, false otherwise.
+     */
+    public boolean IsTileEmpty(int x, int y) {
+        return _collision[y][x] == GameCollision.EMPTY ||
+                _collision[y][x] == GameCollision.DOOR_NORTH_WALL ||
+                _collision[y][x] == GameCollision.DOOR_EAST_WALL ||
+                _collision[y][x] == GameCollision.DOOR_WEST_WALL ||
+                _collision[y][x] == GameCollision.DOOR_SOUTH_WALL;
     }
 
-    public GameTile getTile(int x, int y)
-    {
+    /**
+     * Retrieves the tile at the specified coordinates.
+     *
+     * @param x The x-coordinate of the tile.
+     * @param y The y-coordinate of the tile.
+     * @return The GameTile object at the specified coordinates.
+     */
+    public GameTile getTile(int x, int y) {
         return _tiles[y][x];
     }
 
@@ -58,4 +84,3 @@ public class GameArea implements GameObject {
         return false;
     }
 }
-

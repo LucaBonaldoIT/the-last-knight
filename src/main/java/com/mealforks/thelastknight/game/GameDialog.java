@@ -2,6 +2,9 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
 
+/**
+ * This class represents a dialog box in the game.
+ */
 public class GameDialog implements GameObject
 {
     private static final long DELAY = 1;
@@ -26,6 +29,12 @@ public class GameDialog implements GameObject
     private int _charsToShow;
     private long _lastUpdateTime;
 
+    /**
+     * Constructor for GameDialog.
+     *
+     * @param id   The ID of the dialog.
+     * @param text The text of the dialog.
+     */
     public GameDialog(String id, String text)
     {
         _id = id;
@@ -43,6 +52,11 @@ public class GameDialog implements GameObject
         _firstUpdate = true;
     }
 
+    /**
+     * Get the text of the dialog.
+     *
+     * @return The text of the dialog.
+     */
     public String getText()
     {
         return _text;
@@ -155,7 +169,11 @@ public class GameDialog implements GameObject
             _startLineIndex++;
         }
     }
-
+    /**
+     * Calculate the number of lines of the text
+     *
+     * @return The text of the dialog.
+     */
     private int calculateTotalLines(FontMetrics fm) {
         int lineHeight = fm.getHeight();
         int padding = 5; // Padding between text and dialog box borders

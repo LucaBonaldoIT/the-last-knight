@@ -11,6 +11,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.dgc.Lease;
 
+/**
+ * This class represents the main frame of the game.
+ */
 public class GameFrame extends JFrame {
     private static final int TARGET_FPS = 120;
 
@@ -24,6 +27,9 @@ public class GameFrame extends JFrame {
 
     private GameData _data;
 
+    /**
+     * Singleton, so private constructor.
+     */
     private GameFrame()
     {
         _data = new GameData();
@@ -45,6 +51,11 @@ public class GameFrame extends JFrame {
         _isRunning = false;
     }
 
+    /**
+     * Get the instance of GameFrame.
+     *
+     * @return The instance of GameFrame.
+     */
     public static GameFrame getInstance()
     {
         if (_instance == null)
@@ -55,6 +66,9 @@ public class GameFrame extends JFrame {
         return _instance;
     }
 
+    /**
+     * Run the game.
+     */
     public void run()
     {
         if (_isRunning)
@@ -109,6 +123,9 @@ public class GameFrame extends JFrame {
         new Timer(DELAY, loop).start();
     }
 
+    /**
+     * checks if there is a save file and loads the correct level
+     */
     private void _update()
     {
         switch(_data.getGameState())
@@ -168,17 +185,17 @@ public class GameFrame extends JFrame {
             {
                 switch (_data.getCurrentLevel().getLevelIndex())
                 {
-                    case 1:
+                    case 0:
                     {
                         GameEvents.LoadLevel2(_data);
                         break;
                     }
-                    case 2:
+                    case 1:
                     {
                         GameEvents.LoadLevel3(_data);
                         break;
                     }
-                    case 3:
+                    case 2:
                     {
                         GameEvents.LoadLevelBoss(_data);
                         break;
@@ -243,6 +260,9 @@ public class GameFrame extends JFrame {
         _data.setInput(GameInput.NONE);
     }
 
+    /**
+     * Update the rendering of the game.
+     */
     private void _render()
     {
         _canvas.update(_data);

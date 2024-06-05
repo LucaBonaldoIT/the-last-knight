@@ -7,6 +7,8 @@ public enum GameSprite {
     PLAYER_FACING_LEFT,
     TRADER,
     ENEMY,
+    MINI_BOSS,
+    BOSS,
     GIFT_CHARACTER,
     TEXT_ONLY,
     DOOR_KEY,

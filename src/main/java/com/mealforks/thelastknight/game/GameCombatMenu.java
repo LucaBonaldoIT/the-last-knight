@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the combat menu in the game.
+ */
 public class GameCombatMenu implements GameObject {
     private List<String> options;
     private int selectedIndex;
@@ -29,6 +32,9 @@ public class GameCombatMenu implements GameObject {
         _displayMessage = true;
     }
 
+    /**
+     * Initializes the combat menu.
+     */
     public GameCombatMenu() {
         options = new ArrayList<>();
         options.add("Melee Attack");
@@ -42,6 +48,11 @@ public class GameCombatMenu implements GameObject {
         selectedIndex = 0;
     }
 
+    /**
+     * Renders the combat menu.
+     *
+     * @param g The graphics object to render on.
+     */
     public void render(Graphics g) {
         int tileSize = GameConstants.getTileSize();
 
@@ -80,14 +91,25 @@ public class GameCombatMenu implements GameObject {
 
     }
 
+    /**
+     * Moves the selection to the next option.
+     */
     public void nextOption() {
         selectedIndex = (selectedIndex + 1) % options.size();
     }
 
+    /**
+     * Moves the selection to the previous option.
+     */
     public void previousOption() {
         selectedIndex = (selectedIndex - 1 + options.size()) % options.size();
     }
 
+    /**
+     * Gets the currently selected option.
+     *
+     * @return The currently selected option.
+     */
     public String getSelectedOption() {
         return options.get(selectedIndex);
     }

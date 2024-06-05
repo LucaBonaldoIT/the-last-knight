@@ -2,16 +2,27 @@ package main.java.com.mealforks.thelastknight.game;
 
 import java.awt.*;
 
+/**
+ * This class represents a door object in the game.
+ */
 public class GameDoor implements GameObject {
     private GamePoint _coordinates;
 
     private boolean _toDelete;
 
+    /**
+     * Constructor for GameDoor.
+     *
+     * @param coordinates The coordinates of the door.
+     */
     public GameDoor(GamePoint coordinates)
     {
         _coordinates = coordinates;
     }
 
+    /**
+     * Default constructor for GameDoor.
+     */
     public GameDoor()
     {
         _coordinates = new GamePoint(0, 0);
@@ -23,6 +34,11 @@ public class GameDoor implements GameObject {
         return _coordinates;
     }
 
+    /**
+     * Set the coordinates of the door.
+     *
+     * @param coordinates The coordinates to set.
+     */
     public void setCoordinates(GamePoint coordinates)
     {
         _coordinates = coordinates;
@@ -43,6 +59,7 @@ public class GameDoor implements GameObject {
 
     }
 
+    //cases that can happen if you have or don't have the key
     @Override
     public GameData update(GameData d) {
 
