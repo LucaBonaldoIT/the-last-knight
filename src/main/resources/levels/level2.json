@@ -10,7 +10,8 @@
     },
     "objectsToLoad": {
       "infernal_sword": "7 5",
-      "dialog_room0":"0 0"
+      "dialog_room0":"0 0",
+      "enemy" : "7 6"
     },
     "northRoomId": "-1",
     "eastRoomId": "2",

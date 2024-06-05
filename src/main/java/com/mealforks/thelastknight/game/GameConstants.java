@@ -371,11 +371,19 @@ public class GameConstants
             }
             case "enemy":
             {
-                return GameCharacter.getCombatCharacter(GameSprite.ENEMY, coordinates, GameCombatType.NORMAL, 50, 10, 20);
+                return GameCharacter.getCombatCharacter(GameSprite.ENEMY, coordinates, GameCombatType.BOSS, 1, 10, 20);
             }
             case "mini_boss":
             {
                 return new GameDialog("Mini Boss entered", "This guy looks tuff! I need to get ready.");
+            }
+            case "dialog_room8":
+            {
+                return new GameDialog("Room 0 entered", "Opss... This room is completely empty, try another one.");
+            }
+            case "dialog_room9":
+            {
+                return new GameDialog("Room 1 entered", "Take your choice. Left or Right. Be careful, a door will take you back to the first room.");
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {
