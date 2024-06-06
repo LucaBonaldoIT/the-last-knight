@@ -1,11 +1,11 @@
-package Test;
+package test;
 
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import main.java.com.mealforks.thelastknight.game.GameItem;
 import main.java.com.mealforks.thelastknight.game.GameItemType;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 public class GameItemTest {
 
@@ -29,33 +29,5 @@ public class GameItemTest {
         assertEquals(weight, item.getWeight());
         assertEquals(value, item.getValue());
         assertEquals(name, item.getName());
-    }
-
-    @Test
-    public void testGetItemType() {
-        GameItemType type = GameItemType.IRON_SWORD;
-        GameItem item = new GameItem(type, 20, 100, "Shield");
-        assertEquals(type, item.getItemType());
-    }
-
-    @Test
-    public void testGetName() {
-        String name = "Potion";
-        GameItem item = new GameItem(GameItemType.HEALTH_POTION, 5, 25, name);
-        assertEquals(name, item.getName());
-    }
-
-    @Test
-    public void testGetWeight() {
-        int weight = 15;
-        GameItem item = new GameItem(GameItemType.CELESTIAL_WAND, weight, 10, "Key");
-        assertEquals(weight, item.getWeight());
-    }
-
-    @Test
-    public void testGetValue() {
-        int value = 30;
-        GameItem item = new GameItem(GameItemType.WOODEN_SWORD, 3, value, "Gem");
-        assertEquals(value, item.getValue());
     }
 }

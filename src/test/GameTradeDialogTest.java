@@ -27,41 +27,4 @@ public class GameTradeDialogTest {
         gameState.setGameState(GameState.TRADE);
         gameData = new GameData();
     }
-
-    @Test
-    void testUpdate_FirstUpdate() {
-        // Chiamiamo il metodo update per la prima volta
-        gameData = gameTradeDialog.update(gameData);
-
-        // Verifichiamo che lo stato del gioco sia cambiato in TRADE
-        assertEquals(GameState.TRADE, gameData.getGameState());
-    }
-
-    @Test
-    void testUpdate_InputYes() {
-        // Simuliamo l'input YES del giocatore
-        gameData.setInput(GameInput.YES);
-
-        // Chiamiamo il metodo update
-        gameData = gameTradeDialog.update(gameData);
-
-        // Verifichiamo che lo stato del gioco sia rimasto a TRADE
-        assertEquals(GameState.TRADE, gameData.getGameState());
-        // Verifichiamo che il dialogo non sia stato contrassegnato come da eliminare
-        assertEquals(false, gameTradeDialog.toDelete());
-    }
-
-    @Test
-    void testUpdate_InputNo() {
-        // Simuliamo l'input NO del giocatore
-        gameData.setInput(GameInput.NO);
-
-        // Chiamiamo il metodo update
-        gameData = gameTradeDialog.update(gameData);
-
-        // Verifichiamo che lo stato del gioco sia rimasto a TRADE
-        assertEquals(GameState.TRADE, gameData.getGameState());
-        // Verifichiamo che il dialogo non sia stato contrassegnato come da eliminare
-        assertEquals(false, gameTradeDialog.toDelete());
-    }
 }

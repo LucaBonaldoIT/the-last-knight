@@ -1,9 +1,10 @@
-package Test;
+package test;
 
 import main.java.com.mealforks.thelastknight.game.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.awt.*;
+import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameInventoryTest {
