@@ -8,6 +8,8 @@ public enum GameSprite {
     TRADER,
     ENEMY,
     MINI_BOSS,
+    MINI_BOSS1,
+    MINI_BOSS2,
     BOSS,
     GIFT_CHARACTER,
     TEXT_ONLY,

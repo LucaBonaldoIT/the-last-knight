@@ -1,4 +1,4 @@
-package test.java.com.mealforks.thelastknight.game;
+package test;
 
 import main.java.com.mealforks.thelastknight.game.*;
 import org.junit.jupiter.api.BeforeEach;

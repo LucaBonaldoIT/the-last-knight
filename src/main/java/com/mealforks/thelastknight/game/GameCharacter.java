@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.max;
+
 public class GameCharacter implements GameObject {
     private String _id;
     private GamePoint _coordinates;
@@ -212,20 +214,61 @@ public class GameCharacter implements GameObject {
         switch (action) {
             case "Melee Attack":
                 _combatMenu.displayMessage("You attack the enemy!");
-                // Todo: calculate damage to enemy
-                takeDamage(10, d);
+                int damage = 0;
+                if(d.getPlayerData().getAttributes().getStrength() < 25)
+                {
+                    damage = 25;
+                }
+                else if (d.getPlayerData().getAttributes().getStrength() < 100){
+                    damage = d.getPlayerData().getAttributes().getStrength();
+                }
+                else{
+                    damage = 100;
+                }
+
+                Random gen = new Random();
+                if(d.getPlayerData().getAttributes().getLuck() < 10)
+                {
+                    damage += gen.nextInt(10);
+                }
+                else if (d.getPlayerData().getAttributes().getLuck() < 50)
+                {
+                    damage += gen.nextInt(d.getPlayerData().getAttributes().getLuck());
+                }
+                else
+                {
+                    damage += gen.nextInt(50);
+                }
+
+                takeDamage(damage, d);
                 break;
+
             case "Cast Spell":
                 _combatMenu.displayMessage("You cast a spell!");
-                // Todo: calculate damage to enemy
-                takeDamage(10, d);
+                int damageSpell = 0;
+                if(d.getPlayerData().getAttributes().getIntelligence() < 25)
+                {
+                    damageSpell = 25;
+                }
+                else if (d.getPlayerData().getAttributes().getIntelligence() < 100){
+                    damageSpell = d.getPlayerData().getAttributes().getIntelligence();
+                }
+                else{
+                    damageSpell = 100;
+                }
+                Random gen1 = new Random();
+                damageSpell += damageSpell + (int)(gen1.nextInt(d.getPlayerData().getAttributes().getLuck()) * 0.15);
+                takeDamage(damageSpell, d);
                 break;
+
             case "Use Item":
                 _combatMenu.displayMessage("You tried to use an item, but failed!");
                 break;
+
             case "Flee":
                 _combatMenu.displayMessage("You really think you can flee?");
                 break;
+
             default:
                 break;
         }
@@ -254,8 +297,7 @@ public class GameCharacter implements GameObject {
             if (_hasFought)
             {
 
-                // Todo: set a sane amount
-                d.getPlayerData().addXp(10000);
+                d.getPlayerData().addXp(1000);
 
                 switch (_combatType)
                 {

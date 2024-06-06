@@ -110,6 +110,14 @@ public class GameConstants
                     case 24:
                         _sprites.put(GameSprite.ENEMY, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
                         break;
+                    case 82:
+                        _sprites.put(GameSprite.MINI_BOSS, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    case 83:
+                        _sprites.put(GameSprite.MINI_BOSS1, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    case 81:
+                        _sprites.put(GameSprite.MINI_BOSS2, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
+                    case 85:
+                        _sprites.put(GameSprite.BOSS, npcImage.getSubimage(x * tileSize, y * tileSize, tileSize, tileSize));
                 }
             }
         }
@@ -371,11 +379,23 @@ public class GameConstants
             }
             case "enemy":
             {
-                return GameCharacter.getCombatCharacter(GameSprite.ENEMY, coordinates, GameCombatType.BOSS, 1, 10, 20);
+                return GameCharacter.getCombatCharacter(GameSprite.ENEMY, coordinates, GameCombatType.NORMAL, 50, 10, 20);
             }
             case "mini_boss":
             {
                 return new GameDialog("Mini Boss entered", "This guy looks tuff! I need to get ready.");
+            }
+            case "mini_boss_character" :
+            {
+                return GameCharacter.getCombatCharacter(GameSprite.MINI_BOSS ,coordinates, GameCombatType.BOSS, 200, 10, 20);
+            }
+            case "mini_boss_character1" :
+            {
+                return GameCharacter.getCombatCharacter(GameSprite.MINI_BOSS1 ,coordinates, GameCombatType.BOSS, 250, 10, 20);
+            }
+            case "mini_boss_character2" :
+            {
+                return GameCharacter.getCombatCharacter(GameSprite.MINI_BOSS2 ,coordinates, GameCombatType.BOSS, 250, 10, 20);
             }
             case "dialog_room8":
             {
@@ -384,6 +404,14 @@ public class GameConstants
             case "dialog_room9":
             {
                 return new GameDialog("Room 1 entered", "Take your choice. Left or Right. Be careful, a door will take you back to the first room.");
+            }
+            case "dialog_room_boss":
+            {
+                return new GameDialog("Boss", "I can feel the presence of the evil mage who took control of the castle...");
+            }
+            case "boss_character":
+            {
+                return GameCharacter.getCombatCharacter(GameSprite.BOSS, coordinates, GameCombatType.FINAL_BOSS, 300, 10, 20);
             }
             default: {
                 return new GameRoomItem(GameItemType.NONE, -1, -1) {

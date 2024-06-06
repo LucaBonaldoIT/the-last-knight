@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import main.java.com.mealforks.thelastknight.game.GameData;
 import main.java.com.mealforks.thelastknight.game.GameEvents;

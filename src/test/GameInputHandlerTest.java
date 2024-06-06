@@ -1,4 +1,4 @@
-package Test;
+package test;
 import org.junit.jupiter.api.Test;
 import main.java.com.mealforks.thelastknight.game.GameInput;
 import main.java.com.mealforks.thelastknight.game.GameInputHandler;
