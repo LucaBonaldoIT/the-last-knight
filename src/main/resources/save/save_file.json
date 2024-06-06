@@ -1,0 +1,23 @@
+{
+"currentLevel":0, 
+"playerData":{
+	"xp":0, 
+	"level":0, 
+	"inventory":{ 
+	}, 
+	"playerClass": "MAGE",
+	"attributes":{
+		"strength":4,
+		"endurance":7,
+		"luck":11,
+		"intelligence":11,
+		"agility":7
+	},
+	"health":50,
+	"stamina":90,
+	"mana":130,
+	"maxWeight":100,
+	"inventoryWeight":0,
+	"coins":0
+	} 
+}
