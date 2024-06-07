@@ -132,4 +132,55 @@ public class GameAudioHandler {
             }
         }
     }
+    /**
+     * A task that handles the playing of background music in a separate thread.
+     * The music will loop continuously until the clip is stopped.
+     */
+    private static class BackgroundMusicTask implements Runnable {
+        private final File audioFile;
+
+        /**
+         * Constructs a BackgroundMusicTask with the specified audio file.
+         *
+         * @param audioFile the audio file to be played as background music
+         */
+        public BackgroundMusicTask(File audioFile) {
+            this.audioFile = audioFile;
+        }
+
+        /**
+         * The run method of the BackgroundMusicTask.
+         * Opens the audio file, plays the music in a loop, and keeps the thread alive
+         * while the music is playing.
+         */
+        @Override
+        public void run() {
+            try (AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile)) {
+                Clip audioClip = AudioSystem.getClip();
+                audioClip.open(audioStream);
+                audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+
+                audioClip.start();
+
+                while (audioClip.isRunning()) {
+                    Thread.sleep(100);
+                }
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Submits a task to play background music using the provided audio file.
+     *
+     * @param backgroundMusicFile the audio file to be played as background music
+     */
+    public void playBackgroundMusic(File backgroundMusicFile) {
+        try {
+            audioThreadPool.submit(new BackgroundMusicTask(backgroundMusicFile));
+        } catch (RejectedExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 }

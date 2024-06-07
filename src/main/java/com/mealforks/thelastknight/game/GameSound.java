@@ -6,5 +6,6 @@ public enum GameSound {
     STEP_BUMP,
     STEP_FORBIDDEN,
     STEP_HURT_0,
-    STEP_HURT_1
+    STEP_HURT_1,
+    ITEM_PICK
 }
