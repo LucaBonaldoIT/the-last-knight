@@ -59,7 +59,11 @@ public class GameDoor implements GameObject {
 
     }
 
-    //cases that can happen if you have or don't have the key
+    /**
+     * Handles the cases where the door is locked
+     *
+     * @param d gamedata
+     */
     @Override
     public GameData update(GameData d) {
 

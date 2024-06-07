@@ -114,6 +114,7 @@ public class GameCombatMenu implements GameObject {
         return options.get(selectedIndex);
     }
 
+    //getters and update
     @Override
     public String getId() {
         return "COMBAT_MENU";

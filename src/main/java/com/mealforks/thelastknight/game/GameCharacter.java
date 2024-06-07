@@ -6,6 +6,9 @@ import java.util.Random;
 
 import static java.lang.Math.max;
 
+/**
+ * Represents a character in the game with various properties and behaviors.
+ */
 public class GameCharacter implements GameObject {
     private String _id;
     private GamePoint _coordinates;
@@ -31,26 +34,65 @@ public class GameCharacter implements GameObject {
     private boolean _isInCombat;
     private boolean _playerTurn = true;
 
+    /**
+     * Gets the ID of the game character.
+     *
+     * @return the ID of the character.
+     */
     @Override
     public String getId() {
         return _id;
     }
 
+    /**
+     * Creates a gift character.
+     *
+     * @param item the item to gift.
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     * @return a new gift character.
+     */
     public static GameCharacter getGiftCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
     {
         return new GameCharacter(item, sprite, coordinates);
     }
 
+    /**
+     * Creates a text character.
+     *
+     * @param text the text associated with the character.
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     * @return a new text character.
+     */
     public static GameCharacter getTextCharacter(String text, GameSprite sprite, GamePoint coordinates)
     {
         return new GameCharacter(text, sprite, coordinates);
     }
 
+    /**
+     * Creates a trade character.
+     *
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     * @return a new trade character.
+     */
     public static GameCharacter getTradeCharacter(GameSprite sprite, GamePoint coordinates)
     {
         return new GameCharacter("TRADE_CHARACTER", GameCharacterType.TRADE, coordinates, sprite);
     }
 
+    /**
+     * Creates a combat character.
+     *
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     * @param type the type of combat.
+     * @param health the health of the character.
+     * @param attackPower the attack power of the character.
+     * @param defense the defense of the character.
+     * @return a new combat character.
+     */
     public static GameCharacter getCombatCharacter(GameSprite sprite, GamePoint coordinates, GameCombatType type, int health, int attackPower, int defense)
     {
         return new GameCharacter(sprite, coordinates, GameCharacterType.COMBAT, type, health, attackPower, defense);
@@ -80,6 +122,17 @@ public class GameCharacter implements GameObject {
         return _itemToGift;
     }
 
+    /**
+     * Constructs a combat character.
+     *
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     * @param type the type of character.
+     * @param combatType the type of combat.
+     * @param health the health of the character.
+     * @param attackPower the attack power of the character.
+     * @param defense the defense of the character.
+     */
     public GameCharacter(GameSprite sprite, GamePoint coordinates, GameCharacterType type, GameCombatType combatType, int health, int attackPower, int defense) {
         _id = "COMBAT_CHARACTER";
         _coordinates = coordinates;
@@ -99,6 +152,13 @@ public class GameCharacter implements GameObject {
         _combatMenu = new GameCombatMenu();
     }
 
+    /**
+     * Constructs a gift character.
+     *
+     * @param item the item to gift.
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     */
     private GameCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
     {
         _id = "GIFT_CHARACTER";
@@ -114,6 +174,13 @@ public class GameCharacter implements GameObject {
         _combatMenu = new GameCombatMenu();
     }
 
+    /**
+     * Constructs a text-only character.
+     *
+     * @param text the text associated with the character.
+     * @param sprite the sprite representing the character.
+     * @param coordinates the coordinates of the character.
+     */
     private GameCharacter(String text, GameSprite sprite, GamePoint coordinates)
     {
         _id = "TEXT_ONLY_CHARACTER";
@@ -129,6 +196,14 @@ public class GameCharacter implements GameObject {
         _combatMenu = new GameCombatMenu();
     }
 
+    /**
+     * Constructs a general character.
+     *
+     * @param id the ID of the character.
+     * @param type the type of character.
+     * @param coordinates the coordinates of the character.
+     * @param sprite the sprite representing the character.
+     */
     public GameCharacter(String id, GameCharacterType type, GamePoint coordinates, GameSprite sprite)
     {
         _id = id;
@@ -143,6 +218,9 @@ public class GameCharacter implements GameObject {
         _combatMenu = new GameCombatMenu();
     }
 
+    /**
+     * Constructs a default character.
+     */
     public GameCharacter()
     {
         _id = "DEFAULT_CHARACTER_ID";
@@ -158,6 +236,12 @@ public class GameCharacter implements GameObject {
     }
 
     // Combat methods
+    /**
+     * Makes the character attack the player.
+     *
+     * @param player the player to attack.
+     * @param d the game data.
+     */
     public void attack(GamePlayerData player, GameData d) {
         player.takeDamage((int)(_attackPower * ((new Random()).nextDouble() + 1)), d);
     }
@@ -177,6 +261,7 @@ public class GameCharacter implements GameObject {
         return 0;
     }
 
+    //renders the character
     @Override
     public void render(Graphics g) {
         int tileSize = GameConstants.getTileSize();
@@ -188,6 +273,11 @@ public class GameCharacter implements GameObject {
         }
     }
 
+    /**
+     * Handles combat interactions.
+     *
+     * @param d the game data.
+     */
     private void handleCombat(GameData d) {
         if (_playerTurn) {
             switch (d.getInput()) {
@@ -209,6 +299,11 @@ public class GameCharacter implements GameObject {
         }
     }
 
+    /**
+     * Executes the player's action during combat.
+     *
+     * @param d the game data.
+     */
     private void executePlayerAction(GameData d) {
         String action = _combatMenu.getSelectedOption();
         switch (action) {
@@ -280,6 +375,12 @@ public class GameCharacter implements GameObject {
         _playerTurn = true;
     }
 
+    /**
+     * Updates the state of the character based on game data.
+     *
+     * @param d the game data.
+     * @return the updated game data.
+     */
     @Override
     public GameData update(GameData d) {
         if (!d.isPlayerLookingAt(this))
@@ -287,6 +388,7 @@ public class GameCharacter implements GameObject {
             return d;
         }
 
+        //case fighting
         if (_isInCombat && d.getGameState().equals(GameState.BATTLE))
         {
             if (_combatMenu.getDisplayMessage())
@@ -348,6 +450,8 @@ public class GameCharacter implements GameObject {
             handleCombat(d);
         }
 
+
+        //case trading
         if (d.getGameState() == GameState.TRADE && _type == GameCharacterType.TRADE)
         {
             if (d.getInput().equals(GameInput.YES))

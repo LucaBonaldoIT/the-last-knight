@@ -109,6 +109,7 @@ public class GameDialog implements GameObject
         return 999;
     }
 
+    //method to render the dialog
     @Override
     public void render(Graphics g) {
         g.setColor(Color.WHITE);

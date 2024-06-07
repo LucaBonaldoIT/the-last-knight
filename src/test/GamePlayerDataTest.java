@@ -85,16 +85,12 @@ public class GamePlayerDataTest {
     public void testUseItem() {
         GameData gameData = new GameData();
 
-        // Aggiungiamo un'pozione alla salute all'inventario del giocatore
         playerData.addItem(GameItemType.HEALTH_POTION);
 
-        // Chiamiamo il metodo useItem() per utilizzare l'pozione
         playerData.useItem(GameItemType.HEALTH_POTION, gameData);
 
-        // Verifichiamo che la salute del giocatore sia aumentata di 10 dopo aver utilizzato l'pozione
         assertEquals(10, playerData.getHealth());
 
-        // Verifichiamo che l'pozione sia stata rimossa dall'inventario del giocatore dopo l'uso
         assertTrue(playerData.getInventory().containsKey(GameItemType.HEALTH_POTION));
 
 

@@ -8,6 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.image.BufferedImage;
 
+/**
+ * This class contains constants and utilities used in the game "The Last Knight".
+ * It includes classes for handling graphical resources, sounds, and game dialogues,
+ * as well as methods for obtaining game objects and configuration information.
+ */
 public class GameConstants
 {
     public static Font _font;
@@ -17,6 +22,7 @@ public class GameConstants
 
     static
     {
+        //image tilesets
         try {
             //create the font to use.
             _font = Font.createFont(Font.TRUETYPE_FONT, new File("src\\main\\resources\\fonts\\font.ttf")).deriveFont(12f);
@@ -245,7 +251,10 @@ public class GameConstants
         return _sounds.getOrDefault(sound, null);
     }
 
-    //return the name of the item given his enum value
+    /**
+     * return the name of the item given his enum value
+     */
+
     public static GameItem getItem(GameItemType type)
     {
         return switch (type) {
@@ -264,7 +273,10 @@ public class GameConstants
             default -> new GameItem();
         };
     }
-    //gives the type of the item from the name and handles characters and game dialogues
+
+    /**
+     * //gives the type of the item from the name and handles characters and game dialogues
+     */
     public static GameObject getGameObject(String objectId, GamePoint coordinates)
     {
         switch (objectId)
@@ -419,7 +431,9 @@ public class GameConstants
             }
         }
     }
-
+    /**
+     * Return the correct sprite given the enum type
+     */
     public static Image getItemSprite(GameItemType type)
     {
         switch (type)
@@ -478,7 +492,7 @@ public class GameConstants
             }
         }
     }
-
+    //getters for all the variables
     public static Font getDialogFont()
     {
         return _font.deriveFont(8f);

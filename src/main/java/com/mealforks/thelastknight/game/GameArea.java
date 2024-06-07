@@ -48,6 +48,7 @@ public class GameArea implements GameObject {
         return _tiles[y][x];
     }
 
+    //getters
     @Override
     public String getId() {
         return "GAME_AREA";

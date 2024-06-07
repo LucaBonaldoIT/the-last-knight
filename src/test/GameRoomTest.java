@@ -25,7 +25,6 @@ public class GameRoomTest {
         GameTile[][] tiles = new GameTile[10][10];
         GameCollision[][] collisions = new GameCollision[10][10];
 
-        // Inizializzare i tiles e collisions con valori di esempio
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 tiles[i][j] = GameTile.EMPTY;
@@ -84,12 +83,12 @@ public class GameRoomTest {
         gameRoom.saveRoomData(data);
         GameData newData = gameRoom.loadRoomData(data);
         assertNotNull(newData);
-        // Add further assertions based on the expected state of newData
+
     }
 
     @Before
     public void setUp1() {
-        // Inizializzare i tiles e collisions con valori di esempio
+
         GameTile[][] tiles = new GameTile[10][10];
         GameCollision[][] collisions = new GameCollision[10][10];
         for (int i = 0; i < 10; i++) {
@@ -99,12 +98,12 @@ public class GameRoomTest {
             }
         }
 
-        // Configura la stanza con una porta a est
+
         HashMap<GamePoint, GameTile> doors = new HashMap<>();
         doors.put(new GamePoint(1, 1), GameTile.DOOR_EAST_WALL);
         gameRoom = new GameRoom("room1", GameRoomType.DEFAULT, new GameArea(tiles, collisions), new String[]{"room2", null, null, null}, doors, new GamePoint(0, 0), new HashMap<>());
 
-        // Configura i dati del gioco e il giocatore
+
         data = new GameData();
         player = new GamePlayer(1, 1);
         data.setPlayer(player);

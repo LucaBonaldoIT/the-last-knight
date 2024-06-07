@@ -54,6 +54,11 @@ public class GameDataSaver {
 
     }
 
+    /**
+     * Returns a string with the encoded save file
+     *
+     * @param save The game data to save.
+     */
     private String getSaveString(GameDataSave save)
     {
         // Convert GameDataSave to JSON string

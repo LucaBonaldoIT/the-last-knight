@@ -28,7 +28,7 @@ public class GameFrame extends JFrame {
     private GameData _data;
 
     /**
-     * Singleton, so private constructor.
+     * private constructor.
      */
     private GameFrame()
     {
