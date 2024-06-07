@@ -51,8 +51,8 @@ public class GameDataSaverTest {
                     "\"xp\":0, \n\t" +
                     "\"level\":0, \n\t" +
                     "\"inventory\":{ \n\t" +
-                    "\"IRON_SWORD\": 1, \n\t" +
-                    "\"DOOR_KEY\": 1" +
+                    "\"DOOR_KEY\": 1, \n\t" +
+                    "\"IRON_SWORD\": 1" +
                     "}, \n\t" +
                     "\"playerClass\": \"KNIGHT\",\n\t" +
                     "\"attributes\":{\n\t\t" +
