@@ -113,6 +113,7 @@ public class GameRoomItem implements GameObject {
 
                 d.addObjectToScene(new GameDialog("ITEM_FOUND", "You have collected a " + GameConstants.getItem(_type).getName() + "."));
                 d.setGameState(GameState.DIALOG);
+                d.addSoundToBuffer(GameSound.ITEM_PICK);
 
                 _toDelete = true;
             }

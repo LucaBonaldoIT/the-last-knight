@@ -242,6 +242,7 @@ public class GameConstants
         }
 
         _sounds = new HashMap<>();
+        _sounds.put(GameSound.ITEM_PICK, new File("src\\main\\resources\\sound\\item-pick.wav"));
         _sounds.put(GameSound.STEP_BUMP, new File("src\\main\\resources\\sound\\step_bump.wav"));
     }
 
