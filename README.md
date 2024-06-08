@@ -8,6 +8,9 @@ At this point the user can simply execute the main function to play the game.
 For cloud saving, the user is required to install Python (>=3.10) and the required packages in requirements.txt. Then launch with FastAPI che main.py contained in the server folder, in the source folder.
 The cloud saving is seamless.
 
+![game-pic](https://github.com/LucaBonaldoIT/the-last-knight/assets/123835828/2613c6ba-ed54-4385-bdeb-c259086474a3)
+
+
 Execution Environment
 
 Tests have been run on Windows 10, Windows 11, Ubuntu LTS 22, Mac OS X El Capitan, and for those system the compatibility is 100%.
