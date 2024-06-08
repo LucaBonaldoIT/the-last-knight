@@ -1,4 +1,4 @@
-https://lucabonaldoit.atlassian.net/jira/software/projects/LK/boards/4
+Link to the jira : https://lucabonaldoit.atlassian.net/jira/software/projects/LK/boards/4
 
 1) As a player I want to earn a variable number of experience points by defeating enemies, gathering items, and completing rooms, so that I can level up, customize my character and making them stronger by increasing my stamina, health and mana, and also my attributes, namely strength, that makes melee attacks inflict more damage, perception, that decreases the mana required to cast spells, endurance, that decreases the stamina required to effect a melee attack, charisma, that increases the chances of success during a bargain, intelligence, that increases the damage inflicted by a casted spell, agility, that makes fleeing from enemies easier, and luck, that affects all chance-based events.
 
