@@ -1,0 +1,36 @@
+
+
+1) As a player I want to earn a variable number of experience points by defeating enemies, gathering items, and completing rooms, so that I can level up, customize my character and making them stronger by increasing my stamina, health and mana, and also my attributes, namely strength, that makes melee attacks inflict more damage, perception, that decreases the mana required to cast spells, endurance, that decreases the stamina required to effect a melee attack, charisma, that increases the chances of success during a bargain, intelligence, that increases the damage inflicted by a casted spell, agility, that makes fleeing from enemies easier, and luck, that affects all chance-based events.
+
+
+2) As a player I want to fight different types of enemies in a turn-based combat system that implements randomness in the attack damage formula so that I can defeat them by light and heavy melee attacks, casting different spells from the list of obtained spells, using consumable items such as potions and scrolls, having passive items equipped such as armor, robes and sword, with the aid of allies recruited when defeating previous enemies which increase my character statisticss making the odds of the battle more favorable.
+
+
+3)
+
+As a player I want to have an inventory to store items, there are tools, like the game map, active items, which need to be enabled in order to be used, passive items which give secondary effects to the player and the environment, and every item has a different weight which indicates how much space it occupies in the inventory and a value that indicates how precious the item is.
+
+4) As a user I want to explore a game world divided into levels, including a final one with the end boss, each one containing rooms that are different and are disposed variably,  containing items such as chests and keys, which are needed to progress through locked doors and advance in the game
+
+5)As a player I want to save my game with its progress on the cloud so that I can play again from where I left, with the same character, having the same statistics and attributes, items and collectables, from any device with internet connection.
+
+
+6) As a player I want to hear sounds with a retro feeling based on the state of the game, such as a background music and environmental sound effects with a limited audio resolution so that I can feel more engaged with the game.
+
+
+
+7) As a player I want to play a graphics-based game with 2D graphics inspired by old title with limited resolution as part of the design, having a tile system, monospaced font and sprites so that I can feel more engaged with the game.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

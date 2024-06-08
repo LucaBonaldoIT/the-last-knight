@@ -1,0 +1,37 @@
+@startuml
+class GameAudioHandler {
+    - ExecutorService audioThreadPool
+    - ArrayList<GameSound> _playingSounds
+    - static GameAudioHandler _instance
+
+    + GameAudioHandler(int poolSize)
+    + void removePlayingSound(GameSound sound)
+    + static GameAudioHandler getInstance()
+    + void process(GameData d)
+    + void shutdown()
+}
+
+
+class GameAudioHandler::AudioTask {
+    - File audioFile
+    - GameSound sound
+
+    + AudioTask(GameSound sound, File audioFile)
+    + void run()
+}
+
+enum GameMusic {
+    AMBIENT_MUSIC_1
+    BATTLE_MUSIC_2
+    WIN_MUSIC_1
+}
+
+enum GameSound {
+    NONE
+    STEP
+    STEP_BUMP
+    STEP_FORBIDDEN
+    STEP_HURT_0
+    STEP_HURT_1
+}
+@enduml

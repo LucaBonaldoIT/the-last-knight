@@ -1,0 +1,59 @@
+@startuml
+class GameRoom {
+    {static} +NONE: GameRoom
+    -_id: String
+    -_area: GameArea
+    -_type: GameRoomType
+    -_objectsToLoad: ArrayList<GameObject>
+    -_doors: HashMap<GamePoint, GameTile>
+    -_firstLoad: boolean
+    -_defaultStartPoint: GamePoint
+    -_startPointByComingDoor: HashMap<GameTile, GamePoint>
+    -_northRoomId: String
+    -_southRoomId: String
+    -_eastRoomId: String
+    -_westRoomId: String
+    -_roomData: GameRoomData
+    +GameRoom(type: GameRoomType)
+    +GameRoom(type: GameRoomType, area: GameArea)
+    +GameRoom(id: String, type: GameRoomType, area: GameArea, rooms: String[], doors: HashMap<GamePoint, GameTile>, defaultStartPoint: GamePoint, startPointByComingDoor: HashMap<GameTile, GamePoint>)
+    +GameRoom()
+    +addObjectToLoad(object: GameObject): void
+    +getObjectsToLoad(): ArrayList<GameObject>
+    +getStartPoint(comingDoor: GameTile): GamePoint
+    +getDefaultStartPoint(): GamePoint
+    +getGameArea(): GameArea
+    +saveRoomData(data: GameData): void
+    +loadRoomData(data: GameData): GameData
+    +render(g: Graphics): void
+    +update(d: GameData): GameData
+    +toDelete(): boolean
+}
+
+
+class GameRoomItem {
+    -_toDelete: boolean
+    -_type: GameItemType
+    -_x: int
+    -_y: int
+    +GameRoomItem(type: GameItemType, x: int, y: int)
+    +getId(): String
+    +getCoordinates(): GamePoint
+    +getIndex(): int
+    +render(g: Graphics): void
+    +update(d: GameData): GameData
+    +toDelete(): boolean
+}
+
+GameObject ..|> GameRoom
+GameObject ..|> GameRoomItem
+
+enum GameRoomType {
+    UNKNOWN
+    NONE
+    ENTRY
+    EXIT
+    DEFAULT
+    BOSS
+}
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+class GameCombatMenu {
+    - List<String> options
+    - int selectedIndex
+    - int _marginLeft
+    - int _marginTop
+    - int _width
+    - int _height
+    - String _message
+    - long _messageTime
+    - boolean _displayMessage
+    + boolean getDisplayMessage()
+    + void displayMessage(String message)
+    + GameCombatMenu()
+    + void render(Graphics g)
+    + void nextOption()
+    + void previousOption()
+    + String getSelectedOption()
+    + String getId()
+    + GamePoint getCoordinates()
+    + int getIndex()
+    + GameData update(GameData d)
+    + boolean toDelete()
+}
+
+enum GameCombatType {
+    NORMAL
+    BOSS
+    FINAL_BOSS
+}
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+participant GameFrame
+participant GameInputHandler
+participant GameData
+
+activate GameFrame
+GameFrame -> GameInputHandler: getGameInput(keyEvent)
+activate GameInputHandler
+GameInputHandler -> GameInputHandler: determineGameInput(keyEvent)
+GameInputHandler -> GameFrame: gameInput
+deactivate GameInputHandler
+GameFrame -> GameData: setInput(gameInput)
+activate GameData
+GameData -> GameData: updateGameState()
+deactivate GameData
+deactivate GameFrame
+
+@enduml

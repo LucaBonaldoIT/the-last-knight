@@ -1,0 +1,138 @@
+@startuml
+class GameData {
+    - _setting: GameSetting
+    - _state: GameState
+    - _gameObjects: ArrayList<GameObject>
+    - _room: GameRoom
+    - _player: GamePlayer
+    - _input: GameInput
+    - _sounds: ArrayList<GameSound>
+    - _musics: ArrayList<GameMusic>
+    - _level: GameLevel
+    - _playerData: GamePlayerData
+    - _inventory: GameInventory
+    - _pauseMenu: GamePauseMenu
+
+    + getCurrentLevel(): GameLevel
+    + GameData()
+    + getPlayerData(): GamePlayerData
+    + getPauseMenu(): GamePauseMenu
+    + getSave(): GameDataSave
+    + loadFromSave(save: GameDataSave): void
+    + setPlayerData(data: GamePlayerData): void
+    + getGameSetting(): GameSetting
+    + getGameState(): GameState
+    + addMusicToBuffer(music: GameMusic): void
+    + addSoundToBuffer(sound: GameSound): void
+    + dequeueSound(): GameSound
+    + setGameState(state: GameState): void
+    + getGameRoom(): GameRoom
+    + setGameRoom(room: GameRoom): void
+    + getGameObjects(): ArrayList<GameObject>
+    + getInventory(): GameInventory
+    + isPlayerLookingAt(obj: GameObject): boolean
+    + clearScene(): void
+    + setPlayer(player: GamePlayer): void
+    + getPlayer(): GamePlayer
+    + addObjectToScene(obj: GameObject): void
+    + getInput(): GameInput
+    + setInput(input: GameInput): void
+    + loadLevel(level: GameLevel): void
+    + startLevel(skipCharacterCreation: boolean): void
+    + startLevel(): void
+    + loadRoom(roomId: String): void
+    + loadRoom(roomId: String, comingFrom: GameTile): void
+}
+
+
+class GameDataLoader {
+    - _instance: GameDataLoader
+
+    + getInstance(): GameDataLoader
+    + loadFromJson(fileName: String): GameDataSave
+    + loadFromString(jsonString: String): GameDataSave
+    + loadFromCloud(urlString: String): GameDataSave
+}
+
+
+class GameDataSave {
+    - _currentLevel: int
+    - _playerData: GamePlayerData
+
+    + getCurrentLevel(): int
+    + getPlayerData(): GamePlayerData
+    + setCurrentLevel(_currentLevel: int): void
+    + setPlayerData(_playerData: GamePlayerData): void
+}
+
+class GameDataSaver {
+    - _instance: GameDataSaver
+
+    + getInstance(): GameDataSaver
+    + saveToLocal(save: GameDataSave): void
+    + saveToCloud(save: GameDataSave): void
+    - getSaveString(save: GameDataSave): String
+}
+
+class GameRoomData {
+    -_gameObject: ArrayList<GameObject>
+    +GameRoomData(data: GameData)
+    +getGameObjects(): ArrayList<GameObject>
+}
+
+class GamePlayerData {
+    -_xp: int
+    -_level: int
+    -_inventory: HashMap<GameItemType, Integer>
+    -_attributes: GamePlayerAttributes
+    -_health: int
+    -_stamina: int
+    -_mana: int
+    -_class: GamePlayerClass
+    -_maxWeight: int
+    -_inventoryWeight: int
+    -_coins: int
+    +GamePlayerData()
+    +getInventory(): HashMap<GameItemType, Integer>
+    +useItem(type: GameItemType, data: GameData): void
+    +addCoins(coinsToAdd: int): void
+    +removeCoins(coinsToRemove: int): void
+    +takeDamage(damage: int, d: GameData): void
+    +getDefense(): int
+    +addItem(type: GameItemType): void
+    +removeItem(type: GameItemType): void
+    +getMaxWeight(): int
+    +addXp(xp: int): void
+    +getXp(): int
+    +setXp(xp: int): void
+    +getInventoryWeight(): int
+    +getLevel(): int
+    +setLevel(level: int): void
+    +setInventory(inventory: HashMap<GameItemType, Integer>): void
+    +getAttributes(): GamePlayerAttributes
+    +setAttributes(attributes: GamePlayerAttributes): void
+    +getHealth(): int
+    +setHealth(health: int): void
+    +getStamina(): int
+    +setStamina(stamina: int): void
+    +getMana(): int
+    +setMana(mana: int): void
+    +getPlayerClass(): GamePlayerClass
+    +setPlayerClass(playerClass: GamePlayerClass): void
+    +setMaxWeight(maxWeight: int): void
+    +getInventoryWeight(): int
+    +setInventoryWeight(inventoryWeight: int): void
+    +getCoins(): int
+    +setCoins(coins: int): void
+}
+
+
+GameData -- GameState
+GameData -- GameInput
+GameData -- GamePlayer
+GameData -- GameObject
+GameData "1" *-- "0..*" GameRoom
+
+
+GamePlayerData "1" -- "*" GameItemType : has
+@enduml

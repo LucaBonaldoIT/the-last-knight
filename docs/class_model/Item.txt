@@ -1,0 +1,36 @@
+@startuml
+ class GameItem {
+        - GameItemType _type
+        - int _weight
+        - int _value
+        - String _name
+
+        + GameItem()
+        + GameItem(GameItemType type, int weight, int value, String name)
+        + GameItemType getItemType()
+        + String getName()
+        + int getWeight()
+        + int getValue()
+    }
+
+    GameItem --> GameItemType
+
+   enum GameItemType {
+        NONE,
+        DOOR_KEY,
+        HEALTH_POTION,
+        LUCK_AMULET,
+        STRENGTH_AMULET,
+        WOODEN_SWORD,
+        IRON_SWORD,
+        INFERNAL_SWORD,
+        WOODEN_WAND,
+        CRYSTAL_WAND,
+        CELESTIAL_WAND,
+        LEATHER_ARMOR,
+        IRON_ARMOR
+    }
+
+
+GameItemType --|> enum
+@enduml

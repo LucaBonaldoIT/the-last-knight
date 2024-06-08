@@ -1,0 +1,88 @@
+@startuml
+
+participant GameData
+participant GameCharacter
+participant GameDialog
+participant GameTradeDialog
+
+activate GameData
+GameData -> GameCharacter: update()
+activate GameCharacter
+GameCharacter -> GameData: isPlayerLookingAt(this)
+alt In combat
+    GameCharacter -> GameData: getGameState()
+    opt
+        GameCharacter -> GameData: getInput()
+        GameCharacter -> GameCombatMenu: update(d)
+    end
+    opt
+        GameCharacter -> GameCombatMenu: displayMessage()
+        alt Fought
+            GameCharacter -> GameData: setGameState()
+            alt Combat type: Boss
+                GameCharacter -> GameData: setGameState()
+            else Combat type: Final Boss
+                GameCharacter -> GameData: setGameState()
+            else Combat type: Normal
+                GameCharacter -> GameData: setGameState()
+                GameCharacter -> GameDialog: new GameDialog()
+            end
+        else Health > 0
+            GameCharacter -> GameCombatMenu: update(d)
+        else Health <= 0
+            GameCharacter -> GameCombatMenu: displayMessage()
+            GameCharacter -> GameDialog: new GameDialog()
+        end
+    end
+else In trade
+    GameCharacter -> GameData: getGameState()
+    alt Trade state: Running
+        GameCharacter -> GameData: getInput()
+        alt Input: YES
+            GameCharacter -> GameData: setGameState()
+            GameCharacter -> GameDialog: new GameDialog()
+            alt Trade type: Buy
+                GameCharacter -> GameData: addItem()
+                GameCharacter -> GameData: removeCoins()
+            else Trade type: Sell
+                GameCharacter -> GameData: removeItem()
+                GameCharacter -> GameData: addCoins()
+            end
+        else Input: NO
+            GameCharacter -> GameData: setGameState()
+            GameCharacter -> GameDialog: new GameDialog()
+        end
+    end
+else Not in combat or trade
+    GameCharacter -> GameData: getGameState()
+    opt Input: Inspect
+        alt Character type: Text Only
+            GameCharacter -> GameDialog: new GameDialog()
+        else Character type: Gift
+            GameCharacter -> GameDialog: new GameDialog()
+            GameCharacter -> GameData: addItem()
+        else Character type: Trade
+            alt Trade already done
+                GameCharacter -> GameDialog: new GameDialog()
+            else
+                opt
+                    GameCharacter -> GameData: getRandomNumber()
+                    alt Random number > 0.5
+                        GameCharacter -> GameData: addItem()
+                        GameCharacter -> GameTradeDialog: new GameTradeDialog()
+                    else
+                        GameCharacter -> GameTradeDialog: new GameTradeDialog()
+                    end
+                end
+            end
+        else Character type: Combat
+            alt Not in combat and health > 0
+                GameCharacter -> GameData: setGameState()
+            end
+        end
+    end
+end
+deactivate GameCharacter
+deactivate GameData
+
+@enduml

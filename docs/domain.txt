@@ -1,0 +1,282 @@
+@startuml
+
+interface GameObject {
+    + String getId()
+    + GamePoint getCoordinates()
+    + void render(Graphics g)
+    + GameData update(GameData d)
+    + boolean toDelete()
+}
+
+class GameArea {
+    - GameTile[][] _tiles
+    - GameCollision[][] _collision
+    + boolean IsTileEmpty(int x, int y)
+    + GameTile getTile(int x, int y)
+}
+
+GameObject <|.. GameArea
+
+class GameAudioHandler {
+    - ExecutorService audioThreadPool
+    + void process(GameData d)
+    + void shutdown()
+}
+
+class GameAudioHandler::AudioTask {
+    - File audioFile
+}
+
+class GameCanvas {
+    - GameData _data
+    + void showFps(Graphics g)
+    + void paintComponent(Graphics g)
+    + void update(GameData data)
+}
+
+class GameCharacter {
+    - String _id
+    - GamePoint _coordinates
+    + String getId()
+    + void attack(GamePlayerData player, GameData d)
+    + void takeDamage(int damage, GameData d)
+}
+
+GameObject <|.. GameCharacter
+
+class GameCombatMenu {
+    + void render(Graphics g)
+    + void nextOption()
+    + void previousOption()
+    + String getSelectedOption()
+}
+
+GameObject <|.. GameCombatMenu
+
+class GameData {
+    - GameSetting _setting
+    - GameState _state
+    - ArrayList<GameObject> _gameObjects
+    - GameRoom _room
+    - GamePlayer _player
+    - GameInput _input
+    + getPlayerData(): GamePlayerData
+    + getPauseMenu(): GamePauseMenu
+    + loadFromSave(save: GameDataSave): void
+    + setPlayerData(data: GamePlayerData): void
+}
+
+GameData --> GameSetting
+GameData --> GameState
+GameData --> GameRoom
+GameData --> GamePlayer
+GameData --> GameInput
+
+class GameDataLoader {
+    + loadFromJson(fileName: String): GameDataSave
+}
+
+GameDataLoader --> GameDataSave
+
+class GameDataSave {
+    - int _currentLevel
+    - GamePlayerData _playerData
+    + int getCurrentLevel()
+    + GamePlayerData getPlayerData()
+}
+
+class GameDataSaver {
+    + saveToLocal(save: GameDataSave): void
+    + saveToCloud(save: GameDataSave): void
+}
+
+GameDataSaver --> GameDataSave
+
+class GameDialog {
+    - String _id
+    - String _text
+    + String getText()
+}
+
+GameObject <|.. GameDialog
+
+class GameDoor {
+    - GamePoint _coordinates
+    + GamePoint getCoordinates()
+    + void setCoordinates(GamePoint coordinates)
+}
+
+GameObject <|.. GameDoor
+
+class GameEvents {
+    + static void LoadLevel1(GameData d)
+}
+
+GameEvents --> GameData
+
+class GameFrame {
+    - static final int TARGET_FPS
+    - static final int DELAY
+    - static GameFrame _instance
+    - boolean _isRunning
+    - final GameCanvas _canvas
+    - GameData _data
+    + static GameFrame getInstance()
+    + void run()
+}
+
+GameFrame --> GameCanvas
+GameFrame --> GameData
+
+class GameInputHandler {
+    + GameInput getGameInput(KeyEvent keyEvent)
+}
+
+GameInputHandler --> GameInput
+
+class GameInventory {
+    - boolean _active
+    - GameData _data
+    + void render(Graphics g)
+}
+
+GameInventory ..|> GameObject
+GameInventory --> GameData
+
+class GameItem {
+    - GameItemType _type
+    + GameItemType getItemType()
+}
+
+GameItem --> GameItemType
+
+class GameLevel {
+    - String _startRoomId
+    - HashMap<String, GameRoom> _rooms
+    + String getStartRoomId()
+    + GameRoom getRoom(String roomId)
+}
+
+GameLevel --> GameRoom
+
+class GameLevelLoader {
+    + loadLevel(filename: String): GameLevel
+}
+
+GameLevelLoader --> GameLevel
+
+class GameMap {
+    - String _startAreaId
+    - HashMap<String, GameArea> _areas
+    + String getStartAreaId()
+    + GameArea getArea(String areaId)
+}
+
+GameMap --> GameArea
+
+class GameMenu {
+    + void render(Graphics g)
+    + void nextOption()
+    + void previousOption()
+    + String getSelectedOption()
+}
+
+GameMenu ..|> GameObject
+
+class GamePlayer {
+    - String _name
+    - int _health
+    - GamePoint _coordinates
+    + String getName()
+    + int getHealth()
+    + GamePoint getCoordinates()
+    + void setName(String name)
+    + void setHealth(int health)
+    + void setCoordinates(GamePoint coordinates)
+}
+
+GameObject <|.. GamePlayer
+
+class GamePlayerData {
+    - int _level
+    - int _experience
+    + int getLevel()
+    + int getExperience()
+}
+
+GamePlayerData --> GamePlayer
+
+class GamePoint {
+    - int _x
+    - int _y
+    + int getX()
+    + int getY()
+    + void setX(int x)
+    + void setY(int y)
+}
+
+GamePoint --> GameCoordinates
+
+class GameRoom {
+    - String _id
+    - ArrayList<GameObject> _objects
+    + String getId()
+    + ArrayList<GameObject> getObjects()
+}
+
+GameRoom --> GameObject
+
+class GameSetting {
+    - String _resolution
+    - boolean _fullscreen
+    + String getResolution()
+    + boolean isFullscreen()
+}
+
+class GameTile {
+    - String _type
+    - GameCollision _collision
+    + String getType()
+    + GameCollision getCollision()
+}
+
+
+GameObject <|-- GameArea
+GameObject <|-- GameCharacter
+GameObject <|-- GameCombatMenu
+GameObject <|-- GameDialog
+GameObject <|-- GameDoor
+GameObject <|-- GameMenu
+GameObject <|-- GamePlayer
+GameObject <|-- GameWeapon
+GameInventory --> GameData
+GameData --> GameSetting
+GameData --> GameState
+GameData --> GameRoom
+GameData --> GamePlayer
+GameData --> GameInput
+GameData --> GamePlayerData
+GameData --> GamePauseMenu
+GameDataLoader --> GameDataSave
+GameDataSaver --> GameDataSave
+GameDialog --> GameData
+GameDoor --> GamePoint
+GameEvents --> GameData
+GameFrame --> GameCanvas
+GameFrame --> GameData
+GameInputHandler --> GameInput
+GameItem --> GameItemType
+GameLevel --> GameRoom
+GameLevelLoader --> GameLevel
+GameMap --> GameArea
+GamePlayer --> GamePoint
+GamePlayer --> GameData
+GamePlayerData --> GamePlayer
+GamePoint --> GameCoordinates
+GameRoom --> GameObject
+GameState --> GameSetting
+GameTile --> GameCollision
+GameWeapon --> GameItem
+
+
+@enduml

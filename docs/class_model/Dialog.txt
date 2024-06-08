@@ -1,0 +1,97 @@
+@startuml
+class GameDialog {
+    - DELAY: long
+    - _id: String
+    - _index: int
+    - _text: String
+    - _firstUpdate: boolean
+    - _toDelete: boolean
+    - _marginLeft: int
+    - _marginTop: int
+    - _height: int
+    - _width: int
+    - _visibleLines: int
+    - _totalLines: int
+    - _startLineIndex: int
+    - _charsToShow: int
+    - _lastUpdateTime: long
+    + GameDialog(String, String)
+    + getText(): String
+    + update(GameData): GameData
+    + toDelete(): boolean
+    + getId(): String
+    + getCoordinates(): GamePoint
+    + getIndex(): int
+    + render(Graphics): void
+    - calculateTotalLines(FontMetrics): int
+}
+
+    GameObject <|.. GameDialog
+
+
+class GameNarratorDialog {
+    - DELAY: long
+    - _id: String
+    - _index: int
+    - _text: String
+    - _firstUpdate: boolean
+    - _toDelete: boolean
+    - _marginLeft: int
+    - _marginTop: int
+    - _height: int
+    - _width: int
+    - _visibleLines: int
+    - _totalLines: int
+    - _startLineIndex: int
+    - _charsToShow: int
+    - _lastUpdateTime: long
+    - _isGameOverDialog: boolean
+    - _isGameEndDialog: boolean
+    + setGameOverDialog(boolean): void
+    + setGameEndDialog(boolean): void
+    + isGameOverDialog(): boolean
+    + isGameEndDialog(): boolean
+    + GameNarratorDialog(String)
+    + getGameEndDialog(): GameNarratorDialog
+    + getGameOverDialog(): GameNarratorDialog
+    + getId(): String
+    + getCoordinates(): GamePoint
+    + update(GameData): GameData
+    + toDelete(): boolean
+    + getIndex(): int
+    + render(Graphics): void
+    - calculateTotalLines(FontMetrics): int
+}
+
+GameNarratorDialog ..|> GameObject
+
+class GameTradeDialog {
+    - final static DELAY: long
+    - _id: String
+    - _index: int
+    - _text: String
+    - _firstUpdate: boolean
+    - _toDelete: boolean
+    - _marginLeft: int
+    - _marginTop: int
+    - _height: int
+    - _width: int
+    - _visibleLines: int
+    - _totalLines: int
+    - _startLineIndex: int
+    - _charsToShow: int
+    - _lastUpdateTime: long
+    + GameTradeDialog(id: String, text: String)
+    + getText(): String
+    + update(d: GameData): GameData
+    + toDelete(): boolean
+    + getId(): String
+    + getCoordinates(): GamePoint
+    + getIndex(): int
+    + render(g: Graphics): void
+    - calculateTotalLines(fm: FontMetrics): int
+}
+
+GameObject <|-- GameDialog
+GameObject <|-- GameTradeDialog
+@enduml

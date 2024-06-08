@@ -1,0 +1,61 @@
+@startuml
+class GameCharacter {
+    - String _id
+    - GamePoint _coordinates
+    - boolean _toDelete
+    - GameCharacterType _type
+    - GameSprite _sprite
+    - String _text
+    - GameItem _itemToGift
+    - GameItem _itemToTrade
+    - boolean _tradeBuy
+    - boolean _hasGifted
+    - boolean _hasFought
+    - boolean _hasTraded
+    - GameCombatMenu _combatMenu
+    - GameCombatType _combatType
+    - int _health
+    - int _attackPower
+    - int _defense
+    - boolean _isInCombat
+    - boolean _playerTurn
+
+    + GameCharacter(GameSprite sprite, GamePoint coordinates, GameCharacterType type, GameCombatType combatType, int health, int attackPower, int defense)
+    + GameCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
+    + GameCharacter(String text, GameSprite sprite, GamePoint coordinates)
+    + GameCharacter(String id, GameCharacterType type, GamePoint coordinates, GameSprite sprite)
+    + GameCharacter()
+    + String getId()
+    + static GameCharacter getGiftCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
+    + static GameCharacter getTextCharacter(String text, GameSprite sprite, GamePoint coordinates)
+    + static GameCharacter getTradeCharacter(GameSprite sprite, GamePoint coordinates)
+    + static GameCharacter getCombatCharacter(GameSprite sprite, GamePoint coordinates, GameCombatType type, int health, int attackPower, int defense)
+    + GameCharacterType get_type()
+    + int getHealth()
+    + int getAttackPower()
+    + int getDefense()
+    + String getText()
+    + GameItem getItemToGift()
+    + void attack(GamePlayerData player, GameData d)
+    + void takeDamage(int damage, GameData d)
+    + GamePoint getCoordinates()
+    + int getIndex()
+    + void render(Graphics g)
+    + GameData update(GameData d)
+    + boolean toDelete()
+    - void handleCombat(GameData d)
+    - void executePlayerAction(GameData d)
+    - void enemyTurn(GameData d)
+}
+
+    GameObject <|.. GameCharacter
+    GameObject <|.. GameCombatMenu
+
+enum GameCharacterType {
+    NONE
+    TEXT_ONLY
+    GIFT
+    COMBAT
+    TRADE
+}
+@enduml

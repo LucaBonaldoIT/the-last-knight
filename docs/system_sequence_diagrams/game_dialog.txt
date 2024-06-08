@@ -1,0 +1,22 @@
+@startuml
+
+participant GameData
+participant GameDialog
+
+activate GameData
+GameData -> GameDialog: update()
+activate GameDialog
+GameDialog -> GameDialog: incrementCharsToShow()
+GameDialog -> GameDialog: checkIfFullyDisplayed()
+alt Dialog fully displayed
+    GameDialog -> GameData: setGameState()
+else Dialog not fully displayed
+    opt
+        GameData -> GameDialog: getInput()
+        GameDialog -> GameData: markForDeletion()
+    end
+end
+deactivate GameDialog
+deactivate GameData
+
+@enduml

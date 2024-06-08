@@ -1,0 +1,214 @@
+@startuml
+ interface GameObject {
+        + String getId()
+        + GamePoint getCoordinates()
+        + int getIndex()
+        + void render(Graphics g)
+        + GameData update(GameData d)
+        + boolean toDelete()
+    }
+
+    class GameArea {
+        - GameTile[][] _tiles
+        - GameCollision[][] _collision
+
+        + GameArea(GameTile[][] tiles, GameCollision[][] collision)
+        + boolean IsTileEmpty(int x, int y)
+        + GameTile getTile(int x, int y)
+        + String getId()
+        + GamePoint getCoordinates()
+        + int getIndex()
+        + void render(Graphics g)
+        + GameData update(GameData d)
+        + boolean toDelete()
+    }
+
+    GameObject <|.. GameArea
+
+class GameCanvas {
+    - GameData _data
+    - long _frameCount
+    - long _lastFrameTime
+    - int _avgFps
+
+    + GameCanvas()
+    + void showFps(Graphics g)
+    + void scaleToFrame(Graphics2D g2d)
+    + void paintComponent(Graphics g)
+    + void update(GameData data)
+}
+
+enum GameCollision {
+    NONE
+    EMPTY
+    BLOCK
+    DOOR_NORTH_WALL
+    DOOR_SOUTH_WALL
+    DOOR_EAST_WALL
+    DOOR_WEST_WALL
+}
+
+enum GameDirection {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
+ class GameDoor {
+        - GamePoint _coordinates
+        - boolean _toDelete
+
+        + GameDoor(GamePoint coordinates)
+        + GameDoor()
+        + GamePoint getCoordinates()
+        + void setCoordinates(GamePoint coordinates)
+        + String getId()
+        + int getIndex()
+        + void render(Graphics g)
+        + GameData update(GameData d)
+        + boolean toDelete()
+    }
+
+   GameDoor ..|> GameObject
+
+   
+
+
+class GameFrame {
+        - static final int TARGET_FPS
+        - static final int DELAY
+        - static GameFrame _instance
+        - boolean _isRunning
+        - final GameCanvas _canvas
+        - GameData _data
+        - GameFrame()
+        + static GameFrame getInstance()
+        + void run()
+        + boolean is_Running()
+        - void _update()
+        - void _render()
+    }
+
+    enum GameInput {
+        NONE,
+        ENTER,
+        CANCEL,
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT,
+        INSPECT,
+        INVENTORY,
+        YES,
+        NO,
+        ESC,
+        TOSS
+    }
+
+    class GameInputHandler {
+        - static GameInputHandler _instance
+        - GameInputHandler()
+        + static GameInputHandler getInstance()
+        + GameInput getGameInput(KeyEvent keyEvent)
+    }
+    
+    GameInputHandler --> GameInput
+class GamePauseMenu {
+    - _active: boolean
+    - _selectedIndex: int
+    - _menuOptions: String[]
+    - _displayControls: boolean
+    + GamePauseMenu()
+    + getId(): String
+    + getCoordinates(): GamePoint
+    + getIndex(): int
+    + render(Graphics): void
+    + update(GameData): GameData
+    + toDelete(): boolean
+    - handleMenuSelection(GameData): void
+    - saveGame(GameData): void
+    - resumeGame(GameData): void
+    - closeGame(GameData): void
+    - displayControls(GameData): void
+    - displayControls(Graphics): void
+}
+
+GamePauseMenu ..|> GameObject
+
+
+
+class GamePoint {
+    {static} +NONE: GamePoint
+    -x: int
+    -y: int
+    +GamePoint(x: int, y: int)
+    +hashCode(): int
+    +equals(obj: Object): boolean
+}
+
+class GameSetting {
+    - _showFpsCounter: boolean
+    - static _default: GameSetting
+    + static getDefault(): GameSetting
+    + {static} _default: GameSetting
+    + GameSetting()
+    + getShowFpsCounter(): boolean
+    + setShowFpsCounter(showFpsCounter: boolean): void
+    + clone(): Object
+}
+
+enum GameSprite {
+    PLAYER_FACING_UP
+    PLAYER_FACING_DOWN
+    PLAYER_FACING_RIGHT
+    PLAYER_FACING_LEFT
+    TRADER
+    ENEMY
+    MINI_BOSS
+    MINI_BOSS1
+    MINI_BOSS2
+    BOSS
+    GIFT_CHARACTER
+    TEXT_ONLY
+    DOOR_KEY
+    HEALTH_POTION
+    LUCK_AMULET
+    STRENGTH_AMULET
+    WOODEN_SWORD
+    IRON_SWORD
+    INFERNAL_SWORD
+    WOODEN_WAND
+    CRYSTAL_WAND
+    CELESTIAL_WAND
+    LEATHER_ARMOR
+    IRON_ARMOR
+    NONE
+}
+
+enum GameState {
+    UNKNOWN
+    READY
+    RUNNING
+    DIALOG
+    INVENTORY
+    TRADE
+    PAUSE_MENU
+    BATTLE
+    LOAD_NEXT_LEVEL
+    GAME_OVER
+    GAME_END
+}
+
+enum GameTile {
+    NONE
+    EMPTY
+    BRICK
+    FADING_BRICK
+    DOOR_NORTH_WALL
+    DOOR_SOUTH_WALL
+    DOOR_EAST_WALL
+    DOOR_WEST_WALL
+}
+@enduml
+

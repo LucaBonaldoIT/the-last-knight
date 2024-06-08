@@ -1,0 +1,22 @@
+@startuml
+class GameLevel {
+        - String _startRoomId
+        - HashMap<String, GameRoom> _rooms
+        - int _levelIndex
+
+        + String getStartRoomId()
+        + GameRoom getRoom(String roomId)
+        + int getLevelIndex()
+        + GameLevel()
+        + GameLevel(String startRoomId, HashMap<String, GameRoom> rooms, int levelIndex)
+    }
+
+
+class GameLevelLoader {
+    - _instance: GameLevelLoader
+    + getInstance(): GameLevelLoader
+    + loadLevel(filename: String): GameLevel
+    + getRoomType(type: String): GameRoomType
+    + getGameArea(tiles: String, collisions: String): GameArea
+}
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+class GameEvents {
+        + static void LoadLevel1(GameData d)
+        + static void LoadLevel1(GameData d, GameDataSave save)
+        + static void LoadLevel2(GameData d)
+        + static void LoadLevel2(GameData d, GameDataSave save)
+        + static void LoadLevel3(GameData d)
+        + static void LoadLevel3(GameData d, GameDataSave save)
+        + static void LoadLevelBoss(GameData d)
+        + static void LoadLevelBoss(GameData d, GameDataSave save)
+    }
+
+class GameConstants {
+    - _font: Font
+    - _tiles: Map<GameTile, Image>
+    - _sprites: Map<GameSprite, Image>
+    - _sounds: Map<GameSound, File>
+
+    + getSound(sound: GameSound): File
+    + getItem(type: GameItemType): GameItem
+    + getGameObject(objectId: String, coordinates: GamePoint): GameObject
+    + getItemSprite(type: GameItemType): Image
+    + getDialogFont(): Font
+    + getNarratorDialogFont(): Font
+    + getInventoryFont(): Font
+    + getTile(tile: GameTile): Image
+    + getSprite(sprite: GameSprite): Image
+    + getTitle(): String
+    + getWidth(): int
+    + getHeight(): int
+    + getMaxWidth(): int
+    + getMaxHeight(): int
+    + getTileSize(): int
+    + getAspectRatio(): float
+    + getPauseMenuFont(): Font
+    + getSaveFileUrl(): String
+    + getSaveFileName(): String
+}
+@enduml

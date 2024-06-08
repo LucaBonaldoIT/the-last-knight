@@ -1,0 +1,48 @@
+@startuml
+class GamePlayer {
+    - _x: int
+    - _y: int
+    - _updateCount: int
+    - _facingDirection: GameDirection
+    + GamePlayer(int, int)
+    + GamePlayer(int, int, GameDirection)
+    + getFacingDirection(): GameDirection
+    + getX(): int
+    + getY(): int
+    + getId(): String
+    + getCoordinates(): GamePoint
+    + getIndex(): int
+    + render(Graphics): void
+    + update(GameData): GameData
+    + toDelete(): boolean
+}
+
+    GamePlayer ..|> GameObject
+
+class GamePlayerAttributes {
+    - _strength: int
+    - _endurance: int
+    - _luck: int
+    - _intelligence: int
+    - _agility: int
+    + GamePlayerAttributes()
+    + getEndurance(): int
+    + getAgility(): int
+    + getStrength(): int
+    + getIntelligence(): int
+    + getLuck(): int
+    + setAgility(int): void
+    + setLuck(int): void
+    + setStrength(int): void
+    + setEndurance(int): void
+    + setIntelligence(int): void
+    + onNewLevel(GamePlayerClass): void
+}
+
+enum GamePlayerClass {
+    NONE
+    KNIGHT
+    MAGE
+    THIEF
+}
+@enduml

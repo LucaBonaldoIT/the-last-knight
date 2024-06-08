@@ -1,0 +1,26 @@
+@startuml
+class GameInventory {
+        - boolean _active
+        - GameData _data
+        - int _marginLeft
+        - int _marginTop
+        - int _height
+        - int _width
+        - int _selectedIndex
+        - boolean _inspecting
+        - GameItemType _selectedItem
+
+        + GameInventory()
+        + String getId()
+        + GamePoint getCoordinates()
+        + int getIndex()
+        + void render(Graphics g)
+        - void renderInventory(Graphics g, int lineHeight)
+        - void renderInspection(Graphics g, int lineHeight)
+        + GameData update(GameData d)
+        - void handleInventoryInput(GameData d)
+        + boolean toDelete()
+    }
+
+    GameInventory ..|> GameObject
+@enduml

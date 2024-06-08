@@ -1,0 +1,44 @@
+@startuml
+
+actor Player
+participant GameFrame
+participant GameInputHandler
+participant Timer
+participant GameData
+participant GamePlayer
+
+Player -> GameFrame: Open Game
+activate GameFrame
+GameFrame -> GameFrame: Initialize Game
+GameFrame -> Timer: Start Loop
+activate Timer
+loop Game Loop
+    Timer -> Timer: Check Game State
+    alt GAME_END or GAME_OVER
+        Timer -> Timer: Stop Loop
+    else
+        Timer -> Timer: Continue Loop
+        Timer -> GameFrame: Input
+        activate GameInputHandler
+        GameFrame -> GameInputHandler: getGameInput(keyEvent)
+        activate GameInputHandler
+        GameInputHandler -> GameFrame: GameInput
+        deactivate GameInputHandler
+        GameFrame -> GameData: setInput(GameInput)
+        activate GameData
+        GameData -> GameFrame: update()
+        GameFrame -> GameData: handlePlayerInput()
+        GameFrame -> GameData: _update()
+        GameData -> GamePlayer: update(GameData)
+        activate GamePlayer
+        GamePlayer -> GameData: update position
+        GameData -> GameFrame: update()
+        GameFrame -> GameFrame: render()
+        deactivate GamePlayer
+        deactivate GameData
+    end
+end
+deactivate Timer
+deactivate GameFrame
+
+@enduml
