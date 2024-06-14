@@ -1,8 +1,8 @@
 @startuml
-
 interface GameObject {
     + String getId()
     + GamePoint getCoordinates()
+    + int getIndex()
     + void render(Graphics g)
     + GameData update(GameData d)
     + boolean toDelete()
@@ -11,11 +11,17 @@ interface GameObject {
 class GameArea {
     - GameTile[][] _tiles
     - GameCollision[][] _collision
-    + boolean IsTileEmpty(int x, int y)
+    + boolean isTileEmpty(int x, int y)
     + GameTile getTile(int x, int y)
+    + String getId()
+    + GamePoint getCoordinates()
+    + int getIndex() 
+    + void render(Graphics g)
+    + GameData update(GameData d)
+    + boolean toDelete()	
 }
 
-GameObject <|.. GameArea
+GameObject <|-- GameArea
 
 class GameAudioHandler {
     - ExecutorService audioThreadPool
@@ -23,26 +29,35 @@ class GameAudioHandler {
     + void shutdown()
 }
 
-class GameAudioHandler::AudioTask {
+class AudioTask {
     - File audioFile
 }
 
+GameAudioHandler --> AudioTask
+
 class GameCanvas {
     - GameData _data
+    - long _frameCount
+    - long _lastFrameTime
+    - int _avgFps
     + void showFps(Graphics g)
+    + void scaleToFrame
     + void paintComponent(Graphics g)
     + void update(GameData data)
 }
 
 class GameCharacter {
-    - String _id
-    - GamePoint _coordinates
+    - String _id;
+    - String _id;
+    - GamePoint _coordinates;
     + String getId()
-    + void attack(GamePlayerData player, GameData d)
-    + void takeDamage(int damage, GameData d)
+    + GameCharacter getGiftCharacter(GameItem item, GameSprite sprite, GamePoint coordinates)
+    + GameCharacter getTextCharacter(String text, GameSprite sprite, GamePoint coordinates)
+    + GameCharacter getTradeCharacter(GameSprite sprite, GamePoint coordinates)
+    + GameData update(GameData d)
 }
 
-GameObject <|.. GameCharacter
+GameObject <|-- GameCharacter
 
 class GameCombatMenu {
     + void render(Graphics g)
@@ -51,7 +66,7 @@ class GameCombatMenu {
     + String getSelectedOption()
 }
 
-GameObject <|.. GameCombatMenu
+GameObject <|-- GameCombatMenu
 
 class GameData {
     - GameSetting _setting
@@ -60,10 +75,10 @@ class GameData {
     - GameRoom _room
     - GamePlayer _player
     - GameInput _input
-    + getPlayerData(): GamePlayerData
-    + getPauseMenu(): GamePauseMenu
-    + loadFromSave(save: GameDataSave): void
-    + setPlayerData(data: GamePlayerData): void
+    + GamePlayerData getPlayerData()
+    + GamePauseMenu getPauseMenu()
+    + void loadFromSave(GameDataSave save)
+    + void setPlayerData(GamePlayerData data)
 }
 
 GameData --> GameSetting
@@ -71,9 +86,11 @@ GameData --> GameState
 GameData --> GameRoom
 GameData --> GamePlayer
 GameData --> GameInput
+GameData --> GamePlayerData
+GameData --> GamePauseMenu
 
 class GameDataLoader {
-    + loadFromJson(fileName: String): GameDataSave
+    + GameDataSave loadFromJson(String fileName)
 }
 
 GameDataLoader --> GameDataSave
@@ -86,8 +103,8 @@ class GameDataSave {
 }
 
 class GameDataSaver {
-    + saveToLocal(save: GameDataSave): void
-    + saveToCloud(save: GameDataSave): void
+    + void saveToLocal(GameDataSave save)
+    + void saveToCloud(GameDataSave save)
 }
 
 GameDataSaver --> GameDataSave
@@ -98,7 +115,7 @@ class GameDialog {
     + String getText()
 }
 
-GameObject <|.. GameDialog
+GameObject <|-- GameDialog
 
 class GameDoor {
     - GamePoint _coordinates
@@ -106,10 +123,10 @@ class GameDoor {
     + void setCoordinates(GamePoint coordinates)
 }
 
-GameObject <|.. GameDoor
+GameObject <|-- GameDoor
 
 class GameEvents {
-    + static void LoadLevel1(GameData d)
+    + static void loadLevel1(GameData d)
 }
 
 GameEvents --> GameData
@@ -148,8 +165,6 @@ class GameItem {
     + GameItemType getItemType()
 }
 
-GameItem --> GameItemType
-
 class GameLevel {
     - String _startRoomId
     - HashMap<String, GameRoom> _rooms
@@ -160,28 +175,19 @@ class GameLevel {
 GameLevel --> GameRoom
 
 class GameLevelLoader {
-    + loadLevel(filename: String): GameLevel
+    + GameLevel loadLevel(String filename)
 }
 
 GameLevelLoader --> GameLevel
 
-class GameMap {
-    - String _startAreaId
-    - HashMap<String, GameArea> _areas
-    + String getStartAreaId()
-    + GameArea getArea(String areaId)
-}
-
-GameMap --> GameArea
-
-class GameMenu {
+class GamePauseMenu {
     + void render(Graphics g)
     + void nextOption()
     + void previousOption()
     + String getSelectedOption()
 }
 
-GameMenu ..|> GameObject
+GamePauseMenu ..|> GameObject
 
 class GamePlayer {
     - String _name
@@ -193,9 +199,11 @@ class GamePlayer {
     + void setName(String name)
     + void setHealth(int health)
     + void setCoordinates(GamePoint coordinates)
+    + GameData update(GameData d)
+    + void render(Graphics g)
 }
 
-GameObject <|.. GamePlayer
+GameObject <|-- GamePlayer
 
 class GamePlayerData {
     - int _level
@@ -214,8 +222,6 @@ class GamePoint {
     + void setX(int x)
     + void setY(int y)
 }
-
-GamePoint --> GameCoordinates
 
 class GameRoom {
     - String _id
@@ -239,44 +245,4 @@ class GameTile {
     + String getType()
     + GameCollision getCollision()
 }
-
-
-GameObject <|-- GameArea
-GameObject <|-- GameCharacter
-GameObject <|-- GameCombatMenu
-GameObject <|-- GameDialog
-GameObject <|-- GameDoor
-GameObject <|-- GameMenu
-GameObject <|-- GamePlayer
-GameObject <|-- GameWeapon
-GameInventory --> GameData
-GameData --> GameSetting
-GameData --> GameState
-GameData --> GameRoom
-GameData --> GamePlayer
-GameData --> GameInput
-GameData --> GamePlayerData
-GameData --> GamePauseMenu
-GameDataLoader --> GameDataSave
-GameDataSaver --> GameDataSave
-GameDialog --> GameData
-GameDoor --> GamePoint
-GameEvents --> GameData
-GameFrame --> GameCanvas
-GameFrame --> GameData
-GameInputHandler --> GameInput
-GameItem --> GameItemType
-GameLevel --> GameRoom
-GameLevelLoader --> GameLevel
-GameMap --> GameArea
-GamePlayer --> GamePoint
-GamePlayer --> GameData
-GamePlayerData --> GamePlayer
-GamePoint --> GameCoordinates
-GameRoom --> GameObject
-GameState --> GameSetting
-GameTile --> GameCollision
-GameWeapon --> GameItem
-
-
 @enduml
